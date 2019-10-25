@@ -6,17 +6,38 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/24 16:53:58 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/25 15:47:58 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	add_node(t_link **node, t_link *new)
+void	add_node(t_rooms **node, t_rooms *new)
 {
-	if (*node == NULL || new == NULL)
+	t_rooms *prob;
+
+	if (new == NULL)
 		return ;
-	new->next = *node;
-	*node = new;
+	if (*node = NULL)
+	{
+		*node = new;
+		return ;
+	}
+	prob = *node;
+	while (prob->next != NULL)
+	{
+		prob = prob->next;
+	}
+	prob->next = new;
 }
 
+t_rooms	*new_node(t_rooms **node)
+{
+	t_rooms	*new_node;
+
+	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->next = NULL;
+	return (new_node);
+}

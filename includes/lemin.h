@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/24 16:33:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/25 14:25:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,41 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-typedef enum		e_type
+typedef enum            e_object_type
 {
-	START = 0,
-	END = 1,
-	ROOM = 2,
-	FALSE = 3,
-	TRUE = 4,
-}					t_type;
+    FREE,
+    START,
+    END,
+    ANT,
+}                        t_object_type;
 
-typedef struct		s_location
+typedef struct            s_ants
 {
-	int				x;
-	int				y;
-}					t_location;
+    int                    ants_start;
+    int                    ants_end;
+}                        t_ants;
 
-typedef struct 		s_data
+typedef struct            s_data
 {
-	char			*name;
-	short			ant;
-	t_location		location;
-	t_type			type;
+    char                *name;
+    int                    x;
+    int                    y;
+    t_object_type         type;
+}                        t_data;
 
-}					t_data;
-
-typedef struct 		s_link
+typedef struct            s_links
 {
-	t_data			room;
-	struct s_data	*next;
-}					t_link;
+    int                    *links;
+    struct s_rooms        *next;
+}                        t_links;
+
+typedef struct            s_rooms
+{
+    t_data                data;
+    t_links                links;
+    int                    index;
+    t_object_type         type;
+    struct s_rooms        *next;
+}                        t_rooms;
 
 #endif

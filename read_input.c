@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 13:16:17 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 15:06:58 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,37 @@ static void		get_rooms(t_rooms *rooms)
 	int				n;
 	t_temp_pointers *temp;
 
-	create_node(rooms);
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_room(line) == TRUE) //add exit if check_format_room returns false
+	check_format_room(line) == TRUE)
 	{
+		new_node();
 		set_data(line, rooms);
 		n++;
-		rooms = rooms->next;
 	}
 	temp->n_rooms = n;
 }
 
-static void		get_links(t_rooms *rooms)
-{
-	char			*line;
-	int				n;
-	t_temp_links 	*links;
-	t_temp_pointers	*temp;
+// static void		get_links(t_rooms *rooms)
+// {
+// 	char			*line;
+// 	int				n;
+// 	t_temp_links 	*links;
+// 	t_temp_pointers	*temp;
 
-	n = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, rooms) == TRUE) //add exit if check_format_link returns false
-	{
-		set_temp_links(line);
-		n++;
-		links = links->next;
-	}
-	temp->n_links = n;
-}
+// 	n = 0;
+// 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+// 	check_format_link(line, rooms) == TRUE) //add exit if check_format_link returns false
+// 	{
+// 		set_temp_links(line);
+// 		n++;
+// 		links = links->next;
+// 	}
+// 	temp->n_links = n;
+// }
 
 void			read_input(t_rooms *rooms, t_ants *ants)
 {
 	get_ants(ants);
 	get_rooms(rooms);
-	get_links(rooms);
+	//get_links(rooms);
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/25 14:33:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 15:20:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+
+# define FALSE	0
+# define TRUE	1
 
 typedef enum		e_object_type
 {
@@ -52,5 +55,12 @@ typedef struct		s_rooms
 	t_object_type	type;
 	struct s_rooms	*next;
 }					t_rooms;
+
+/*
+**===============================LIST FUNCTIONS=============================
+*/
+void	add_node(t_rooms **node, t_rooms *new);
+
+t_rooms	*new_node(char *str, int x, int y, int index);
 
 #endif

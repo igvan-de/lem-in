@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:30:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 16:49:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,18 @@ void	add_node(t_rooms **node, t_rooms *new)
 	prob->next = new;
 }
 
-t_rooms	*new_node(char *str, int x, int y, int index)
+t_rooms	*new_node(char *line, int index)
 {
 	t_rooms	*new_node;
-	
+	char	**name_x_y;
+
+	name_x_y = ft_strsplit(line, ' ');
 	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->data.name = str;
-	new_node->data.x = x;
-	new_node->data.y = y;
+	new_node->data.name = name_x_y[NAME];
+	new_node->data.x = name_x_y[X];
+	new_node->data.y = name_x_y[Y];
 	new_node->index = index;
 	new_node->next = NULL;
 	return (new_node);

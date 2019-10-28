@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 15:20:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 16:48:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ typedef enum		e_object_type
 	ANT = 3,
 }					t_object_type;
 
+typedef enum		e_node_value
+{
+	NAME = 0,
+	X = 1,
+	Y = 2,
+}					t_node_value;
+
 typedef struct		s_ants
 {
-	int				ants_start;
-	int				ants_end;
+	int				start;
+	int				finish;
 }					t_ants;
 
 typedef struct		s_data
@@ -61,6 +68,6 @@ typedef struct		s_rooms
 */
 void	add_node(t_rooms **node, t_rooms *new);
 
-t_rooms	*new_node(char *str, int x, int y, int index);
+t_rooms	*new_node(char *line, int index);
 
 #endif

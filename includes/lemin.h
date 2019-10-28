@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:50:14 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 16:59:50 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@
 
 typedef enum			e_object_type
 {
-	FREE,
-	START,
-	END,
-	ANT,
-}						t_object_type;
+	FREE = 0,
+	START = 1,
+	END = 2,
+	ANT = 3,
+}					t_object_type;
+
+typedef enum		e_node_value
+{
+	NAME = 0,
+	X = 1,
+	Y = 2,
+}					t_node_value;
 
 typedef struct			s_temp_links
 {
@@ -44,25 +51,25 @@ typedef	struct			s_temp_pointers
 	char				*pointers;
 }						t_temp_pointers;
 
-typedef struct			s_ants
+typedef struct		s_ants
 {
-	int					start;
-	int					finish;
-}						t_ants;
+	int				start;
+	int				finish;
+}					t_ants;
 
-typedef struct			s_data
+typedef struct		s_data
 {
-	char				*name;
-	int					x;
-	int					y;
-	t_object_type 		type;
-}						t_data;
+	char			*name;
+	int				x;
+	int				y;
+	t_object_type	type;
+}					t_data;
 
-typedef struct			s_links
+typedef struct		s_links
 {
-	int					*links;
-	struct s_rooms		*next;
-}						t_links;
+	int				*links;
+	struct s_rooms	*next;
+}					t_links;
 
 typedef struct			s_rooms
 {

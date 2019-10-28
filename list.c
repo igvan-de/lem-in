@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 15:49:23 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:00:49 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,19 @@ void	add_node(t_rooms **node, t_rooms *new)
 	prob->next = new;
 }
 
-t_rooms	*new_node(char *str, int x, int y, int index)
+t_rooms	*new_node(char *line, int index)
 {
 	t_rooms	*new_node;
-	
+	char	**name_x_y;
+
+	name_x_y = ft_strsplit(line, ' ');
 	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
-	// if (link == NULL)
-	// 	new_node->links = NULL;
 	if (new_node == NULL)
 		return (NULL);
+	new_node->data.name = name_x_y[NAME];
+	new_node->data.x = ft_atoi(name_x_y[X]);
+	new_node->data.y = ft_atoi(name_x_y[Y]);
+	new_node->index = index;
 	new_node->next = NULL;
 	return (new_node);
 }

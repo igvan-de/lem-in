@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:48:58 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:01:12 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void		get_ants(t_ants *ants)
 		}
 		i++;
 	}
-	ants->finish = 0;
 	ants->start = ft_atoi(line);
+	ants->finish = 0;
 }
 
 static void		get_rooms(t_rooms *rooms)
@@ -46,7 +46,7 @@ static void		get_rooms(t_rooms *rooms)
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
 	check_format_room(line) == TRUE)
 	{
-		new_node(line, index);
+		new_node(line, n);
 		if (check_if_command(line) == FALSE)
 			n++;
 	}

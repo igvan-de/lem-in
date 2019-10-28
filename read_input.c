@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:44:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:01:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void		get_rooms(t_rooms *rooms)
 	check_format_room(line) == TRUE)
 	{
 		new_node(line, n);
-		set_data(line, rooms);
 		n++;
 	}
 	temp->n_rooms = n;

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 12:48:07 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 13:16:17 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		get_rooms(t_rooms *rooms)
 
 	create_node(rooms);
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_room(line) == TRUE)
+	check_format_room(line) == TRUE) //add exit if check_format_room returns false
 	{
 		set_data(line, rooms);
 		n++;
@@ -61,7 +61,7 @@ static void		get_links(t_rooms *rooms)
 
 	n = 0;
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, rooms) == TRUE)
+	check_format_link(line, rooms) == TRUE) //add exit if check_format_link returns false
 	{
 		set_temp_links(line);
 		n++;

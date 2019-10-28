@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/10/24 16:16:07 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/10/28 16:07:29 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,13 @@ all: $(NAME)
 %.o: %.c includes/lemin.h
 	@gcc $< -c -o $@ $(FLAGS) $(INCLUDES)
 
-$(NAME): $(OBJ_FILES)
-	@gcc $(CFLAGS) $(OBJ_FILES) -o $(NAME)
+$(NAME): $(OBJ_FILES) libft/libft.a
+	@gcc $(CFLAGS) $(OBJ_FILES) libft/libft.a -o $(NAME)
 	@echo "$(PRINT_DONE) Compiling completed"
+
+libft/libft.a:
+	@make -C Libft
+	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
 	@rm -rf $(OBJ_FILES)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 15:07:43 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 16:38:15 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int		main(int argc, char **argv)
 {
-	t_rooms		*rooms;
-	t_ants		*ants;
+	t_rooms		rooms;
+	t_ants		ants;
 
 	read_input(&rooms, &ants);
+	printf("amount of ants = %d\n", ants.start);
 	return (FALSE);
 }

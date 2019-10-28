@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 15:17:46 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 16:50:14 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+
+#include <stdio.h> //delete!
 
 # define TRUE 1
 # define FALSE 0
@@ -67,8 +69,21 @@ typedef struct			s_rooms
 	t_data				data;
 	t_links				links;
 	int					index;
-	t_object_type 		type;
+	t_object_type		type;
 	struct s_rooms		*next;
 }						t_rooms;
+
+/*
+**===============================LIST FUNCTIONS=============================
+*/
+void			add_node(t_rooms **node, t_rooms *new);
+
+t_rooms			*new_node(char *line, int index);
+void			read_input(t_rooms *rooms, t_ants *ants);
+int				check_format_room(char *line);
+int				check_format_link(char *line, t_rooms *rooms);
+void			set_temp_links(char	*line);
+void			set_data(char *line, t_rooms *rooms);
+int				check_if_command(char *line);
 
 #endif

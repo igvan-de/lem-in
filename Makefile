@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/10/24 16:16:07 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/10/28 16:41:33 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
-NAME = lemin
-SRCS = list.c main.c
+NAME = lem-in
+SRCS = list.c main.c read_input.c set_links.c check_format.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
 CFLAGS = -Wall -Werror -Wextra
@@ -28,9 +28,13 @@ all: $(NAME)
 %.o: %.c includes/lemin.h
 	@gcc $< -c -o $@ $(FLAGS) $(INCLUDES)
 
-$(NAME): $(OBJ_FILES)
-	@gcc $(CFLAGS) $(OBJ_FILES) -o $(NAME)
+$(NAME): $(OBJ_FILES) libft/libft.a
+	@gcc $(CFLAGS) $(OBJ_FILES) libft/libft.a -o $(NAME)
 	@echo "$(PRINT_DONE) Compiling completed"
+
+libft/libft.a:
+	@make -C Libft
+	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
 	@rm -rf $(OBJ_FILES)
@@ -43,7 +47,7 @@ fclean: clean
 	@echo "$(PRINT_PLUS) Cleaning all completed"
 
 re: fclean all
-	@echo "$(PRINT_PLUS) Recompiling completed"	
+	@echo "$(PRINT_PLUS) Recompiling completed"    
 
 norm:
 	@echo "===================NORMINETTE==================="

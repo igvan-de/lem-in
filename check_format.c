@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:34:58 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/29 13:00:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				check_format_room(char *line) //making sure rooms are formatted correctly
 	no_whitespaces(line);
 	if (check_if_command(line) == TRUE)
 		return (TRUE);
-	while (line[i] != ' ')
+	while (line [i] && line[i] != ' ')
 		i++;
 	i++;
 	while (line[i] && space_count < 3)

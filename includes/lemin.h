@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 17:35:18 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/29 17:18:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ typedef struct		s_data
 	char			*name;
 	int				x;
 	int				y;
-	t_object_type	type;
+	// t_object_type	type; doenst need too be in data and room struct?!
 }					t_data;
 
 typedef struct		s_links
 {
-	int				*links;
-	struct s_rooms	*next;
+	struct s_rooms	*link;//change to room!
+	struct s_links	*next;
 }					t_links;
 
 typedef struct		s_rooms
@@ -95,7 +95,5 @@ void			read_input(t_rooms **rooms, t_ants **ants);
 int				check_format_room(char *line);
 int				check_format_link(char *line, t_rooms *rooms);
 int				check_if_command(char *line);
-
-void	init(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/29 11:14:03 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/29 17:19:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void		get_rooms(t_rooms **rooms)
 	t_temp_pointers *temp;
 
 	n = 0;
+	temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
 	check_format_room(line) == TRUE)
 	{
@@ -51,33 +52,33 @@ static void		get_rooms(t_rooms **rooms)
 			new_node(line, n);
 			n++;
 		}
-		printf("line = %s\n", line);
 	}
-	
 	temp->n_rooms = n;
 }
 
-// static void		get_links(t_rooms *rooms)
-// {
-// 	char			*line;
-// 	int				n;
-// 	t_temp_links 	*links;
-// 	t_temp_pointers	*temp;
+static void		get_links(t_rooms **rooms)
+{
+	char			*line;
+	int				n;
+	t_temp_links 	*links;
+	t_temp_pointers	*temp;
 
-// 	n = 0;
-// 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-// 	check_format_link(line, rooms) == TRUE) //add exit if check_format_link returns false
-// 	{
-// 		set_temp_links(line);
-// 		n++;
-// 		links = links->next;
-// 	}
-// 	temp->n_links = n;
-//}
+	n = 0;
+	links = (t_temp_links*)ft_memalloc(sizeof(t_temp_links));
+	temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
+	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+	check_format_link(line, *rooms) == TRUE) //add exit if check_format_link returns false
+	{
+		// set_temp_links(line);
+		n++;
+		links = links->next;
+	}
+	temp->n_links = n;
+}
 
 void			read_input(t_rooms **rooms, t_ants **ants)
 {
 	get_ants(ants);
 	get_rooms(rooms);
-	//get_links(rooms);
+	get_links(rooms);
 }

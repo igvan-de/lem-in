@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:49:37 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:44:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ t_rooms	*new_node(char *line, int index)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->data.name = name_x_y[NAME];
-	new_node->data.x = name_x_y[X];
-	new_node->data.y = name_x_y[Y];
+	printf("index = %s\n", name_x_y[1]);
+	new_node->data.x = ft_atoi(name_x_y[X]);
+	printf("x = %d\n", new_node->data.x);
+	new_node->data.y = ft_atoi(name_x_y[Y]);
+	printf("y = %d\n", new_node->data.y);
 	new_node->index = index;
 	new_node->next = NULL;
 	return (new_node);

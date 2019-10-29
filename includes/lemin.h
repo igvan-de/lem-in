@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:48:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:35:18 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-# define FALSE	0
-# define TRUE	1
+#include <stdio.h> //delete!
+
+# define TRUE 1
+# define FALSE 0
 
 typedef enum		e_object_type
 {
@@ -33,6 +35,21 @@ typedef enum		e_node_value
 	X = 1,
 	Y = 2,
 }					t_node_value;
+
+typedef struct		s_temp_links
+{
+	char			*room;
+	char			*link;
+	struct s_rooms	*next;
+}					t_temp_links;
+
+typedef	struct		s_temp_pointers
+{
+	int				n_rooms;
+	int				n_links;
+	int				*links;
+	char			*pointers;
+}					t_temp_pointers;
 
 typedef struct		s_ants
 {
@@ -66,8 +83,19 @@ typedef struct		s_rooms
 /*
 **===============================LIST FUNCTIONS=============================
 */
-void	add_node(t_rooms **node, t_rooms *new);
+void			add_node(t_rooms **node, t_rooms *new);
 
-t_rooms	*new_node(char *line, int index);
+t_rooms			*new_node(char *line, int index);
+
+/*
+**===============================INPUT FUNCTIONS=============================
+*/
+void			read_input(t_rooms **rooms, t_ants **ants);
+
+int				check_format_room(char *line);
+int				check_format_link(char *line, t_rooms *rooms);
+int				check_if_command(char *line);
+
+void	init(void);
 
 #endif

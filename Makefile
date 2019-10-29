@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/10/28 17:01:16 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/10/28 17:38:30 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
-NAME = lemin
+NAME = lem-in
 SRCS = list.c main.c read_input.c check_format.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
@@ -47,7 +47,7 @@ fclean: clean
 	@echo "$(PRINT_PLUS) Cleaning all completed"
 
 re: fclean all
-	@echo "$(PRINT_PLUS) Recompiling completed"	
+	@echo "$(PRINT_PLUS) Recompiling completed"    
 
 norm:
 	@echo "===================NORMINETTE==================="

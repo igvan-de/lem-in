@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 17:49:51 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/30 15:26:36 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,22 @@ int				check_format_room(char *line) //making sure rooms are formatted correctly
 		return (FALSE);
 }
 
-static void		is_room(char *line, t_rooms **rooms) //making sure links are excisting rooms
+static int	is_room(char *line, t_rooms *rooms) //making sure links are excisting rooms
 {
-	
+	char	**a_b;
+
+	a_b = ft_strsplit(line, '-');
+	while (rooms)
+	{
+		if (ft_strcmp(rooms->data.name, a_b[0]) == 0 ||
+		ft_strcmp(rooms->data.name, a_b[1]) == 0)
+			return (TRUE);
+		rooms = rooms->next;
+	}
+	return (FALSE);
 }
 
-int				check_format_link(char *line, t_rooms **rooms) //makng sure links are formatted correctly
+int				check_format_link(char *line, t_rooms *rooms) //makng sure links are formatted correctly
 {
 	int i;
 	int dash_count;
@@ -75,13 +85,14 @@ int				check_format_link(char *line, t_rooms **rooms) //makng sure links are for
 	i = 0;
 	dash_count = 0;
 	no_whitespaces(line);
+	if (is_room(line, rooms) == FALSE)
+		return (FALSE);
 	while (line[i])
 	{
 		if (line[i] == '-')
 			dash_count++;
 		i++;
 	}
-	is_room(line, rooms);
 	if (dash_count == 1)
 		return (TRUE);
 	else

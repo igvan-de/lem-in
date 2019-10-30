@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 12:38:57 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/30 15:02:50 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	print_stuff(t_rooms **rooms, t_ants **ants) //temporary test function
 {
-	printf("amount of ants = %d\n", (*ants)->start);
+	printf("%d ants need to get from start to end or they'll be eaten by a dragon!\n\n", (*ants)->start);
+	printf("Index\tRoom\tX\tY\n");
 	while (*rooms)
 	{
-		printf("Room: %s\t\tindex: %d\tx: %d\t\ty: %d\n",
-		(*rooms)->data.name, (*rooms)->index, (*rooms)->data.x, (*rooms)->data.y);
+		printf("%d\t%s\t%d\t%d\n",
+		(*rooms)->index, (*rooms)->data.name, (*rooms)->data.x, (*rooms)->data.y);
 		(*rooms) = (*rooms)->next;
 	}
 }
@@ -29,7 +30,6 @@ int		main(int argc, char **argv)
 	t_ants		*ants;
 
 	ants = (t_ants*)ft_memalloc(sizeof(t_ants));
-	rooms = (t_rooms*)ft_memalloc(sizeof(t_rooms));
 	read_input(&rooms, &ants);
 	print_stuff(&rooms, &ants); //temporary
 	return (FALSE);

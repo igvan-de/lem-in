@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 11:52:25 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/30 15:19:38 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,42 @@ static void		get_ants(t_ants **ants)
 	{
 		if (ft_isdigit(line[i]) == FALSE)
 		{
-			ft_putendl("error"); //Error message to be determined
-			exit(0);
+		ft_putendl("error"); //Error message to be determined
+		exit(0);
 		}
 		i++;
 	}
 	(*ants)->start = ft_atoi(line);
 	(*ants)->finish = 0;
+}
+
+static void		get_links(t_rooms **rooms)
+{
+	char			*line;
+	int				n;
+	t_temp_links 	*links;
+	t_temp_pointers	*temp;
+
+	n = 0;
+	links = (t_temp_links*)ft_memalloc(sizeof(t_temp_links));
+	temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
+	if (check_format_link(line, *rooms) == FALSE)
+	{
+		ft_putendl("error"); //Error message to be determined
+		exit(0);
+	}
+	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+	check_format_link(line, *rooms) == TRUE)
+	{
+		// set_temp_links(line);
+		n++;
+	}
+	// if (check_format_link(line, *rooms) == FALSE)
+	// {
+	// 	ft_putendl("error"); //Error message to be determined
+	// 	exit(0);
+	// }
+	temp->n_links = n;
 }
 
 static void		get_rooms(t_rooms **rooms)
@@ -43,6 +72,7 @@ static void		get_rooms(t_rooms **rooms)
 	t_temp_pointers *temp;
 
 	n = 0;
+	temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
 	check_format_room(line) == TRUE)
 	{
@@ -52,30 +82,12 @@ static void		get_rooms(t_rooms **rooms)
 			n++;
 		}
 	}
-	//temp->n_rooms = n; //IGOR HELP
+	temp->n_rooms = n;
+	get_links(rooms);
 }
-
-// static void		get_links(t_rooms **rooms)
-// {
-// 	char			*line;
-// 	int				n;
-// 	t_temp_links 	*links;
-// 	t_temp_pointers	*temp;
-
-// 	n = 0;
-// 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-// 	check_format_link(line, rooms) == TRUE) //add exit if check_format_link returns false
-// 	{
-// 		set_temp_links(line);
-// 		n++;
-// 		links = links->next;
-// 	}
-// 	temp->n_links = n;
-//}
 
 void			read_input(t_rooms **rooms, t_ants **ants)
 {
 	get_ants(ants);
 	get_rooms(rooms);
-	//get_links(rooms);
 }

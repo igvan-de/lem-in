@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:34:58 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/28 17:49:51 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				check_format_room(char *line) //making sure rooms are formatted correctly
 	no_whitespaces(line);
 	if (check_if_command(line) == TRUE)
 		return (TRUE);
-	while (line[i] != ' ')
+	while (line [i] && line[i] != ' ')
 		i++;
 	i++;
 	while (line[i] && space_count < 3)
@@ -62,12 +62,12 @@ int				check_format_room(char *line) //making sure rooms are formatted correctly
 		return (FALSE);
 }
 
-static void		is_room(char *line, t_rooms *rooms) //making sure links are excisting rooms
+static void		is_room(char *line, t_rooms **rooms) //making sure links are excisting rooms
 {
 	
 }
 
-int				check_format_link(char *line, t_rooms *rooms) //makng sure links are formatted correctly
+int				check_format_link(char *line, t_rooms **rooms) //makng sure links are formatted correctly
 {
 	int i;
 	int dash_count;

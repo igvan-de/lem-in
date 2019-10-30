@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 16:59:50 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/30 11:52:15 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ typedef enum			e_object_type
 	START = 1,
 	END = 2,
 	ANT = 3,
-}					t_object_type;
+}						t_object_type;
 
-typedef enum		e_node_value
+typedef enum			e_node_value
 {
 	NAME = 0,
 	X = 1,
 	Y = 2,
-}					t_node_value;
+}						t_node_value;
 
 typedef struct			s_temp_links
 {
@@ -51,25 +51,25 @@ typedef	struct			s_temp_pointers
 	char				*pointers;
 }						t_temp_pointers;
 
-typedef struct		s_ants
+typedef struct			s_ants
 {
-	int				start;
-	int				finish;
-}					t_ants;
+	int					start;
+	int					finish;
+}						t_ants;
 
-typedef struct		s_data
+typedef struct			s_data
 {
-	char			*name;
-	int				x;
-	int				y;
-	t_object_type	type;
-}					t_data;
+	char				*name;
+	int					x;
+	int					y;
+	t_object_type		type;
+}						t_data;
 
-typedef struct		s_links
+typedef struct			s_links
 {
-	int				*links;
-	struct s_rooms	*next;
-}					t_links;
+	int					*links;
+	struct s_rooms		*next;
+}						t_links;
 
 typedef struct			s_rooms
 {
@@ -86,11 +86,11 @@ typedef struct			s_rooms
 void			add_node(t_rooms **node, t_rooms *new);
 
 t_rooms			*new_node(char *line, int index);
-void			read_input(t_rooms *rooms, t_ants *ants);
+void			read_input(t_rooms **rooms, t_ants **ants);
 int				check_format_room(char *line);
-int				check_format_link(char *line, t_rooms *rooms);
+int				check_format_link(char *line, t_rooms **rooms);
 void			set_temp_links(char	*line);
-void			set_data(char *line, t_rooms *rooms);
+void			set_data(char *line, t_rooms **rooms);
 int				check_if_command(char *line);
-
+void			add_to_list(char *line, t_rooms **head, int index);
 #endif

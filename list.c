@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 17:00:49 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/10/30 11:52:47 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ t_rooms	*new_node(char *line, int index)
 	new_node->index = index;
 	new_node->next = NULL;
 	return (new_node);
+}
+
+void				add_to_list(char *line, t_rooms **head, int index)
+{
+	t_rooms	*new;
+
+	new = new_node(line, index);
+	if (new == NULL)
+		return ;
+	if (*head == NULL)
+		*head = new;
+	else
+		add_node(head, new);
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/18 12:41:54 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/09/25 16:00:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/30 15:36:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 		n--;
 	}
-	if (n)
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	return (0);
+	// if (n)
+	// {
+	// 	ft_putendl("test");
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	// }
+	// return (0);
 }

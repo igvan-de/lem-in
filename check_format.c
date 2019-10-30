@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/29 13:00:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/30 14:19:33 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				check_format_link(char *line, t_rooms *rooms) //makng sure links are form
 			dash_count++;
 		i++;
 	}
-	is_room(line, rooms);
+	// is_room(line, &rooms);
 	if (dash_count == 1)
 		return (TRUE);
 	else

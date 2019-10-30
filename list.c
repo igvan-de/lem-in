@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/29 14:51:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/30 13:56:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	add_node(t_rooms **node, t_rooms *new)
+static void	add_node(t_rooms **node, t_rooms *new)
 {
 	t_rooms *prob;
 
@@ -31,7 +31,7 @@ void	add_node(t_rooms **node, t_rooms *new)
 	prob->next = new;
 }
 
-t_rooms	*new_node(char *line, int index)
+static t_rooms	*new_node(char *line, int index)
 {
 	t_rooms	*new_node;
 	char	**name_x_y;
@@ -45,5 +45,20 @@ t_rooms	*new_node(char *line, int index)
 	new_node->data.y = ft_atoi(name_x_y[Y]);
 	new_node->index = index;
 	new_node->next = NULL;
+	// printf("Room: %s\t\tindex: %d\tx: %d\t\ty: %d\n",
+	// new_node->data.name, new_node->index, new_node->data.x, new_node->data.y);
 	return (new_node);
+}
+
+void			add_to_list(char *line, t_rooms **head, int index)
+{
+	t_rooms	*new;
+
+	new = new_node(line, index);
+	if (new == NULL)
+		return ;
+	if ((*head) == NULL)
+		*head = new;
+	else
+		add_node(head, new);
 }

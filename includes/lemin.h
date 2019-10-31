@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 15:25:41 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/31 11:47:52 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,6 @@ typedef enum			e_node_value
 	Y = 2,
 }						t_node_value;
 
-typedef struct			s_temp_links
-{
-	char				*room;
-	char				*link;
-	struct s_temp_links	*next;
-}						t_temp_links;
-
-typedef	struct			s_temp_pointers
-{
-	int					n_rooms;
-	int					n_links;
-	int					*links;
-	char				*pointers;
-}						t_temp_pointers;
-
 typedef struct			s_ants
 {
 	int					start;
@@ -73,14 +58,14 @@ typedef struct			s_links
 	struct s_links		*next;
 }						t_links;
 
-typedef struct			s_rooms
+typedef struct			s_hash_table
 {
-	t_data				data;
+	int					count;
+	int					size;
+	t_data				**data;
 	t_links				links;
-	int					index;
 	t_object_type		type;
-	struct s_rooms		*next;
-}						t_rooms;
+}						t_hash_table;
 
 /*
 **===============================LIST FUNCTIONS=============================

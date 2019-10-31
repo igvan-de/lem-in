@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 14:41:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/31 11:47:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,50 +36,24 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-static void		get_links(t_rooms **rooms, char *line)
+static int		create_size(int	size)
 {
-	int				n;
-	
-	/*WHAT IS THE PURPOSE FOR THESE STRUCTS?? */
-	// t_temp_links 	*links;
-	// t_temp_pointers	*temp;
-	// links = (t_temp_links*)ft_memalloc(sizeof(t_temp_links));
-	// temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
-	/*==============================================================*/
+	char	*line;
 
-	set_links(rooms, line);
-	n = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, *rooms) == TRUE) //add exit if check_format_link returns false
+	size = 0;
+	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
-		set_links(rooms, line);
-		n++;
+		if (check_format_room(line) == TRUE)
+			size++;
 	}
+	return (size);
 }
 
-static void		get_rooms(t_rooms **rooms)
+void			read_input(t_hash_table **rooms, t_ants **ants)
 {
-	char			*line;
-	int				n;
-	t_temp_pointers *temp;
+	int size;
 
-	n = 0;
-	temp = (t_temp_pointers*)ft_memalloc(sizeof(t_temp_pointers));
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_room(line) == TRUE)
-	{
-		if (check_if_command(line) == FALSE)
-		{
-			add_to_list(line, rooms, n);
-			n++;
-		}
-	}
-	temp->n_rooms = n;
-	get_links(rooms, line);
-}
-
-void			read_input(t_rooms **rooms, t_ants **ants)
-{
+	size = create_size(size);
+	rooms = create_hash_table(rooms, size);
 	get_ants(ants);
-	get_rooms(rooms);
 }

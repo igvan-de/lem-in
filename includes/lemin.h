@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/31 11:47:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/31 17:45:52 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,15 @@ typedef struct			s_ants
 	int					finish;
 }						t_ants;
 
-typedef struct			s_data
+typedef struct			s_room
 {
 	char				*name;
 	int					x;
 	int					y;
-}						t_data;
+	t_object_type		type;
+	struct s_links		links;
+	struct s_room		*next;
+}						t_room;
 
 typedef struct			s_links
 {
@@ -58,28 +61,23 @@ typedef struct			s_links
 	struct s_links		*next;
 }						t_links;
 
-typedef struct			s_hash_table
+typedef struct			s_hashTable
 {
-	int					count;
-	int					size;
-	t_data				**data;
-	t_links				links;
-	t_object_type		type;
-}						t_hash_table;
+	t_room				**hashTable;
+}						t_hashTable;
 
 /*
-**===============================LIST FUNCTIONS=============================
+**===============================HASHTABLE FUNCTIONS=============================
 */
-void			add_to_list(char *line, t_rooms **head, int index);
-void			set_links(t_rooms **room, char *line);
+int				create_size(int	size);
+// t_hashTable		*create_hashTable(int size);
 
 /*
 **===============================READ FUNCTIONS=============================
 */
-void			read_input(t_rooms **rooms, t_ants **ants);
+void			read_input(t_hashTable **room, t_ants **ants);
 
-int				check_format_room(char *line);
-int				check_format_link(char *line, t_rooms *rooms);
-int				check_if_command(char *line);
+
+
 
 #endif

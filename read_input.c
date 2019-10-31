@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/31 11:47:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/31 17:44:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,11 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-static int		create_size(int	size)
-{
-	char	*line;
-
-	size = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0)
-	{
-		if (check_format_room(line) == TRUE)
-			size++;
-	}
-	return (size);
-}
-
-void			read_input(t_hash_table **rooms, t_ants **ants)
+void			read_input(t_hashTable **room, t_ants **ants)
 {
 	int size;
 
-	size = create_size(size);
-	rooms = create_hash_table(rooms, size);
 	get_ants(ants);
+	size = create_size(size);
+	room = create_hashTable(size);
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 14:19:33 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/10/31 17:30:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,27 @@ int				check_format_room(char *line) //making sure rooms are formatted correctly
 		return (FALSE);
 }
 
-static void		is_room(char *line, t_rooms *rooms) //making sure links are excisting rooms
-{
-	
-}
 
-int				check_format_link(char *line, t_rooms *rooms) //makng sure links are formatted correctly
-{
-	int i;
-	int dash_count;
+// int				check_format_link(char *line, t_rooms *rooms) //makng sure links are formatted correctly
+// {
+// 	int i;
+// 	int dash_count;
 
-	i = 0;
-	dash_count = 0;
-	no_whitespaces(line);
-	while (line[i])
-	{
-		if (line[i] == '-')
-			dash_count++;
-		i++;
-	}
-	// is_room(line, &rooms);
-	if (dash_count == 1)
-		return (TRUE);
-	else
-	{
-		ft_putendl("error"); //Error message to be determined
-		exit(0);
-	}
-}
+// 	i = 0;
+// 	dash_count = 0;
+// 	no_whitespaces(line);
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '-')
+// 			dash_count++;
+// 		i++;
+// 	}
+// 	// is_room(line, &rooms);
+// 	if (dash_count == 1)
+// 		return (TRUE);
+// 	else
+// 	{
+// 		ft_putendl("error"); //Error message to be determined
+// 		exit(0);
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 14:35:15 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 18:42:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ typedef struct			s_links
 
 typedef struct			s_hashTable
 {
-	t_room				**hashTable;
+	t_room				**room;
 }						t_hashTable;
 
 /*
 **===============================HASHTABLE FUNCTIONS=============================
 */
-int				create_size(size_t size);
-unsigned long	hashFunction(unsigned char *str, size_t size);
 void			hashTable(t_hashTable **table, t_room *room, size_t index);
+
+int				create_size(size_t size);
+size_t			hashFunction(unsigned char *str, size_t size);
 
 
 /*

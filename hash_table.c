@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 14:39:58 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 19:09:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_room	*newItem(char *line)
 
 static void	addToList(t_hashTable **table, t_room *new)
 {
-	new->next = *table;
-	*table = new;
+	new->next = (*table)->room;
+	(*table)->room = new;
 }
 
 int			create_size(size_t	size)
@@ -45,7 +45,7 @@ int			create_size(size_t	size)
 	return (size);
 }
 
-unsigned long	hashFunction(unsigned char *str, size_t size)
+size_t		hashFunction(unsigned char *str, size_t size)
 {
 	size_t			hash;
 	int				c;
@@ -67,7 +67,7 @@ void		hashTable(t_hashTable **table, t_room *room, size_t index)
 	if (table[index] == NULL)
 		table[index] = room;
 	else
-		addToList(table[index], room);
+		addToList(&table[index], room);
 }
 
 /*

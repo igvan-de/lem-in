@@ -6,12 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/31 17:40:54 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 14:39:58 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/* CHECK IF WE WANT TO USE THIS FUNCTION
 t_room	*newItem(char *line)
 {
 	t_room	*new;
@@ -21,9 +22,16 @@ t_room	*newItem(char *line)
 	new->x = line[X];
 	new->y = line[Y];
 	return (new);
+} 
+===========================================*/
+
+static void	addToList(t_hashTable **table, t_room *new)
+{
+	new->next = *table;
+	*table = new;
 }
 
-int		create_size(int	size)
+int			create_size(size_t	size)
 {
 	char	*line;
 
@@ -37,9 +45,9 @@ int		create_size(int	size)
 	return (size);
 }
 
-unsigned long	hashFunction(unsigned char *str)
+unsigned long	hashFunction(unsigned char *str, size_t size)
 {
-	unsigned long	hash;
+	size_t			hash;
 	int				c;
 	int				i;
 
@@ -51,16 +59,17 @@ unsigned long	hashFunction(unsigned char *str)
 		hash = ((hash << 5) + hash) + c;
 		i++;
 	}
-	return (hash);
+	return (hash % size);
 }
 
-t_hashTable	*create_hashTable(int size)
+void		hashTable(t_hashTable **table, t_room *room, size_t index)
 {
-	t_hashTable **new;
-	
-	new = (t_hashTable**)ft_memalloc(sizeof(t_hashTable*) * size);
-	return (new);
+	if (table[index] == NULL)
+		table[index] = room;
+	else
+		addToList(table[index], room);
 }
+
 /*
 
 t_room   *hastable[1000];

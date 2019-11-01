@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 14:03:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 14:35:15 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ typedef struct			s_hashTable
 /*
 **===============================HASHTABLE FUNCTIONS=============================
 */
-int				create_size(size_t	size);
+int				create_size(size_t size);
 unsigned long	hashFunction(unsigned char *str, size_t size);
-t_hashTable		*create_hashTable(int size);
+void			hashTable(t_hashTable **table, t_room *room, size_t index);
+
 
 /*
 **===============================READ FUNCTIONS=============================

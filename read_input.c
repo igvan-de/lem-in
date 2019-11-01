@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/31 17:44:50 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 14:35:00 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,35 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-void			read_input(t_hashTable **room, t_ants **ants)
+static void		get_rooms(t_room **rooms)
 {
-	int size;
+	char			*line;
 
+	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+	check_format_room(line) == TRUE)
+	{
+		if (check_if_command(line) == FALSE)
+		{
+			(*rooms)->name = line[NAME];
+			(*rooms)->x = line[X];
+			(*rooms)->y = line[Y];
+			/* *rooms = newItem(line); which one do we prefer to use over here? */
+		}
+	}
+}
+
+void			read_input(t_hashTable **table, t_ants **ants)
+{
+	int		size;
+	size_t	index;
+	t_room	*room;
+
+
+	table = (t_hashTable**)ft_memalloc(sizeof(t_hashTable*) * size);
+	room = (t_room*)ft_memalloc(sizeof(t_room));
 	get_ants(ants);
 	size = create_size(size);
-	room = create_hashTable(size);
+	get_rooms(room);
+	index = hashFunction(room->name, size);
+	hashTable(table, room, index);
 }

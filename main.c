@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/31 17:32:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/01 14:10:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 
 int		main(int argc, char **argv)
 {
-	t_hashTable		*room;
+	t_hashTable		*table;
 	t_ants			*ants;
 
 	ants = (t_ants*)ft_memalloc(sizeof(t_ants));
-	read_input(&room, &ants);
+	read_input(&table, &ants);
 	// print_stuff(&rooms, &ants); //temporary
 	return (FALSE);
 }

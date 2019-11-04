@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/04 13:33:19 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/11/04 14:57:38 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
 NAME = lem-in
-SRCS = main.c read_input.c check_format.c hash_table.c list.c
+SRCS = main.c read_input.c check_format.c hash_table.c list.c test_print.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
 CFLAGS = -Wall -Werror -Wextra

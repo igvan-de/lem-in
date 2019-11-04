@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 13:40:40 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 15:03:00 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ typedef	struct 			s_rooms
 	char				*name;
 	int					x;
 	int					y;
-	struct s_room		*next;
+	struct s_rooms		*next;
 }						t_rooms;
 
 typedef struct			s_table
 {
-	int					*links;
+	char				*name;
+	char				**links;
 	t_object_type		type;
 	struct s_table		*next;
 }						t_table;
@@ -64,10 +65,9 @@ typedef struct			s_table
 /*
 **===============================HASHTABLE FUNCTIONS=============================
 */
-void			hashTable(t_rooms **table, t_rooms *room, size_t index);
+void			hash_table(t_table **table, t_rooms *room, size_t size);
 
-int				create_size(size_t size);
-size_t			hashFunction(unsigned char *str, size_t size);
+size_t			hash_function(unsigned char *str, size_t size);
 
 
 /*
@@ -83,6 +83,9 @@ int				check_if_command(char *line);
 
 
 void			add_to_list(char *line, t_rooms **head);
+
+
+void	print_hash(t_table **table, size_t size);
 
 
 #endif

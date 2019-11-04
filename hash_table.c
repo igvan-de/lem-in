@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 13:36:34 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 16:52:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,7 @@ t_room	*newItem(char *line)
 } 
 ===========================================*/
 
-static void	addToList(t_rooms **table, t_rooms *new) //IS TO ADD TO HASHTABLE LIST!
-{
-	new->next = *table;
-	*table = new;
-}
-
-int			create_size(size_t	size)
-{
-	char	*line;
-
-	size = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_room(line) == TRUE)
-	{
-		if (check_if_command(line) == FALSE)
-			size++;
-	}
-	return (size);
-}
-
-size_t		hashFunction(unsigned char *str, size_t size)
+size_t		hash_function(unsigned char *str, size_t size)
 {
 	size_t			hash;
 	int				c;
@@ -61,12 +42,36 @@ size_t		hashFunction(unsigned char *str, size_t size)
 	return (hash % size);
 }
 
-void		hashTable(t_rooms **table, t_rooms *room, size_t index)
+static t_table		*new_table(char *name)
 {
-	if (table[index] == NULL)
-		table[index] = room;
-	else
-		addToList(&table[index], room);
+	t_table *table;
+
+	table = (t_table*)ft_memalloc(sizeof(t_table));
+	table->name = name;
+	return (table);
+}
+
+static void			add_to_table(t_table **head, t_table *new)
+{
+	if (!head)
+		return ;
+	new->next = *head;
+	*head = new;
+}
+
+void		hash_table(t_table **table, t_rooms *rooms, size_t size)
+{
+	size_t			index;
+
+	while (rooms != NULL)
+	{
+		index = hash_function(rooms->name, size);
+		if (table[index] == NULL)
+			table[index] = new_table(rooms->name);
+		else
+			add_to_table(&table[index], new_table(rooms->name));
+		rooms = rooms->next;
+	}
 }
 
 /*

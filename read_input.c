@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 13:40:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 16:24:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ static size_t	get_rooms(t_rooms **rooms)
 void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 {
 	size_t			size;
-	size_t			index;
 
 	get_ants(ants);
 	size = get_rooms(rooms);
-	table = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
-	// index = hashFunction(rooms->name, size);
-	// hashTable(table, rooms, index);
+	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
+	hash_table(table, *rooms, size);
+	print_hash(table, size);
 }

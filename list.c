@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 13:22:56 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 15:18:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	add_node(t_rooms **node, t_rooms *new)
 	}
 	prob = *node;
 	while (prob->next != NULL)
-	{
 		prob = prob->next;
-	}
 	prob->next = new;
 }
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 18:42:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 13:40:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+
 
 #include <stdio.h> //delete!
 
@@ -45,31 +46,25 @@ typedef struct			s_ants
 	int					finish;
 }						t_ants;
 
-typedef struct			s_room
+typedef	struct 			s_rooms
 {
 	char				*name;
 	int					x;
 	int					y;
-	t_object_type		type;
-	struct s_links		*links;
 	struct s_room		*next;
-}						t_room;
+}						t_rooms;
 
-typedef struct			s_links
+typedef struct			s_table
 {
-	struct s_rooms		*room;
-	struct s_links		*next;
-}						t_links;
-
-typedef struct			s_hashTable
-{
-	t_room				**room;
-}						t_hashTable;
+	int					*links;
+	t_object_type		type;
+	struct s_table		*next;
+}						t_table;
 
 /*
 **===============================HASHTABLE FUNCTIONS=============================
 */
-void			hashTable(t_hashTable **table, t_room *room, size_t index);
+void			hashTable(t_rooms **table, t_rooms *room, size_t index);
 
 int				create_size(size_t size);
 size_t			hashFunction(unsigned char *str, size_t size);
@@ -78,12 +73,16 @@ size_t			hashFunction(unsigned char *str, size_t size);
 /*
 **===============================READ FUNCTIONS=============================
 */
-void			read_input(t_hashTable **room, t_ants **ants);
+void			read_input(t_table **table, t_rooms **rooms, t_ants **ants);
 
 /*
 **===============================FORMAT FUNCTIONS=============================
 */
 int				check_format_room(char *line);
 int				check_if_command(char *line);
+
+
+void			add_to_list(char *line, t_rooms **head);
+
 
 #endif

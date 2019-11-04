@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 19:39:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 13:40:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		get_ants(t_ants **ants)
 {
-	char 	*line;
-	int		i;
+	char 			*line;
+	int				i;
 
 	i = 0;
 	if (get_next_line(STDIN_FILENO, &line) < 0)
@@ -36,37 +36,32 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-static void		get_rooms(t_room **rooms)
+static size_t	get_rooms(t_rooms **rooms)
 {
 	char			*line;
+	size_t			size;
 
-	while (get_next_line(STDIN_FILENO, &line) < 0)// &&check_format_room(line) == TRUE)
+	size = 0;
+	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+	check_format_room(line) == TRUE)
 	{
-		printf("line = %s\n", line);
-		if (check_if_command(line) == FALSE) //need to make check for exsting room
+		if (check_if_command(line) == FALSE)
 		{
-			(*rooms)->name = line[NAME];
-			(*rooms)->x = line[X];
-			(*rooms)->y = line[Y];
-			/* *rooms = newItem(line); which one do we prefer to use over here? */
+			add_to_list(line, rooms);
+			size++;
 		}
 	}
+	return (size);
 }
 
-void			read_input(t_hashTable **table, t_ants **ants)
+void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 {
-	int		size;
-	size_t	index;
-	t_room	*room;
+	size_t			size;
+	size_t			index;
 
-
-	room = (t_room*)ft_memalloc(sizeof(t_room));
 	get_ants(ants);
-	size = create_size(size);
-	table = (t_room**)ft_memalloc(sizeof(t_room*) * size);
-	get_rooms(&room);
-	printf("str = %s\n", room->name);
-	printf("ant = %d\n", (*ants)->start);
-	index = hashFunction(room->name, size);
-	hashTable(table, room, index);
+	size = get_rooms(rooms);
+	table = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
+	// index = hashFunction(rooms->name, size);
+	// hashTable(table, rooms, index);
 }

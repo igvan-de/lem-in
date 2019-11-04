@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 15:03:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 17:12:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "get_next_line.h"
 # include "libft.h"
-
-
-#include <stdio.h> //delete!
 
 typedef enum			e_return
 {
@@ -46,7 +43,7 @@ typedef struct			s_ants
 	int					finish;
 }						t_ants;
 
-typedef	struct 			s_rooms
+typedef	struct			s_rooms
 {
 	char				*name;
 	int					x;
@@ -63,29 +60,33 @@ typedef struct			s_table
 }						t_table;
 
 /*
-**===============================HASHTABLE FUNCTIONS=============================
-*/
-void			hash_table(t_table **table, t_rooms *room, size_t size);
-
-size_t			hash_function(unsigned char *str, size_t size);
-
-
-/*
 **===============================READ FUNCTIONS=============================
 */
-void			read_input(t_table **table, t_rooms **rooms, t_ants **ants);
+void					read_input(t_table **table, t_rooms **rooms,
+						t_ants **ants);
 
 /*
 **===============================FORMAT FUNCTIONS=============================
 */
-int				check_format_room(char *line);
-int				check_if_command(char *line);
+int						check_format_room(char *line);
+int						check_if_command(char *line);
 
+/*
+**===============================LIST FUNCTIONS=============================
+*/
+void					add_to_list(char *line, t_rooms **head);
 
-void			add_to_list(char *line, t_rooms **head);
+/*
+**===============================HASHTABLE FUNCTIONS===========================
+*/
+void					hash_table(t_table **table, t_rooms *room, size_t size);
 
+size_t					hash_function(unsigned char *str, size_t size);
 
-void	print_hash(t_table **table, size_t size);
-
+/*
+**===========================TEMPERARY PRINt FUNCTIONS==========================
+*/
+void					print_hash(t_table **table, size_t size);
+void					print_rooms(t_rooms *rooms, t_ants **ants);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 16:24:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/04 17:20:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void		get_ants(t_ants **ants)
 {
-	char 			*line;
+	char			*line;
 	int				i;
 
 	i = 0;
 	if (get_next_line(STDIN_FILENO, &line) < 0)
 	{
-		ft_putendl("error"); //Error message to be determined
+		ft_putendl("error"); /*Error message to be determined*/
 		exit(0);
 	}
 	while (line[i])
 	{
 		if (ft_isdigit(line[i]) == FALSE)
 		{
-			ft_putendl("error"); //Error message to be determined
+			ft_putendl("error"); /*Error message to be determined*/
 			exit(0);
 		}
 		i++;

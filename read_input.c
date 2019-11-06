@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/30 15:19:38 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/01 16:50:40 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void		get_ants(t_ants **ants)
 	{
 		if (ft_isdigit(line[i]) == FALSE)
 		{
-		ft_putendl("error"); //Error message to be determined
-		exit(0);
+			ft_putendl("error"); //Error message to be determined
+			exit(0);
 		}
 		i++;
 	}
@@ -50,7 +50,7 @@ static void		get_links(t_rooms **rooms)
 	{
 		ft_putendl("error"); //Error message to be determined
 		exit(0);
-	}
+	}	
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
 	check_format_link(line, *rooms) == TRUE)
 	{
@@ -90,4 +90,5 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 {
 	get_ants(ants);
 	get_rooms(rooms);
+	printf("hoi %d\n", (*ants)->start);
 }

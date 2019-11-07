@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/07 14:34:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/07 17:02:15 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ typedef struct			s_table
 }						t_table;
 
 /*
-**===============================READ FUNCTIONS=============================
+**===============================READ FUNCTIONS=================================
 */
 void					read_input(t_table **table, t_rooms **rooms,
 						t_ants **ants);
 
 /*
-**===============================FORMAT FUNCTIONS=============================
+**===============================FORMAT FUNCTIONS===============================
 */
 int						check_if_command(char *line);
 int						check_format_room(char *line);
@@ -88,17 +88,25 @@ int						check_format_link(char *line, t_table **table,
 						size_t size);
 
 /*
-**===============================LIST FUNCTIONS=============================
+**===============================LIST FUNCTIONS=================================
 */
 void					add_to_list(char *line, t_rooms **head);
 
 /*
-**===============================HASHTABLE FUNCTIONS===========================
+**===============================HASHTABLE FUNCTIONS============================
 */
 void					hash_table(t_table **table, t_rooms *room, size_t size);
 
+size_t					hash_function(unsigned char *str, size_t size);
+
 /*
-**===========================TEMPERARY PRINt FUNCTIONS==========================
+**===============================LINK FUNCTIONS=================================
+*/
+void					set_links(t_table **table, size_t size, char *nameA,
+						char *nameB);
+
+/*
+**==============================TEMPERARY PRINT FUNCTIONS=======================
 */
 void					print_hash(t_table **table, size_t size);
 void					print_rooms(t_rooms *rooms, t_ants **ants);

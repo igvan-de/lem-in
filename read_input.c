@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/07 15:09:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/07 17:36:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,18 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 	char			**a_b;
 	t_links			*link;
 	size_t			hash;
-	size_t			index;
 
 	hash = 5381;
 	link = (t_links*)ft_memalloc(sizeof(t_links));
 	if (check_format_link(line, table, size) == TRUE)
 	{
 		a_b = ft_strsplit(line, '-');
-		printf("a = %s\n", a_b[A]);
-		// index = ((hash << 5) + hash) + a_b[A]; 
-		// table[index]->links = a_b[B];
-		// table[index]->links->to = a_b[B];
-		// table[index]->links = table[index]->links->next;
-		while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
-		{
-			a_b = ft_strsplit(line, '-');
-			printf("a = %s\n", a_b[A]);
-			// index = ((hash << 5) + hash) + a_b[A]; 
-			// table[index]->links = a_b[B];
-			// table[index]->links->to = a_b[B];
-			// table[index]->links = table[index]->links->next;
-		}
+		set_links(table, size, a_b[A], a_b[B]);
+	}
+	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
+	{
+		a_b = ft_strsplit(line, '-');
+		set_links(table, size, a_b[A], a_b[B]);
 	}
 }
 
@@ -92,5 +83,5 @@ void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, size);
 	get_links(rooms, table, line, size);
-	// print_hash(table, size);
+	print_hash(table, size);
 }

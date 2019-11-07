@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 17:22:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/07 15:09:07 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,39 @@
 static void		no_whitespaces(char *line) /*checking for whitespaces in front of line*/
 {
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
-	line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
+		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
 		ft_putendl("error"); /*Error message to be determined*/
 		exit(0);
 	}
+}
+
+static int	is_room(char *line, t_table **table, size_t size) //making sure links are excisting rooms
+{
+	char	**a_b;
+	int		i;
+
+	a_b = ft_strsplit(line, '-');
+	printf("line = %s\n", line);
+	printf("a = %s\n", a_b[A]);
+	printf("b = %s\n", a_b[B]);
+	i = 0;
+	while (i < size)
+	{
+		while (table[i] != NULL)
+		{
+			printf("table[%d] = %s\n", i, table[i]->name);
+			if (ft_strcmp(table[i]->name, a_b[A]) == 0 ||
+				ft_strcmp(table[i]->name, a_b[B]) == 0)
+				{
+					printf("test\n");
+					return (TRUE);
+				}
+			table[i] = table[i]->next;
+		}
+		i++;		
+	}
+	return (FALSE);
 }
 
 int				check_if_command(char *line) /*ignoring all commands*/
@@ -61,4 +89,29 @@ int				check_format_room(char *line) /*making sure rooms are formatted correctly
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+int				check_format_link(char *line, t_table **table, size_t size) //makng sure links are formatted correctly
+{
+	int i;
+	int dash_count;
+
+	i = 0;
+	dash_count = 0;
+	no_whitespaces(line);
+	if (is_room(line, table, size) == FALSE)
+		return (FALSE);
+	while (line[i])
+	{
+		if (line[i] == '-')
+			dash_count++;
+		i++;
+	}
+	if (dash_count == 1)
+		return (TRUE);
+	else
+	{
+		ft_putendl("error"); //Error message to be determined
+		exit(0);
+	}
 }

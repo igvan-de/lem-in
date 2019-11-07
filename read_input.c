@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 17:20:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/07 15:09:13 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,61 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-static size_t	get_rooms(t_rooms **rooms)
+static size_t	get_rooms(t_rooms **rooms, char **line)
 {
-	char			*line;
 	size_t			size;
 
 	size = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_room(line) == TRUE)
+	while (get_next_line(STDIN_FILENO, line) > 0 &&
+			check_format_room(*line) == TRUE)
 	{
-		if (check_if_command(line) == FALSE)
+		if (check_if_command(*line) == FALSE)
 		{
-			add_to_list(line, rooms);
+			add_to_list(*line, rooms);
 			size++;
 		}
 	}
 	return (size);
 }
 
+static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size)
+{
+	char			**a_b;
+	t_links			*link;
+	size_t			hash;
+	size_t			index;
+
+	hash = 5381;
+	link = (t_links*)ft_memalloc(sizeof(t_links));
+	if (check_format_link(line, table, size) == TRUE)
+	{
+		a_b = ft_strsplit(line, '-');
+		printf("a = %s\n", a_b[A]);
+		// index = ((hash << 5) + hash) + a_b[A]; 
+		// table[index]->links = a_b[B];
+		// table[index]->links->to = a_b[B];
+		// table[index]->links = table[index]->links->next;
+		while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
+		{
+			a_b = ft_strsplit(line, '-');
+			printf("a = %s\n", a_b[A]);
+			// index = ((hash << 5) + hash) + a_b[A]; 
+			// table[index]->links = a_b[B];
+			// table[index]->links->to = a_b[B];
+			// table[index]->links = table[index]->links->next;
+		}
+	}
+}
+
 void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 {
+	char			*line;
 	size_t			size;
 
 	get_ants(ants);
-	size = get_rooms(rooms);
+	size = get_rooms(rooms, &line);
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, size);
-	print_hash(table, size);
+	get_links(rooms, table, line, size);
+	// print_hash(table, size);
 }

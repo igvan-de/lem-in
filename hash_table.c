@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 17:15:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/06 13:02:42 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void				hash_table(t_table **table, t_rooms *rooms, size_t size)
 
 	while (rooms != NULL)
 	{
-		index = hash_function(rooms->name, size);
+		index = hash_function((unsigned char*)rooms->name, size);
 		if (table[index] == NULL)
 			table[index] = new_table(rooms->name);
 		else

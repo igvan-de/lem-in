@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   algo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/06 13:17:10 by ygroenev      ########   odam.nl         */
+/*   Created: 2019/10/24 14:28:43 by ygroenev       #+#    #+#                */
+/*   Updated: 2019/11/07 11:29:31 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(int argc, char **argv)
+void	algorithm(t_table **table)
 {
-	t_table			**table;
-	t_rooms			*rooms;
-	t_ants			*ants;
-
-	ants = (t_ants*)ft_memalloc(sizeof(t_ants));
-	read_input(table, &rooms, &ants);
-	algorithm(table);
-	return (FALSE);
+	
 }

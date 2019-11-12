@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/06 13:17:10 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/12 17:19:20 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int		main(int argc, char **argv)
 
 	ants = (t_ants*)ft_memalloc(sizeof(t_ants));
 	read_input(table, &rooms, &ants);
-	algorithm(table);
+	//algorithm(table);
 	return (FALSE);
 }

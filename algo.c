@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by ygroenev       #+#    #+#                */
-/*   Updated: 2019/11/07 11:29:31 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/12 15:02:53 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	algorithm(t_table **table)
-{
+// void	algorithm(t_table **table)
+// {
 	
-}
+// }

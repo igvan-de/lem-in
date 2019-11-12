@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/12 13:39:34 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/12 16:14:39 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 		if (check_format_link(line, table, size) == TRUE)
 		{
 			a_b = ft_strsplit(line, '-');
-			printf("test\n");
 			set_links(table, size, a_b[A], a_b[B]);
 		}
 	}

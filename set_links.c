@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/12 13:48:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/12 16:46:58 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,25 @@ static void			add_to_links(t_table **head, t_links *new)
 
 static t_table	*find_place(t_table **table, size_t size, char *nameA, char *nameB)
 {
+	t_table	**probe;
 	size_t	index;
 
+	probe = table;
 	index = hash_function((unsigned char*)nameA, size);
-	while (table[index])
+	// printf("index[%zu]->name = %s\n", index, table[index]->name);
+	printf("test\n");
+	while (probe[index] != NULL)
 	{
-		if (ft_strequ(table[index]->name, nameA) == TRUE)
+		if (ft_strequ(probe[index]->name, nameA) == TRUE)
 		{
-			table[index]->links = new_link(nameB);
-			printf("table[%zu] = %s\t|| ", index, table[index]->name);
-			printf("table[%zu]->link = %s\n", index, table[index]->links->to);
-			return (table[index]);
+			probe[index]->links = new_link(nameB);
+			printf("table[%zu] = %s\t|| ", index, probe[index]->name);
+			printf("table[%zu]->link = %p\n", index, probe[index]->links->to);
+			return (probe[index]);
 		}
-		table[index] = table[index]->next;
+		probe[index] = probe[index]->next;
 	}
-	return (FALSE);
+	return (NULL);
 }
 
 void			set_links(t_table **table, size_t size, char *nameA, char *nameB)
@@ -54,12 +58,20 @@ void			set_links(t_table **table, size_t size, char *nameA, char *nameB)
 	t_table	*a;
 	t_table	*b;
 
+	printf("nameA = %s\n", nameA);
+	printf("nameB = %s\n", nameB);
 	a = find_place(table, size, nameA, nameB);
+	// printf("index[%zu]->name = %s\n", hash_function(nameA, size), a->name);
 	printf("a->link = %p\n", a->links->to);
 	// index = hash_function((unsigned char*)nameA, size); //typecast a_b[A] to (char)a_b[A]!! Check if this is really needed
 
 }
-
+/*Might needed later! */
+		// if (probe[index]->links != NULL && ft_strequ(probe[index]->name, nameA) == TRUE)
+		// {	
+		// 	add_to_links(&probe[index], new_link(nameB));
+		// 	return (probe[index]);
+		// }
 
 	// *a->links = new_link(*b);
 

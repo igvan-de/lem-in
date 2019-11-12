@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/07 17:37:02 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/12 13:48:13 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,87 @@ static t_links		*new_link(char *name)
 
 static void			add_to_links(t_table **head, t_links *new)
 {
-	if ((*head)->links == NULL)
+	if (*head == NULL)
 		return ;
+	printf("add_to_links\n");
 	new->next = (*head)->links;
 	(*head)->links = new;
 }
 
-void				set_links(t_table **table, size_t size, char *nameA, char *nameB)
+static t_table	*find_place(t_table **table, size_t size, char *nameA, char *nameB)
 {
-	int				i;
-	size_t			index;
+	size_t	index;
 
-	printf("nameA = %s\n", nameA);
-	printf("nameB = %s\n", nameB);
-	i = 0;
-	index = hash_function((unsigned char*)nameA, size); //typecast a_b[A] to (char)a_b[A]!! Check if this is really needed
-	if (table[index]->links == NULL)
+	index = hash_function((unsigned char*)nameA, size);
+	while (table[index])
 	{
-		while (i < size)
+		if (ft_strequ(table[index]->name, nameA) == TRUE)
 		{
-			while (table[i] != NULL)
-			{
-				if (ft_strcmp(table[i]->name, nameA) == 0)
-				{			
-					table[index]->links = new_link(nameB);
-					printf("table[%zu] = %s\t", index, table[index]->name);
-					break ;
-				}
-				table[i] = table[i]->next;
-				printf("test\n");
-			}
-			i++;
+			table[index]->links = new_link(nameB);
+			printf("table[%zu] = %s\t|| ", index, table[index]->name);
+			printf("table[%zu]->link = %s\n", index, table[index]->links->to);
+			return (table[index]);
 		}
-		while (table[index]->links != NULL)
-		{
-			printf("table[%zu]->links->to = %s\n", index, table[index]->links->to);
-			table[index]->links = table[index]->links->next;
-		}
+		table[index] = table[index]->next;
 	}
-	else
-		add_to_links(table[index]->links, new_link(nameB));
+	return (FALSE);
+}
+
+void			set_links(t_table **table, size_t size, char *nameA, char *nameB)
+{
+	t_table	*a;
+	t_table	*b;
+
+	a = find_place(table, size, nameA, nameB);
+	printf("a->link = %p\n", a->links->to);
+	// index = hash_function((unsigned char*)nameA, size); //typecast a_b[A] to (char)a_b[A]!! Check if this is really needed
+
+}
+
+
+	// *a->links = new_link(*b);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// while (table[index] != NULL)
+	// {
+	// 	printf("test\n");
+	// 	if (ft_strequ(table[index]->name, nameA) == TRUE)
+	// 	{			
+	// 		table[index]->links = new_link(nameB);
+	// 		printf("if statement====================\n");
+	// 		printf("table[%zu] = %s\t", index, table[index]->name);
+	// 		printf("links = %s\n", table[index]->links->to);
+	// 	}
+	// 	table[index] = table[index]->next;
 	// table[index]->links = a_b[B];
 	// table[index]->links->to = a_b[B];
 	// table[index]->links = table[index]->links->next;
-}

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/07 17:36:57 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/12 13:39:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,22 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 {
 	char			**a_b;
 	t_links			*link;
-	size_t			hash;
 
-	hash = 5381;
 	link = (t_links*)ft_memalloc(sizeof(t_links));
 	if (check_format_link(line, table, size) == TRUE)
 	{
 		a_b = ft_strsplit(line, '-');
 		set_links(table, size, a_b[A], a_b[B]);
 	}
-	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
+	while (get_next_line(STDIN_FILENO, &line) > 0)// && check_format_link(line, table, size) == TRUE)
 	{
-		a_b = ft_strsplit(line, '-');
-		set_links(table, size, a_b[A], a_b[B]);
+		printf("line = %s\n", line);
+		if (check_format_link(line, table, size) == TRUE)
+		{
+			a_b = ft_strsplit(line, '-');
+			printf("test\n");
+			set_links(table, size, a_b[A], a_b[B]);
+		}
 	}
 }
 

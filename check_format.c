@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/07 17:35:02 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/12 13:52:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int				check_format_room(char *line) /*making sure rooms are formatted correctly
 }
 
 int				check_format_link(char *line, t_table **table, size_t size) //makng sure links are formatted correctly
-{
+{ //skip commands.
 	int i;
 	int dash_count;
 

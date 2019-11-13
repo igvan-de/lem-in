@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/12 17:31:34 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/13 16:44:17 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		no_whitespaces(char *line) /*checking for whitespaces in front of l
 	}
 }
 
-static int		is_room(char *line, t_table **table, size_t size) //making sure links are excisting rooms
+static int		is_room(char *line, t_table **table, size_t size) /*making sure links are excisting rooms*/
 {
 	char	**a_b;
 	int		i;
@@ -54,8 +54,7 @@ int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#"*/
 }
 
 int				check_format_room(char *line, t_ants **ants) /*making sure rooms are formatted correctly*/
-{ 
-	/*make sure all rooms have a unique name and coordinates*/
+{
 	int i;
 	int space_count;
 
@@ -77,12 +76,12 @@ int				check_format_room(char *line, t_ants **ants) /*making sure rooms are form
 	}
 	if (space_count == 2)
 		return (TRUE);
-	else
+	else //No error if room is not formatted correctly. We don't want to exit because this function is supposed to return FALSE if it reaches the links
 		return (FALSE);
-}	
+}
 
-int				check_format_link(char *line, t_table **table, size_t size) //makng sure links are formatted correctly
-{ //skip commands.
+int				check_format_link(char *line, t_table **table, size_t size) /*making sure links are formatted correctly*/
+{ //check for duplicate links (or do we not care there's duplicates?) //we don't care
 	int i;
 	int dash_count;
 
@@ -90,7 +89,12 @@ int				check_format_link(char *line, t_table **table, size_t size) //makng sure 
 	dash_count = 0;
 	no_whitespaces(line);
 	if (is_room(line, table, size) == FALSE)
-		return (FALSE);
+	{
+		ft_putendl("One or more of the links points to an unexisting room"); /*Error message to be determined*/
+		exit(0);
+	}
+	if (line && line[0] == '#') //skip commands
+		return (TRUE);
 	while (line[i])
 	{
 		if (line[i] == '-')
@@ -101,7 +105,7 @@ int				check_format_link(char *line, t_table **table, size_t size) //makng sure 
 		return (TRUE);
 	else
 	{
-		ft_putendl("error"); //Error message to be determined
+		ft_putendl("One or more of the links are not formatted correctly"); //Error message to be determined
 		exit(0);
 	}
 }

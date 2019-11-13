@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/12 17:27:16 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/13 16:50:12 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,21 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 		a_b = ft_strsplit(line, '-');
 		set_links(table, size, a_b[A], a_b[B]);
 	}
-	while (get_next_line(STDIN_FILENO, &line) > 0)// && check_format_link(line, table, size) == TRUE)
+	else
 	{
-		printf("line = %s\n", line);
-		if (check_format_link(line, table, size) == TRUE)
-		{
-			a_b = ft_strsplit(line, '-');
-			printf("test\n");
-			set_links(table, size, a_b[A], a_b[B]);
-		}
+		ft_putendl("One of the rooms is not formatted correctly");
+		exit(0);
+	}
+	while (get_next_line(STDIN_FILENO, &line) > 0 &&
+	check_format_link(line, table, size) == TRUE)
+	{
+		a_b = ft_strsplit(line, '-');
+		set_links(table, size, a_b[A], a_b[B]);
+	}
+	if (check_format_link(line, table, size) == FALSE)
+	{
+		ft_putendl("One of the rooms is not formatted correctly");
+		exit(0);
 	}
 }
 

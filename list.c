@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/12 17:29:47 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/13 14:29:44 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,30 @@ static t_rooms	*new_node(char *line, t_ants **ants)
 	return (new_node);
 }
 
+static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
+{
+	while (head)
+	{
+		if (ft_strcmp(name, head->name) == 0)
+		{
+			ft_putendl("Error! Duplicate room names");
+			exit(0);
+		}
+		if (head->x == x && head->y == y)
+		{
+			ft_putendl("Error! Duplicate coordinates");
+			exit(0);
+		}
+		head = head->next;
+	}
+}
+
 void			add_to_list(char *line, t_rooms **head, t_ants **ants)
 {
 	t_rooms	*new;
 
 	new = new_node(line, ants);
+	check_for_duplicates(new->name, new->x, new->y, *head);
 	if (new == NULL)
 		return ;
 	if ((*head) == NULL)

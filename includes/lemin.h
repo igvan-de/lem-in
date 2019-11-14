@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:37:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 13:42:03 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+
+# include <stdio.h> //REMOVE!!!!!!!!
+
 
 typedef enum			e_return
 {
@@ -30,7 +33,7 @@ typedef enum			e_object_type
 	ANT = 3
 }						t_object_type;
 
-typedef enum			e_node_value
+typedef enum		e_node_value
 {
 	NAME = 0,
 	X = 1,
@@ -43,6 +46,8 @@ typedef struct			s_ants
 {
 	int					start;
 	int					finish;
+	short				found_start;
+	short				found_end;
 }						t_ants;
 
 typedef	struct			s_rooms
@@ -50,6 +55,8 @@ typedef	struct			s_rooms
 	char				*name;
 	int					x;
 	int					y;
+	short				start;
+	short				end;
 	struct s_rooms		*next;
 }						t_rooms;
 
@@ -78,15 +85,17 @@ void					read_input(t_table **table, t_rooms **rooms,
 /*
 **===============================FORMAT FUNCTIONS===============================
 */
-int						check_if_command(char *line);
-int						check_format_room(char *line);
+int						check_if_command(char *line, t_ants **ants);
+int						check_format_room(char *line, t_ants **ants);
 int						check_format_link(char *line, t_table **table,
 						size_t size);
+void					is_start_or_end(char *line, t_ants **ants);
+
 
 /*
 **===============================LIST FUNCTIONS=================================
 */
-void					add_to_list(char *line, t_rooms **head);
+void					add_to_list(char *line, t_rooms **head, t_ants **ants);
 
 /*
 **===============================HASHTABLE FUNCTIONS============================

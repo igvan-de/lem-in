@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 17:15:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 12:56:20 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		add_node(t_rooms **node, t_rooms *new)
 	prob->next = new;
 }
 
-static t_rooms	*new_node(char *line)
+static t_rooms	*new_node(char *line, t_ants **ants)
 {
 	t_rooms	*new_node;
 	char	**name_x_y;
@@ -38,6 +38,16 @@ static t_rooms	*new_node(char *line)
 	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
 	if (new_node == NULL)
 		return (NULL);
+	if ((*ants)->found_start == 1)
+	{
+		new_node->start = 1;
+		(*ants)->found_start = 2;
+	}
+	else if ((*ants)->found_end == 1)
+	{
+		new_node->end = 1;
+		(*ants)->found_end = 2;
+	}
 	new_node->name = name_x_y[NAME];
 	new_node->x = ft_atoi(name_x_y[X]);
 	new_node->y = ft_atoi(name_x_y[Y]);
@@ -45,11 +55,30 @@ static t_rooms	*new_node(char *line)
 	return (new_node);
 }
 
-void			add_to_list(char *line, t_rooms **head)
+static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
+{
+	while (head)
+	{
+		if (ft_strcmp(name, head->name) == 0)
+		{
+			ft_putendl("Error! Duplicate room names");
+			exit(0);
+		}
+		if (head->x == x && head->y == y)
+		{
+			ft_putendl("Error! Duplicate coordinates");
+			exit(0);
+		}
+		head = head->next;
+	}
+}
+
+void			add_to_list(char *line, t_rooms **head, t_ants **ants)
 {
 	t_rooms	*new;
 
-	new = new_node(line);
+	new = new_node(line, ants);
+	check_for_duplicates(new->name, new->x, new->y, *head);
 	if (new == NULL)
 		return ;
 	if ((*head) == NULL)

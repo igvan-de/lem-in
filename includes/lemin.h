@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:15:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 12:37:43 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct 			s_links
 typedef struct			s_table
 {
 	char				*name;
+	int					distance;
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;

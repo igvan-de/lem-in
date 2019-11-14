@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 13:42:03 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 14:50:30 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum			e_object_type
 	ANT = 3
 }						t_object_type;
 
-typedef enum		e_node_value
+typedef enum			e_node_value
 {
 	NAME = 0,
 	X = 1,

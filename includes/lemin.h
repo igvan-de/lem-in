@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/01 11:42:09 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 13:36:37 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,79 +16,103 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-#include <stdio.h> //delete!
+# include <stdio.h> //REMOVE!!!!!!!!
 
-# define TRUE 1
-# define FALSE 0
 
-typedef enum		e_object_type
+typedef enum			e_return
+{
+	FALSE = 0,
+	TRUE = 1
+}						t_return;
+
+typedef enum			e_object_type
 {
 	FREE = 0,
 	START = 1,
 	END = 2,
-	ANT = 3,
-}					t_object_type;
+	ANT = 3
+}						t_object_type;
 
 typedef enum		e_node_value
 {
 	NAME = 0,
 	X = 1,
 	Y = 2,
-}					t_node_value;
+	A = 0,
+	B = 1
+}						t_node_value;
 
-typedef struct		s_temp_links
+typedef struct			s_ants
 {
-	char			*room;
-	char			*link;
-}					t_temp_links;
+	int					start;
+	int					finish;
+	short				found_start;
+	short				found_end;
+}						t_ants;
 
-typedef	struct		s_temp_pointers
+typedef	struct			s_rooms
 {
-	int				n_rooms;
-	int				n_links;
-	int				*links;
-	char			*pointers;
-}					t_temp_pointers;
+	char				*name;
+	int					x;
+	int					y;
+	short				start;
+	short				end;
+	struct s_rooms		*next;
+}						t_rooms;
 
-typedef struct		s_ants
+typedef struct 			s_links
 {
-	int				start;
-	int				finish;
-}					t_ants;
+	char				*to;
+	struct s_links		*next;
+}						t_links;
 
-typedef struct		s_data
+typedef struct			s_table
 {
-	char			*name;
-	int				x;
-	int				y;
-	// t_object_type	type; doenst need too be in data and room struct?!
-}					t_data;
-
-typedef struct		s_links
-{
-	struct s_rooms	*link;//change to room!
-	struct s_links	*next;
-}					t_links;
-
-typedef struct		s_rooms
-{
-	t_data			data;
-	t_links			links;
-	int				index;
-	t_object_type	type;
-	struct s_rooms	*next;
-}					t_rooms;
+	char				*name;
+	short				visited;
+	t_object_type		type;
+	struct s_links		*links;
+	struct s_table		*next;
+}						t_table;
 
 /*
-**===============================LIST FUNCTIONS=============================
+**===============================READ FUNCTIONS=================================
 */
-void			add_to_list(char *line, t_rooms **head, int index);
+void					read_input(t_table **table, t_rooms **rooms,
+						t_ants **ants);
 
-void			read_input(t_rooms **rooms, t_ants **ants);
-int				check_format_room(char *line);
-int				check_format_link(char *line, t_rooms *rooms);
-void			set_temp_links(char	*line);
-void			set_data(char *line, t_rooms **rooms);
-int				check_if_command(char *line);
+/*
+**===============================FORMAT FUNCTIONS===============================
+*/
+int						check_if_command(char *line, t_ants **ants);
+int						check_format_room(char *line, t_ants **ants);
+int						check_format_link(char *line, t_table **table,
+						size_t size);
+void					is_start_or_end(char *line, t_ants **ants);
+
+
+/*
+**===============================LIST FUNCTIONS=================================
+*/
+void					add_to_list(char *line, t_rooms **head, t_ants **ants);
+
+/*
+**===============================HASHTABLE FUNCTIONS============================
+*/
+void					hash_table(t_table **table, t_rooms *room, size_t size);
+
+size_t					hash_function(unsigned char *str, size_t size);
+
+/*
+**===============================LINK FUNCTIONS=================================
+*/
+void					set_links(t_table **table, size_t size, char *nameA,
+						char *nameB);
+
+/*
+**==============================TEMPERARY PRINT FUNCTIONS=======================
+*/
+void					print_hash(t_table **table, size_t size);
+void					print_rooms(t_rooms *rooms, t_ants **ants);
 
 #endif

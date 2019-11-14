@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   format.c                                           :+:    :+:            */
+/*   algo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 15:00:04 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/28 14:39:31 by igvan-de      ########   odam.nl         */
+/*   Created: 2019/10/24 14:28:43 by ygroenev       #+#    #+#                */
+/*   Updated: 2019/11/12 15:02:53 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	format_checker(const char *format, char *line)
-{
+// void	algorithm(t_table **table)
+// {
 	
-}
+// }

@@ -6,27 +6,30 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/10/29 16:53:58 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/11/12 14:52:37 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
+COLOR_RED = $(shell printf "\e[31;5;10m")
 COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
 NAME = lem-in
-SRCS = list.c main.c read_input.c check_format.c set_links.c
+SRCS = main.c read_input.c check_format.c hash_table.c list.c set_links.c test_print.c start_end.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
 CFLAGS = -Wall -Werror -Wextra
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
+PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')
 PRINT_DONE = $(shell printf '$(COLOR_YELLOW)[ › ]$(COLOR_DEFAULT)')
 
 all: $(NAME)
 
 %.o: %.c includes/lemin.h
 	@gcc $< -c -o $@ $(FLAGS) $(INCLUDES)
+	@echo "$(PRINT_PLUS) $@"
 
 $(NAME): $(OBJ_FILES) libft/libft.a
 	@gcc $(CFLAGS) $(OBJ_FILES) libft/libft.a -o $(NAME)
@@ -39,15 +42,14 @@ libft/libft.a:
 clean:
 	@rm -rf $(OBJ_FILES)
 	@make -C ./Libft clean
-	@echo "$(PRINT_PLUS) Cleaning objectives completed"
+	@echo "$(PRINT_CLEAN) Cleaning objectives completed"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C ./libft fclean
-	@echo "$(PRINT_PLUS) Cleaning all completed"
+	@echo "$(PRINT_CLEAN) Cleaning all completed"
 
-re: fclean all
-	@echo "$(PRINT_PLUS) Recompiling completed"    
+re: fclean all   
 
 norm:
 	@echo "===================NORMINETTE==================="

@@ -1,10 +1,10 @@
 3
 ##start
-piet 1 0
+piet 3 0
 ##end
-hoii 5 0
-pizza 9 0
-yonne 13 0
+hoii 2 0
+pizza 3 1
+yonne 2 1
 hoii-yonne
-yonne-piet
 piet-hoii
+yonne-piet

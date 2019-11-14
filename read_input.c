@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:56:04 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 13:42:26 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,18 @@ static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size)
 {
 	char			**a_b;
-	t_links			*link;
 
-	link = (t_links*)ft_memalloc(sizeof(t_links));
 	if (check_format_link(line, table, size) == TRUE)
 	{
 		a_b = ft_strsplit(line, '-');
 		set_links(table, size, a_b[A], a_b[B]);
+		set_links(table, size, a_b[B], a_b[A]);
 	}
-	else
-	{
-		ft_putendl("One of the rooms is not formatted correctly");
-		exit(0);
-	}
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, table, size) == TRUE)
+	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
 	{
 		a_b = ft_strsplit(line, '-');
 		set_links(table, size, a_b[A], a_b[B]);
-	}
-	if (check_format_link(line, table, size) == FALSE)
-	{
-		ft_putendl("One of the rooms is not formatted correctly");
-		exit(0);
+		set_links(table, size, a_b[B], a_b[A]);
 	}
 }
 

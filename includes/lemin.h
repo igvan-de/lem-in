@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 13:36:37 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 13:42:03 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ typedef	struct			s_rooms
 
 typedef struct 			s_links
 {
-	char				*to;
+	struct s_table		*to;
 	struct s_links		*next;
 }						t_links;
 
 typedef struct			s_table
 {
 	char				*name;
+	int					distance;
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;

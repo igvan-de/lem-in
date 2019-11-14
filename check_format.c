@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:53:57 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 13:42:31 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ static int		is_room(char *line, t_table **table, size_t size) /*making sure link
 {
 	char	**a_b;
 	int		i;
+	t_table	*tmp;
 
 	a_b = ft_strsplit(line, '-');
 	i = 0;
 	while (i < size)
 	{
-		while (table[i] != NULL)
+		tmp = table[i];
+		while (tmp != NULL)
 		{
-			if (ft_strcmp(table[i]->name, a_b[A]) == 0 ||
-				ft_strcmp(table[i]->name, a_b[B]) == 0)
+			if (ft_strequ(tmp->name, a_b[A]) == TRUE ||
+				ft_strequ(tmp->name, a_b[B]) == TRUE)
 					return (TRUE);
-			table[i] = table[i]->next;
+			tmp = tmp->next;
 		}
 		i++;		
 	}

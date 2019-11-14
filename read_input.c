@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/04 17:20:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 12:15:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,50 @@ static void		get_ants(t_ants **ants)
 	(*ants)->finish = 0;
 }
 
-static size_t	get_rooms(t_rooms **rooms)
+static size_t	get_rooms(t_rooms **rooms, char **line)
 {
-	char			*line;
 	size_t			size;
 
 	size = 0;
-	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_room(line) == TRUE)
+	while (get_next_line(STDIN_FILENO, line) > 0 &&
+			check_format_room(*line) == TRUE)
 	{
-		if (check_if_command(line) == FALSE)
+		if (check_if_command(*line) == FALSE)
 		{
-			add_to_list(line, rooms);
+			add_to_list(*line, rooms);
 			size++;
 		}
 	}
 	return (size);
 }
 
+static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size)
+{
+	char			**a_b;
+
+	if (check_format_link(line, table, size) == TRUE)
+	{
+		a_b = ft_strsplit(line, '-');
+		set_links(table, size, a_b[A], a_b[B]);
+		set_links(table, size, a_b[B], a_b[A]);
+	}
+	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
+	{
+		a_b = ft_strsplit(line, '-');
+		set_links(table, size, a_b[A], a_b[B]);
+		set_links(table, size, a_b[B], a_b[A]);
+	}
+}
+
 void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 {
+	char			*line;
 	size_t			size;
 
 	get_ants(ants);
-	size = get_rooms(rooms);
+	size = get_rooms(rooms, &line);
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, size);
+	get_links(rooms, table, line, size);
 	print_hash(table, size);
 }

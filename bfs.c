@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strcmp.c                                        :+:    :+:            */
+/*   bfs.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: igvan-de <marvin@codam.nl>                   +#+                     */
+/*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/17 11:02:55 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/08 13:40:39 by igvan-de      ########   odam.nl         */
+/*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
+/*   Updated: 2019/11/14 12:55:21 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lemin.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	bfs(t_table **table)
 {
-	size_t i;
+	t_table *prob;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] && s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	prob = table;
+	
 }

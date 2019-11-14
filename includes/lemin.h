@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 16:16:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 12:15:36 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "get_next_line.h"
 # include "libft.h"
-
-#include <stdio.h> //REMOVE!!!!!!!!
-
 
 typedef enum			e_return
 {

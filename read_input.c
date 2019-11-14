@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 16:17:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/14 12:15:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,11 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 		set_links(table, size, a_b[A], a_b[B]);
 		set_links(table, size, a_b[B], a_b[A]);
 	}
-	while (get_next_line(STDIN_FILENO, &line) > 0)// && check_format_link(line, table, size) == TRUE)
+	while (get_next_line(STDIN_FILENO, &line) > 0 && check_format_link(line, table, size) == TRUE)
 	{
-		// printf("\n%s\n\n", table[2]->name);
-		// printf("line = %s\n", line);
-		if (check_format_link(line, table, size) == TRUE)
-		{
-			a_b = ft_strsplit(line, '-');
-			set_links(table, size, a_b[A], a_b[B]);
-			set_links(table, size, a_b[B], a_b[A]);
-		}
+		a_b = ft_strsplit(line, '-');
+		set_links(table, size, a_b[A], a_b[B]);
+		set_links(table, size, a_b[B], a_b[A]);
 	}
 }
 

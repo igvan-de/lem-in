@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:56:20 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/15 15:22:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		add_node(t_rooms **node, t_rooms *new)
 {
-	t_rooms *prob;
+	t_rooms *probe;
 
 	if (new == NULL)
 		return ;
@@ -23,10 +23,10 @@ static void		add_node(t_rooms **node, t_rooms *new)
 		*node = new;
 		return ;
 	}
-	prob = *node;
-	while (prob->next != NULL)
-		prob = prob->next;
-	prob->next = new;
+	probe = *node;
+	while (probe->next != NULL)
+		probe = probe->next;
+	probe->next = new;
 }
 
 static t_rooms	*new_node(char *line, t_ants **ants)

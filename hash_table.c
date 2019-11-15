@@ -6,19 +6,25 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 11:14:08 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/15 14:50:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 
-static t_table		*new_table(char *name)
+static t_table		*new_table(t_rooms *rooms)
 {
 	t_table *table;
 
 	table = (t_table*)ft_memalloc(sizeof(t_table));
-	table->name = name;
+	if (rooms->start == TRUE)
+		table->type = START;
+	else if (rooms->end == TRUE)
+		table->type = END;
+	else
+		table->type = FREE;
+	table->name = rooms->name;
 	return (table);
 }
 
@@ -47,7 +53,7 @@ size_t		hash_function(unsigned char *str, size_t size)
 	return (hash % size);
 }
 
-void				hash_table(t_table **table, t_rooms *rooms, size_t size)
+void				hash_table(t_table **table, t_rooms *rooms, t_ants **ants, size_t size)
 {
 	size_t			index;
 
@@ -55,9 +61,11 @@ void				hash_table(t_table **table, t_rooms *rooms, size_t size)
 	{
 		index = hash_function((unsigned char*)rooms->name, size);
 		if (table[index] == NULL)
-			table[index] = new_table(rooms->name);
+			table[index] = new_table(rooms);
 		else
-			add_to_table(&table[index], new_table(rooms->name));
+			add_to_table(&table[index], new_table(rooms));
+		if (table[index]->type == END)
+			(*ants)->end = table[index];
 		rooms = rooms->next;
 	}
 }

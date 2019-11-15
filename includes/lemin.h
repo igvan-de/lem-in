@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 14:50:30 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/15 18:26:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,20 @@ typedef enum			e_node_value
 	B = 1
 }						t_node_value;
 
+typedef struct 			s_queue
+{
+	struct s_links		*links;
+	struct s_table		*to;
+	struct s_queue		*next;
+}						t_queue;
+
 typedef struct			s_ants
 {
 	int					start;
 	int					finish;
 	short				found_start;
 	short				found_end;
+	struct s_table		*end;
 }						t_ants;
 
 typedef	struct			s_rooms
@@ -100,7 +108,8 @@ void					add_to_list(char *line, t_rooms **head, t_ants **ants);
 /*
 **===============================HASHTABLE FUNCTIONS============================
 */
-void					hash_table(t_table **table, t_rooms *room, size_t size);
+void					hash_table(t_table **table, t_rooms *room,
+						t_ants **ants, size_t size);
 
 size_t					hash_function(unsigned char *str, size_t size);
 
@@ -109,6 +118,11 @@ size_t					hash_function(unsigned char *str, size_t size);
 */
 void					set_links(t_table **table, size_t size, char *nameA,
 						char *nameB);
+
+/*
+**===============================LINK FUNCTIONS=================================
+*/
+void					bfs(t_table **table, t_ants *ants, size_t size);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

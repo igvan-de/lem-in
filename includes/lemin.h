@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 13:42:03 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/15 18:37:59 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef enum			e_return
 	TRUE = 1
 }						t_return;
 
+typedef enum			e_found_existing
+{
+	FOUND = 1,
+	EXISTING = 2
+}						t_found_existing;
+
 typedef enum			e_object_type
 {
 	FREE = 0,
@@ -33,7 +39,7 @@ typedef enum			e_object_type
 	ANT = 3
 }						t_object_type;
 
-typedef enum		e_node_value
+typedef enum			e_node_value
 {
 	NAME = 0,
 	X = 1,
@@ -87,8 +93,8 @@ void					read_input(t_table **table, t_rooms **rooms,
 */
 int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
-int						check_format_link(char *line, t_table **table,
-						size_t size);
+int						check_format_link(char *line, t_rooms **rooms,
+						t_table **table, size_t size);
 void					is_start_or_end(char *line, t_ants **ants);
 
 
@@ -109,6 +115,9 @@ size_t					hash_function(unsigned char *str, size_t size);
 */
 void					set_links(t_table **table, size_t size, char *nameA,
 						char *nameB);
+char					**lem_split(char *line, t_rooms **rooms);
+char					**ft_split(char *line, int n, int c);
+int						compare_with_rooms(char **a_b, t_rooms **rooms);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

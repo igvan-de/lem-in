@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 12:56:20 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/14 14:04:21 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static t_rooms	*new_node(char *line, t_ants **ants)
 	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
 	if (new_node == NULL)
 		return (NULL);
-	if ((*ants)->found_start == 1)
+	if ((*ants)->found_start == FOUND)
 	{
-		new_node->start = 1;
-		(*ants)->found_start = 2;
+		new_node->start = FOUND;
+		(*ants)->found_start = EXISTING;
 	}
-	else if ((*ants)->found_end == 1)
+	else if ((*ants)->found_end == FOUND)
 	{
-		new_node->end = 1;
-		(*ants)->found_end = 2;
+		new_node->end = FOUND;
+		(*ants)->found_end = EXISTING;
 	}
 	new_node->name = name_x_y[NAME];
 	new_node->x = ft_atoi(name_x_y[X]);

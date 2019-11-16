@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 14:39:11 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/16 17:02:59 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static int		strict_start_end_checker(char *line)
+static int		strict_start_end_checker(char *line) /*check all start and end variables*/
 {
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/15 17:58:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/16 19:17:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void    print_hash(t_table **table, size_t size)
                 printf("(\033[0;34mstart\033[0m) ");
             else if (table[i]->type == END)
                 printf("(\033[0;34mend\033[0m) ");
-            printf("which is pointing to");
+            if (table[i]->links != NULL)
+                printf("which is pointing to");
+            else
+                printf("has no links..");
             while (table[i]->links)
             {
                 printf(" \033[0;36m%s\033[0m", table[i]->links->to->name);

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 13:42:30 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/17 15:18:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_links		*new_link(t_table *pointer)
 
 static void 		add_link(t_links **link, t_links *new)
 {
-	if (!link || !new)
+	if (link == NULL || new == NULL)
 		return ;
 	new->next = *link;
 	*link = new;

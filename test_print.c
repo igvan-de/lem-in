@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/16 19:17:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/17 16:10:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	print_rooms(t_rooms *rooms, t_ants **ants)
 
 void    print_hash(t_table **table, size_t size)
 {
-    int i;
+    size_t i;
 
     i = 0;
     while (i < size)
     {
         while (table[i] != NULL)
         {
-            printf("hash[%d] = \033[0;35m%s \033[0m", i, table[i]->name);
+            printf("hash[%zu] = \033[0;35m%s \033[0m", i, table[i]->name);
             if (table[i]->type == START)
                 printf("(\033[0;34mstart\033[0m) ");
             else if (table[i]->type == END)

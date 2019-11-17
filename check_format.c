@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 13:42:31 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/17 16:09:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void		no_whitespaces(char *line) /*checking for whitespaces in front of l
 
 static int		is_room(char *line, t_table **table, size_t size) /*making sure links are excisting rooms*/
 {
-	char	**a_b;
-	int		i;
-	t_table	*tmp;
+	char		**a_b;
+	size_t		i;
+	t_table		*tmp;
 
 	a_b = ft_strsplit(line, '-');
 	i = 0;

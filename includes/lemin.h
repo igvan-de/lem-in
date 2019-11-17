@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/16 18:51:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/17 16:11:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct 			s_queue
 	struct s_queue		*next;
 }						t_queue;
 
-typedef struct			s_ants
+typedef struct			s_ants //change name!
 {
 	int					start;
 	int					finish;
@@ -87,8 +87,7 @@ typedef struct			s_table
 /*
 **===============================READ FUNCTIONS=================================
 */
-void					read_input(t_table **table, t_rooms **rooms,
-						t_ants **ants);
+void					read_input(t_rooms **rooms, t_ants **ants);
 
 /*
 **===============================FORMAT FUNCTIONS===============================
@@ -122,7 +121,7 @@ void					set_links(t_table **table, size_t size, char *nameA,
 /*
 **===============================LINK FUNCTIONS=================================
 */
-void					bfs(t_table **table, t_ants *ants, size_t size);
+void					bfs(t_ants *ants);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

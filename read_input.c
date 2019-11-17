@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/16 17:03:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/17 16:45:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		get_ants(t_ants **ants)
 static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 {
 	size_t			size;
-	int 			i;
 
 	size = 0;
 	while (get_next_line(STDIN_FILENO, line) > 0 &&
@@ -54,7 +53,7 @@ static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 	return (size);
 }
 
-static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size)
+static void		get_links(t_table **table, char *line, size_t size)
 {
 	char			**a_b;
 
@@ -72,8 +71,9 @@ static void		get_links(t_rooms **rooms, t_table **table, char *line, size_t size
 	}
 }
 
-void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
+void			read_input(t_rooms **rooms, t_ants **ants)
 {
+	t_table			**table;
 	char			*line;
 	size_t			size;
 
@@ -81,8 +81,8 @@ void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
 	size = get_rooms(rooms, &line, ants);
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, ants, size);
-	get_links(rooms, table, line, size);
-	bfs(table, *ants, size);
+	get_links(table, line, size);
+	bfs(*ants);
 	// print_rooms(*rooms, ants);
-	print_hash(table, size);
+	// print_hash(table, size);
 }

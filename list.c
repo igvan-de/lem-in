@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/14 14:04:21 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/18 13:25:57 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		add_node(t_rooms **node, t_rooms *new)
 {
-	t_rooms *prob;
+	t_rooms *probe;
 
 	if (new == NULL)
 		return ;
@@ -23,10 +23,10 @@ static void		add_node(t_rooms **node, t_rooms *new)
 		*node = new;
 		return ;
 	}
-	prob = *node;
-	while (prob->next != NULL)
-		prob = prob->next;
-	prob->next = new;
+	probe = *node;
+	while (probe->next != NULL)
+		probe = probe->next;
+	probe->next = new;
 }
 
 static t_rooms	*new_node(char *line, t_ants **ants)
@@ -59,7 +59,7 @@ static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
 {
 	while (head)
 	{
-		if (ft_strcmp(name, head->name) == 0)
+		if (ft_strequ(name, head->name) == TRUE)
 		{
 			ft_putendl("Error! Duplicate room names");
 			exit(0);
@@ -81,7 +81,7 @@ void			add_to_list(char *line, t_rooms **head, t_ants **ants)
 	check_for_duplicates(new->name, new->x, new->y, *head);
 	if (new == NULL)
 		return ;
-	if ((*head) == NULL)
+	if ((*head)->name == NULL)
 		*head = new;
 	else
 		add_node(head, new);

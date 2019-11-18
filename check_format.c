@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/16 17:02:09 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/18 13:49:46 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 static void		no_whitespaces(char *line) /*checking for whitespaces in front of line*/
 {
-	int i;
-
-	i = 0;
-	if (line[i] == ' ' || line[i] == '\t' || line[i] == '\n' ||
-		line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
+	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
+		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
 		ft_putendl("error"); /*Error message to be determined*/
 		exit(0);
@@ -62,7 +59,7 @@ int				check_format_room(char *line, t_ants **ants) /*making sure rooms are form
 		return (FALSE);
 }
 
-int				check_format_link(char *line, t_rooms **rooms, t_table **table, size_t size) /*making sure links are formatted correctly*/
+int				check_format_link(char *line, t_rooms **rooms) /*making sure links are formatted correctly*/
 { //check for duplicate links (or do we not care there's duplicates?) //we don't care
 	int i;
 	int dash_count;

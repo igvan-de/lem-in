@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/15 17:21:09 by ygroenev      ########   odam.nl          #
+#    Updated: 2019/11/18 13:52:27 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,11 @@ COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
 NAME = lem-in
-SRCS = main.c read_input.c check_format.c hash_table.c list.c set_links.c test_print.c start_end.c lem_split.c
+SRCS = main.c read_input.c check_format.c hash_table.c list.c set_links.c \
+	test_print.c start_end.c bfs.c lem_split.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g #remove "-g", is for debugging!!
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')
@@ -28,7 +29,7 @@ PRINT_DONE = $(shell printf '$(COLOR_YELLOW)[ › ]$(COLOR_DEFAULT)')
 all: $(NAME)
 
 %.o: %.c includes/lemin.h
-	@gcc $< -c -o $@ $(FLAGS) $(INCLUDES)
+	@gcc $< -c -o $@ $(CFLAGS) $(INCLUDES)
 	@echo "$(PRINT_PLUS) $@"
 
 $(NAME): $(OBJ_FILES) libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/16 16:58:16 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/18 13:52:54 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		get_ants(t_ants **ants)
 static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 {
 	size_t			size;
-	int 			i;
 
 	size = 0;
 	while (get_next_line(STDIN_FILENO, line) > 0 &&
@@ -58,7 +57,7 @@ static void		get_rest_of_links(t_rooms **rooms,
 t_table **table, char *line, size_t size, char **a_b)
 {
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, rooms, table, size) == TRUE)
+	check_format_link(line, rooms) == TRUE)
 	{
 		if (line && line[0] == '#')
 			continue ;
@@ -76,9 +75,10 @@ t_table **table, char *line, size_t size, char **a_b)
 static void		get_links(t_rooms **rooms, t_table **table,
 char *line, size_t size)
 { //Right now a room isn't allowed to link to itself, not sure if that's what we want
-	char			**a_b;
+	char	**a_b;
 
-	if (check_format_link(line, rooms, table, size) == TRUE &&
+	a_b = lem_split(line, rooms);
+	if (check_format_link(line, rooms) == TRUE &&
 	ft_strequ(a_b[A], a_b[B]) == FALSE)
 	{
 		a_b = lem_split(line, rooms);
@@ -93,16 +93,18 @@ char *line, size_t size)
 	get_rest_of_links(rooms, table, line, size, a_b);
 }
 
-void			read_input(t_table **table, t_rooms **rooms, t_ants **ants)
+void			read_input(t_rooms **rooms, t_ants **ants)
 {
+	t_table			**table;
 	char			*line;
 	size_t			size;
 
 	get_ants(ants);
 	size = get_rooms(rooms, &line, ants);
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
-	hash_table(table, *rooms, size);
+	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
-	//print_rooms(*rooms, ants);
+	//bfs(*ants);
+	// print_rooms(*rooms, ants);
 	print_hash(table, size);
 }

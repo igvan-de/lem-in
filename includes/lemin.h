@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/15 18:37:59 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/18 13:48:53 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,20 @@ typedef enum			e_node_value
 	B = 1
 }						t_node_value;
 
-typedef struct			s_ants
+typedef struct 			s_queue
+{
+	struct s_table		*table;
+	struct s_links		*links;
+	struct s_queue		*next;
+}						t_queue;
+
+typedef struct			s_ants //change name!
 {
 	int					start;
 	int					finish;
 	short				found_start;
 	short				found_end;
+	struct s_table		*end;
 }						t_ants;
 
 typedef	struct			s_rooms
@@ -85,16 +93,14 @@ typedef struct			s_table
 /*
 **===============================READ FUNCTIONS=================================
 */
-void					read_input(t_table **table, t_rooms **rooms,
-						t_ants **ants);
+void					read_input(t_rooms **rooms, t_ants **ants);
 
 /*
 **===============================FORMAT FUNCTIONS===============================
 */
 int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
-int						check_format_link(char *line, t_rooms **rooms,
-						t_table **table, size_t size);
+int						check_format_link(char *line, t_rooms **rooms);
 void					is_start_or_end(char *line, t_ants **ants);
 
 
@@ -106,7 +112,8 @@ void					add_to_list(char *line, t_rooms **head, t_ants **ants);
 /*
 **===============================HASHTABLE FUNCTIONS============================
 */
-void					hash_table(t_table **table, t_rooms *room, size_t size);
+void					hash_table(t_table **table, t_rooms *room,
+						t_ants **ants, size_t size);
 
 size_t					hash_function(unsigned char *str, size_t size);
 
@@ -118,6 +125,11 @@ void					set_links(t_table **table, size_t size, char *nameA,
 char					**lem_split(char *line, t_rooms **rooms);
 char					**ft_split(char *line, int n, int c);
 int						compare_with_rooms(char **a_b, t_rooms **rooms);
+
+/*
+**===============================LINK FUNCTIONS=================================
+*/
+void					bfs(t_ants *ants);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

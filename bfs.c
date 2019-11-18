@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/17 17:02:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/18 15:09:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ static t_queue	*create_end(t_ants *ants)
 	t_queue *queue;
 	
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
-	queue->table = ants->end;
+	queue->to = ants->end;
+	queue->to->visited = TRUE; //check if this is the right place here!!
 	return (queue);
 }
 
-static t_queue	*new_element(t_links *pointer)
+static t_queue	*new_element(t_table *pointer)
 {
 	t_queue	*queue;
 
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
-	queue->links = pointer;
-	printf("link = %p\n", queue->links->to);
+	queue->to = pointer;
+	queue->to->visited = TRUE;
+	queue->to->links->to->distance = queue->to->links->to->distance + 1;
 	return (queue);
 }
 
@@ -37,46 +39,60 @@ static void		add_to_queue(t_queue **queue, t_queue *new)
 
 	if (new == NULL)
 		return ;
-	printf("new = %p\n", new->links->to);
-	/*==MIGHT NOT BE NEEDED==*/
 	if ((*queue) == NULL)
 	{
 		(*queue) = new;
 		return ;
 	}
-	/*=======================*/
 	probe = *queue;
 	while (probe->next != NULL)
-	{
-		printf("probe = %s\n", probe->table->name);
 		probe = probe->next;
-	}
 	probe->next = new;
+}
+
+static void		pop_out_queue(t_queue **queue)
+{
+	t_table	*first_node;
+
+	first_node = (*queue)->to;
+	(*queue) = (*queue)->next;
+	free(first_node);
 }
 
 void			bfs(t_ants *ants)
 {
 	t_queue *queue;
-	t_links	*probe;
+	t_table	*probe;
+	t_queue *test; //remove!!
 
 	queue = create_end(ants);
-	printf("queue->end = %p\n", queue->table);
-	probe = queue->table->links;
-	while (probe != NULL)
+	probe = queue->to;
+	while (probe->links != NULL)
 	{
-		if (probe->to->visited == FALSE)
+		if (probe->links->to->visited == FALSE)
 		{
-			printf("queue->link = %s with pointer = %p\n", probe->to->name, probe->to);
-			add_to_queue(&queue, new_element(probe));
-			probe->to->visited = TRUE;
-			probe->to->distance = probe->to->distance + 1;
+			add_to_queue(&queue, new_element(probe->links->to));
+			/*=======CHECK WHERE IS BETTER=======*/
+			// probe->visited = TRUE;
+			// probe->links->to->distance = probe->links->to->distance + 1;
+			/*========OR IN NEW_ELEMENT==========*/
 		}
-		probe = probe->next;
+		probe->links = probe->links->next;
 	}
-	printf("queue = %p\n", queue->table);
+	test = queue;
+	while (test != NULL)
+	{
+		printf("test = %s\t", test->to->name);
+		printf("test->visisted = %d\n", test->to->visited);
+		printf("test->distence = %d\n", test->to->distance);
+		test = test->next;
+	}
+	pop_out_queue(&queue);
 	while (queue != NULL)
 	{
-		printf("queue->next = %p\n", queue->table);
+		printf("queue = %s\t", queue->to->name);
+		printf("queue->visited = %d\n", queue->to->visited);
+		printf("queue->distance = %d\n", queue->to->distance);
 		queue = queue->next;
 	}
 }

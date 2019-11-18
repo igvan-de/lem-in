@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/17 16:11:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/18 14:15:36 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ typedef enum			e_node_value
 
 typedef struct 			s_queue
 {
-	struct s_table		*table;
-	struct s_links		*links;
+	struct s_table		*to;
 	struct s_queue		*next;
 }						t_queue;
 

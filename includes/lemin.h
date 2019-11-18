@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/18 14:15:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/18 15:54:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ typedef enum			e_return
 	FALSE = 0,
 	TRUE = 1
 }						t_return;
+
+typedef enum			e_found_existing
+{
+	FOUND = 1,
+	EXISTING = 2
+}						t_found_existing;
 
 typedef enum			e_object_type
 {
@@ -93,8 +99,7 @@ void					read_input(t_rooms **rooms, t_ants **ants);
 */
 int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
-int						check_format_link(char *line, t_table **table,
-						size_t size);
+int						check_format_link(char *line, t_rooms **rooms);
 void					is_start_or_end(char *line, t_ants **ants);
 
 
@@ -116,6 +121,9 @@ size_t					hash_function(unsigned char *str, size_t size);
 */
 void					set_links(t_table **table, size_t size, char *nameA,
 						char *nameB);
+char					**lem_split(char *line, t_rooms **rooms);
+char					**ft_split(char *line, int n, int c);
+int						compare_with_rooms(char **a_b, t_rooms **rooms);
 
 /*
 **===============================LINK FUNCTIONS=================================

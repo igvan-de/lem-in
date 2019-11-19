@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 13:42:58 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/19 16:15:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_ants **ants, size_t size)
 			table[index] = new_table(rooms);
 		else
 			add_to_table(&table[index], new_table(rooms));
+		if (table[index]->type == START)
+			(*ants)->begin = table[index];
 		if (table[index]->type == END)
 			(*ants)->end = table[index];
 		rooms = rooms->next;

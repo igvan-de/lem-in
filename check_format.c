@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 16:08:27 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/19 16:08:58 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static int	is_room(char *line, t_table **table, size_t size) //making sure links
 		{
 			if (ft_strequ(tmp->name, a_b[A]) == TRUE ||
 				ft_strequ(tmp->name, a_b[B]) == TRUE)
-					return (TRUE);
+				return (TRUE);
 			tmp = tmp->next;
 		}
-		i++;		
+		i++;
 	}
 	return (FALSE);
 }
@@ -59,7 +59,7 @@ int				check_if_command(char *line) /*ignoring all commands*/
 }
 
 int				check_format_room(char *line) /*making sure rooms are formatted correctly*/
-{ 
+{
 	/*make sure all rooms have a unique name and coordinates*/
 	int i;
 	int space_count;

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:11:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/19 14:53:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	print_queue(t_queue *queue)
 		test = test->next;
 	}
 	printf("============================\n");
-	pop_out_queue(&queue);
 	/*place pop_out_queu function here*/
 	printf("========AFTER POP=========\n");
 	test = queue;

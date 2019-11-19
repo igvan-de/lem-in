@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:14:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/19 14:53:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			bfs(t_ants *ants)
 			}
 			probe = probe->next;
 		}
-		print_queue(queue);
+		pop_out_queue(&queue);
 	}
 	if (start->to->visited == FALSE)
 	{

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/18 15:54:08 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/19 12:46:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct			s_ants //change name!
 	short				found_start;
 	short				found_end;
 	struct s_table		*end;
+	struct s_table		*begin;
 }						t_ants;
 
 typedef	struct			s_rooms
@@ -100,6 +101,7 @@ void					read_input(t_rooms **rooms, t_ants **ants);
 int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
 int						check_format_link(char *line, t_rooms **rooms);
+
 void					is_start_or_end(char *line, t_ants **ants);
 
 
@@ -111,23 +113,31 @@ void					add_to_list(char *line, t_rooms **head, t_ants **ants);
 /*
 **===============================HASHTABLE FUNCTIONS============================
 */
+size_t					hash_function(unsigned char *str, size_t size);
+
 void					hash_table(t_table **table, t_rooms *room,
 						t_ants **ants, size_t size);
 
-size_t					hash_function(unsigned char *str, size_t size);
-
 /*
 **===============================LINK FUNCTIONS=================================
 */
-void					set_links(t_table **table, size_t size, char *nameA,
-						char *nameB);
-char					**lem_split(char *line, t_rooms **rooms);
-char					**ft_split(char *line, int n, int c);
 int						compare_with_rooms(char **a_b, t_rooms **rooms);
 
+char					**ft_split(char *line, int n, int c);
+char					**lem_split(char *line, t_rooms **rooms);
+
+void					set_links(t_table **table, size_t size, char *nameA,
+						char *nameB);
+
 /*
-**===============================LINK FUNCTIONS=================================
+**===============================BFS FUNCTIONS=================================
 */
+t_queue					*create_end(t_ants *ants);
+t_queue					*create_start(t_ants *ants);
+t_queue					*new_element(t_table *pointer);
+
+void					add_to_queue(t_queue **queue, t_queue *new);
+void					pop_out_queue(t_queue **queue);
 void					bfs(t_ants *ants);
 
 /*
@@ -135,5 +145,6 @@ void					bfs(t_ants *ants);
 */
 void					print_hash(t_table **table, size_t size);
 void					print_rooms(t_rooms *rooms, t_ants **ants);
+void					print_queue(t_queue *queue);
 
 #endif

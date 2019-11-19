@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/13 14:39:11 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/19 13:36:50 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static int		strict_start_end_checker(char *line)
+static int		strict_start_end_checker(char *line) /*check all start and end variables*/
 {
 	int i;
 
@@ -39,25 +39,21 @@ void			is_start_or_end(char *line, t_ants **ants) /*check if command is start or
 	if (strict_start_end_checker(line) == 2)
 	{
 		if ((*ants)->found_end == 0)
-		{
-		 	(*ants)->found_end = 1;
-		}
+			(*ants)->found_end = 1;
 		else if ((*ants)->found_end == 2)
 		{
-			ft_putendl("There can't be more than 1 end room\n");
-			exit (0);
+			ft_putendl("Error! There can't be more than 1 end room\n"); /*Error message to be determined*/
+			exit(0);
 		}
 	}
 	else if (strict_start_end_checker(line) == 1)
 	{
 		if ((*ants)->found_start == 0)
-		{
-		 	(*ants)->found_start = 1;
-		}
+			(*ants)->found_start = 1;
 		else if ((*ants)->found_start == 2)
 		{
-			ft_putendl("There can't be more than 1 start room\n");
-			exit (0);
+			ft_putendl("Error! There can't be more than 1 start room\n"); /*Error message to be determined*/
+			exit(0);
 		}
 	}
 }

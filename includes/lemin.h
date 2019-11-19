@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:57:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/19 16:15:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void					read_input(t_rooms **rooms, t_ants **ants);
 int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
 int						check_format_link(char *line, t_rooms **rooms);
-
 void					is_start_or_end(char *line, t_ants **ants);
 void					no_whitespaces(char *line);
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/18 13:48:53 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/19 13:43:52 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef enum			e_node_value
 	B = 1
 }						t_node_value;
 
-typedef struct 			s_queue
+typedef struct			s_queue
 {
 	struct s_table		*table;
 	struct s_links		*links;
@@ -74,7 +74,7 @@ typedef	struct			s_rooms
 	struct s_rooms		*next;
 }						t_rooms;
 
-typedef struct 			s_links
+typedef struct			s_links
 {
 	struct s_table		*to;
 	struct s_links		*next;
@@ -102,7 +102,7 @@ int						check_if_command(char *line, t_ants **ants);
 int						check_format_room(char *line, t_ants **ants);
 int						check_format_link(char *line, t_rooms **rooms);
 void					is_start_or_end(char *line, t_ants **ants);
-
+void					no_whitespaces(char *line);
 
 /*
 **===============================LIST FUNCTIONS=================================
@@ -120,8 +120,8 @@ size_t					hash_function(unsigned char *str, size_t size);
 /*
 **===============================LINK FUNCTIONS=================================
 */
-void					set_links(t_table **table, size_t size, char *nameA,
-						char *nameB);
+void					set_links(t_table **table, size_t size, char *name_a,
+						char *name_b);
 char					**lem_split(char *line, t_rooms **rooms);
 char					**ft_split(char *line, int n, int c);
 int						compare_with_rooms(char **a_b, t_rooms **rooms);

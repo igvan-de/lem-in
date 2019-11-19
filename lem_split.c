@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/15 19:57:11 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/19 13:35:22 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char		**ft_split(char *line, int n, int c)
 	a_b = (char**)ft_memalloc(sizeof(char*) * 2);
 	a_b[A] = (char *)ft_memalloc(sizeof(char) * (n + 1));
 	a_b[B] = (char *)ft_memalloc(sizeof(char) * (c + 1));
-	while(i < n)
+	while (i < n)
 	{
 		a_b[A][i] = line[i];
 		i++;
@@ -50,7 +50,7 @@ int			compare_with_rooms(char **a_b, t_rooms **rooms)
 	{
 		if (ft_strequ(a_b[A], find_room->name) == TRUE)
 			s++;
-		else if (ft_strequ(a_b[B], find_room->name) == TRUE)
+		if (ft_strequ(a_b[B], find_room->name) == TRUE)
 			s++;
 		if (s == 2)
 			return (TRUE);
@@ -67,9 +67,10 @@ char		**lem_split(char *line, t_rooms **rooms)
 
 	i = 0;
 	c = 0;
-	while(line[c])
+	a_b = NULL;
+	while (line[c])
 		c++;
-	while(line[i])
+	while (line[i])
 	{
 		if (line[i] == '-' && i != 0)
 		{
@@ -79,9 +80,9 @@ char		**lem_split(char *line, t_rooms **rooms)
 		}
 		i++;
 	}
-	if (compare_with_rooms(a_b, rooms) == FALSE)
+	if (a_b == NULL || compare_with_rooms(a_b, rooms) == FALSE)
 	{
-		ft_putendl("error");
+		ft_putendl("Error! Linking to an unexisting room"); /*Error message to be determined*/
 		exit(0);
 	}
 	return (a_b);

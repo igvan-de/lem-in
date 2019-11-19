@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/18 13:52:54 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/11/19 13:12:40 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ static void		get_ants(t_ants **ants)
 	i = 0;
 	if (get_next_line(STDIN_FILENO, &line) < 0)
 	{
-		ft_putendl("error"); /*Error message to be determined*/
+		ft_putendl("Error! Something went wrong when trying to read the file"); /*Error message to be determined*/
 		exit(0);
 	}
+	no_whitespaces(line);
 	while (line[i])
-	{ 
+	{
 		if (ft_isdigit(line[i]) == FALSE)
 		{
-			ft_putendl("error"); /*Error message to be determined*/
+			ft_putendl("Error! Number of ants must be a number"); /*Error message to be determined*/
 			exit(0);
 		}
 		i++;
@@ -63,7 +64,7 @@ t_table **table, char *line, size_t size, char **a_b)
 			continue ;
 		if (ft_strequ(a_b[A], a_b[B]) == TRUE)
 		{
-			ft_putendl("The imput is formatted incorrectly"); /*Error message to be determined*/
+			ft_putendl("Error! A room can't link to itself"); /*Error message to be determined*/
 			exit(0);
 		}
 		a_b = lem_split(line, rooms);
@@ -87,7 +88,7 @@ char *line, size_t size)
 	}
 	else
 	{
-		ft_putendl("The imput is formatted incorrectly"); /*Error message to be determined*/
+		ft_putendl("Error! The imput is formatted incorrectly"); /*Error message to be determined*/
 		exit(0);
 	}
 	get_rest_of_links(rooms, table, line, size, a_b);

@@ -6,9 +6,14 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/18 13:52:27 by ygroenev      ########   odam.nl          #
+#    Updated: 2019/11/19 13:42:56 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
+include sources
+include input_functions/sources
+include hashtable_functions/sources
+include bfs_functions/sources
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_RED = $(shell printf "\e[31;5;10m")
@@ -16,11 +21,9 @@ COLOR_YELLOW = $(shell printf "\e[33;5;10m")
 COLOR_DEFAULT = $(shell printf "\e[39m")
 
 NAME = lem-in
-SRCS = main.c read_input.c check_format.c hash_table.c list.c set_links.c \
-	test_print.c start_end.c bfs.c lem_split.c
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
-CFLAGS = -Wall -Werror -Wextra -g #remove "-g", is for debugging!!
+CFLAGS = -Wall -Werror -Wextra
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')
@@ -37,7 +40,7 @@ $(NAME): $(OBJ_FILES) libft/libft.a
 	@echo "$(PRINT_DONE) Compiling completed"
 
 libft/libft.a:
-	@make -C Libft
+	@make -C libft/
 	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:

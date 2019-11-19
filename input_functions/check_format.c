@@ -5,28 +5,34 @@
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/18 13:49:46 by ygroenev      ########   odam.nl         */
+/*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
+/*   Updated: 2019/11/19 13:39:39 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void		no_whitespaces(char *line) /*checking for whitespaces in front of line*/
+void			no_whitespaces(char *line) /*checking for whitespaces in front of line*/
 {
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
 		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
-		ft_putendl("error"); /*Error message to be determined*/
+		ft_putendl("Error! Whitespaces where there shouldn't be any"); /*Error message to be determined*/
 		exit(0);
 	}
 }
 
 int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#" and checking if they're start or end*/
 {
-	if (line && line[0] == '#')
+	int i;
+
+	i = 0;
+	while (line && line[i])
+		i++;
+	if (i != 0 && line[0] == '#')
 	{
-		is_start_or_end(line, ants);
+		if (i >= 1 && line[1] == '#')
+			is_start_or_end(line, ants);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -42,15 +48,28 @@ int				check_format_room(char *line, t_ants **ants) /*making sure rooms are form
 	no_whitespaces(line);
 	if (check_if_command(line, ants) == TRUE)
 		return (TRUE);
+	if (!line[i])
+	{
+		ft_putendl("Error! Empty line"); /*Error message to be determined*/
+		exit(0);
+	}
 	while (line[i] && line[i] != ' ')
 		i++;
+	if (line[0] == 'L')
+	{
+		ft_putendl("Error! Room name can't start with 'L'"); /*Error message to be determined*/
+		exit(0);
+	}
 	i++;
 	while (line[i] && space_count < 3)
 	{
 		if (line[i] == ' ')
 			space_count++;
 		else if (ft_isdigit(line[i]) == FALSE)
-			return (FALSE);
+		{
+			ft_putendl("Error! Room coordinates must be numbers"); /*Error message to be determined*/
+			exit(0);
+		}
 		i++;
 	}
 	if (space_count == 2)
@@ -71,7 +90,7 @@ int				check_format_link(char *line, t_rooms **rooms) /*making sure links are fo
 		return (TRUE);
 	if (compare_with_rooms(lem_split(line, rooms), rooms) == FALSE)
 	{
-		ft_putendl("One or more of the links points to an unexisting room"); /*Error message to be determined*/
+		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
 		exit(0);
 	}
 	while (line[i])
@@ -84,7 +103,7 @@ int				check_format_link(char *line, t_rooms **rooms) /*making sure links are fo
 		return (TRUE);
 	else
 	{
-		ft_putendl("One or more of the links are not formatted correctly"); /*Error message to be determined*/
+		ft_putendl("Error! One or more of the links are not formatted correctly"); /*Error message to be determined*/
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/21 14:12:30 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef enum			e_node_value
 	B = 1
 }						t_node_value;
 
+typedef struct 			s_path
+{
+	struct s_table		*room;
+	struct s_path		*next;
+}						t_path;
+
+
 typedef struct			s_queue
 {
 	struct s_table		*to;
@@ -85,6 +92,7 @@ typedef struct			s_table
 	char				*name;
 	int					distance;
 	short				visited;
+	short				path_id;
 	t_object_type		type;
 	struct s_links		*links;
 	struct s_table		*next;
@@ -113,7 +121,6 @@ void					add_to_list(char *line, t_rooms **head, t_ants **ants);
 **===============================HASHTABLE FUNCTIONS============================
 */
 size_t					hash_function(unsigned char *str, size_t size);
-
 void					hash_table(t_table **table, t_rooms *room,
 						t_ants **ants, size_t size);
 
@@ -121,23 +128,25 @@ void					hash_table(t_table **table, t_rooms *room,
 **===============================LINK FUNCTIONS=================================
 */
 int						compare_with_rooms(char **a_b, t_rooms **rooms);
-
 char					**lem_split(char *line, t_rooms **rooms);
 char					**ft_split(char *line, int n, int c);
-
 void					set_links(t_table **table,
 						size_t size, char *name_a, char *name_b);
 
 /*
-**===============================BFS FUNCTIONS=================================
+**===============================BFS FUNCTIONS==================================
 */
 t_queue					*create_end(t_ants *ants);
 t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
-
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
-void					bfs(t_ants *ants);
+void					bfs(t_ants **ants);
+
+/*
+**===============================DINICS FUNCTIONS===============================
+*/
+void					find_path(t_ants **ants);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

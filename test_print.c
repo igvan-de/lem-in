@@ -6,14 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:58:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/20 12:17:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 /*===============DELETE THIS FILE!!================*/
 #include "lemin.h"
-#include <stdio.h> 
+#include <stdio.h>
 
 void	print_rooms(t_rooms *rooms, t_ants **ants)
 {
@@ -69,14 +69,14 @@ void	print_queue(t_queue *queue)
 	t_queue *test;
 
 	test = queue;
+	printf("============================\n");
 	while (test != NULL)
 	{
-		printf("test = %s\t", test->to->name);
-		printf("test->visisted = %d\t", test->to->visited);
-		printf("test->distence = %d\n\n", test->to->distance);
+		printf("•••test = %s\t", test->to->name);
+		printf("•••test->visisted = %d\t", test->to->visited);
+		printf("•••test->distence = %d\n\n", test->to->distance);
 		test = test->next;
 	}
-	printf("============================\n");
 	/*place pop_out_queu function here*/
 	printf("========AFTER POP=========\n");
 	test = queue;

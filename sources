@@ -1,0 +1,3 @@
+SRCS = main.c \
+test_print.c \
+remove_useless_rooms.c

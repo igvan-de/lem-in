@@ -15,13 +15,12 @@ start-a
 start-b
 a-b
 a-d
-b-c
 b-e
 b-f
-c-h
 d-e
 d-end
 f-g
 f-h
 h-g
+c-h
 h-end

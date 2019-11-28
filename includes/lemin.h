@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/26 13:50:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/28 13:24:59 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,9 @@ void					find_path(t_ants **ants);
 void					print_hash(t_table **table, size_t size);
 void					print_rooms(t_rooms *rooms, t_ants **ants);
 void					print_queue(t_queue *queue);
+
+
+void		remove_link(t_table **table, size_t size);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/21 11:57:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/26 17:42:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	bfs(t_ants **ants)
 		probe = queue->to->links;
 		while (probe != NULL)
 		{
-			if (probe->to->visited == FALSE && probe->to->path_id == FALSE)
+			if (probe->to->visited == FALSE) // && probe->to->path_id == FALSE) not sure if this is correct if we have paths that cross?
 			{
 				add_to_queue(&queue, new_element(probe->to));
 				probe->to->visited = TRUE;

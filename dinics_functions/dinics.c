@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/21 15:07:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/26 13:50:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_path	*get_shortest_link(t_path *path, int shortest_distance, t_links *link)
 	{
 		printf("name = %s\n", link->to->name);
 		printf("distance = %d\n", link->to->distance);
+		printf("existing = %d\n", path->existing);
 		if (link->to->distance < shortest_distance)
 		{
 			shortest_distance = link->to->distance;
@@ -58,7 +59,7 @@ void	find_path(t_ants **ants)
 	{
 		link = path->room->links;
 		path->next = get_shortest_link(path, shortest_distance, link);
-		path->room->path_id = TRUE;
+		path->room->path_id = 1;
 		path->from = TRUE;
 		path = path->next;
 		if (path->room->type == END)

@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/21 12:45:03 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/11/26 17:51:03 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ libft/libft.a:
 	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
-	@rm -rf $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
 	@make -C ./Libft clean
 	@echo "$(PRINT_CLEAN) Cleaning objectives completed"
 

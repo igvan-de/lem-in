@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/28 17:44:10 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/01 18:31:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_path	*get_shortest_link(t_path *path, int shortest_distance, t_links *link)
 		{
 			shortest_distance = link->to->distance;
 			tmp->room = link->to;
-			// printf("shotest_distance = %d\n", shortest_distance);
-			// printf("tmp = %s\t pointer %p\n", tmp->room->name, tmp);
+			printf("shotest_distance = %d\n", shortest_distance);
+			printf("tmp = %s\t pointer %p\n", tmp->room->name, tmp);
 		}
 		if (tmp->from == TRUE)
 			break ;
@@ -52,14 +52,13 @@ void	find_path(t_ants **ants)
 	int		shortest_distance;
 
 	path = get_start(*ants);
-	// printf("path->name = %s\n", path->room->name);
-	// printf("path->distance = %d\n", path->room->distance);
 	shortest_distance = path->room->distance;
 	while (path->room->links != NULL)
 	{
 		link = path->room->links;
 		path->next = get_shortest_link(path, shortest_distance, link);
 		path->room->path_id = 1;
+		path->room->links->aan = TRUE;
 		path->from = TRUE;
 		path = path->next;
 		if (path->room->type == END)

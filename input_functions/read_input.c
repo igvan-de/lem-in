@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/28 18:35:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/01 18:17:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,12 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
-	remove_link(table, size);
-	// bfs(ants);
-	// find_path(ants);
+	// remove_link(table, size);
+	bfs(ants, table, size);
+	find_path(ants);
+	printf("-----------------------------\n");
+	bfs(ants, table, size);
+	find_path(ants);
+	// print_hash(table, size);
 	// print_rooms(*rooms, ants);
 }

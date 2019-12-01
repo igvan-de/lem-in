@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/28 13:24:59 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/01 17:51:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef	struct			s_rooms
 
 typedef struct			s_links
 {
+	short				aan; //0 als uit 1 als aan
 	struct s_table		*to;
 	struct s_links		*next;
 }						t_links;
@@ -143,7 +144,7 @@ t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
-void					bfs(t_ants **ants);
+void					bfs(t_ants **ants, t_table **table, size_t size);
 
 /*
 **===============================DINICS FUNCTIONS===============================

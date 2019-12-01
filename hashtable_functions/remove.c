@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 13:02:35 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/28 18:54:27 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/11/29 12:35:17 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ void		delete_link(t_table *table)
 			printf("prev = %s\n", prev->to->name);
 			if (link_compare(table, tmp->to) == TRUE)
 			{
-				// prev->next = NULL;
-				prev->next->to = tmp->next->to;
 				printf("tmp = %s\n", tmp->to->name);
-				printf("prev->next = %s\n", prev->next->to->name);
+				tmp->to = NULL;
+				printf("tmp = %p\n", tmp->to);
 				free (tmp);
+				prev->next->to = tmp->next->to;
+				printf("prev->next = %s\n", prev->next->to->name);
 				return ;
 			}
 			// printf("room name %s\n", tmp->to->name);
@@ -111,5 +112,4 @@ void		remove_link(t_table **table, size_t size)
 		probe[i] = delete_node(probe[i]);
 		i++;
 	}
-	print_hash(table, size);
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/01 18:17:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/02 17:43:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 	bfs(ants, table, size);
 	find_path(ants);
 	printf("-----------------------------\n");
+	bfs(ants, table, size);
+	find_path(ants);
 	bfs(ants, table, size);
 	find_path(ants);
 	// print_hash(table, size);

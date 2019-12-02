@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/01 17:51:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/02 17:24:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef enum			e_node_value
 typedef struct 			s_path
 {
 	struct s_table		*room;
+	struct s_table		*from;
 	struct s_path		*next;
-	short				from;
 	short				existing; //might be needed, working on it
 }						t_path;
 
@@ -85,7 +85,7 @@ typedef	struct			s_rooms
 
 typedef struct			s_links
 {
-	short				aan; //0 als uit 1 als aan
+	short				direction; //0 als uit 1 als aan
 	struct s_table		*to;
 	struct s_links		*next;
 }						t_links;

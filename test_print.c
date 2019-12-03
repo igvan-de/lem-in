@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/20 12:17:37 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/03 17:27:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,20 @@ void	print_queue(t_queue *queue)
 		printf("test->visisted = %d\t", test->to->visited);
 		printf("test->distence = %d\n\n", test->to->distance);
 		test = test->next;
+	}
+}
+
+
+void	print_path_set(t_path_set *data_set)
+{
+	while (data_set != NULL)
+	{
+		printf("data_set->path_id = %d\n", data_set->path_id);
+		while (data_set->path != NULL)
+		{
+			printf("data->set->path = %s\n", data_set->path->room->name);
+			data_set->path = data_set->path->next;
+		}
+		data_set = data_set->next;
 	}
 }

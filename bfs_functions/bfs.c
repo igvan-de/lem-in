@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/02 17:42:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/03 16:15:07 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void		bfs(t_ants **ants, t_table **table, size_t size)
 			}
 			probe = probe->next;
 		}
-		printf("queue->name = %s\tqueue->to->path_id = %d\n", queue->to->name, queue->to->path_id);
-		printf("queue->name = %s\tqueue->to->distance = %d\n", queue->to->name, queue->to->distance);
-		printf("===========\n");
+		// printf("queue->name = %s\tqueue->to->path_id = %d\n", queue->to->name, queue->to->path_id);
+		// printf("queue->name = %s\tqueue->to->distance = %d\n", queue->to->name, queue->to->distance);
+		// printf("===========\n");
 		pop_out_queue(&queue);
 		// if (queue->to->type == START)
 		// 	break ;

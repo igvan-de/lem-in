@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/03 12:37:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/03 16:12:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,21 @@ typedef enum			e_node_value
 	B = 1
 }						t_node_value;
 
-typedef struct 			s_path
+typedef struct 			s_path_set
+{
+	struct s_path_data	*path;
+	struct s_path_set	*next;
+	int					path_id;
+}						t_path_set;
+
+typedef struct 			s_path_data
 {
 	struct s_table		*room;
 	struct s_table		*from;
 	struct s_table		*towards;
-	struct s_path		*next;
+	struct s_path_data	*next;
 	short				existing; //might be needed, working on it
-}						t_path;
-
+}						t_path_data;
 
 typedef struct			s_queue
 {
@@ -151,6 +157,7 @@ void					bfs(t_ants **ants, t_table **table, size_t size);
 **===============================DINICS FUNCTIONS===============================
 */
 void					find_path(t_ants **ants);
+void					path_set(t_path_data *path);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================
@@ -158,6 +165,8 @@ void					find_path(t_ants **ants);
 void					print_hash(t_table **table, size_t size);
 void					print_rooms(t_rooms *rooms, t_ants **ants);
 void					print_queue(t_queue *queue);
+void					print_path_set(t_path_set *data_set);
+
 
 
 void		remove_link(t_table **table, size_t size);

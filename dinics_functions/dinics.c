@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/03 17:59:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/05 18:37:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,69 +23,64 @@ static t_path_data	*get_start(t_ants *ants)
 
 static void			add_to_path(t_path_data **path, t_path_data *new)
 {
-	// t_path_data *probe;
+	t_path_data *probe;
 
-	// probe = *path;
-	// while (probe != NULL)
+	probe = *path;
+	// new->next = *path;
+	// *path = new;
+	printf("path->room = %s\n", (*path)->room->name);
 	printf("new->room = %s\n", new->room->name);
-	new->next = *path;
-	*path = new;
-	// return (probe);
+	while (probe->next != NULL)
+		probe = probe->next;
+	probe->next = new;
 }
 
-static t_path_data	*get_shortest_link(t_path_data *path, int shortest_distance, t_links *link)
+static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_links *link)
 {
-	t_path_data *tmp;
+	t_path_data *new;
 
-	tmp = path;
+	new = (t_path_data*)ft_memalloc(sizeof(t_path_data));
+	new->room = room;
 	while (link != NULL)
 	{
 		if (link->to->distance < shortest_distance && link->to->path_id == FALSE)
 		{
-			// printf("path->room = %s, %p\ n", path->room->name, path->room);
 			shortest_distance = link->to->distance;
-			path->towards = link->to;
-			// printf("path->towards = %s, %p\n", path->towards->name, path->towards);
-			tmp->room = link->to;
-			// printf("shotest_distance = %d\n", shortest_distance);
-			printf("tmp = %s\t pointer %p\n", tmp->room->name, tmp);
+			// new->towards = link->to;
+			new->room = link->to;
+			printf("tmp = %s\t pointer %p\n", room->name, new);
 		}
 		link = link->next;
 	}
-	return (tmp);
+	return (new);
 }
 
-void	find_path(t_ants **ants)
+void			find_path(t_ants **ants)
 {
 	t_path_data	*path;
 	t_path_data	*new;
-	t_table	*previous;
-	t_links	*link;
-	int		shortest_distance;
+	t_table		*previous;
+	t_links		*link;
+	int			shortest_distance;
 
 	path = get_start(*ants);
 	new = path;
 	shortest_distance = path->room->distance;
 	previous = path->room;
-	while (path != NULL) //check this while statement!
+	while (path->room->type != END)
 	{
 		previous = path->room;
 		link = path->room->links;
-		printf("path->start = %s\n", path->room->name);
-		new->next = get_shortest_link(path, shortest_distance, link);
-		new->room->path_id = TRUE; //need to change to amount of paths || want to put this in linked list of existing paths
-		new->room->links->direction = TRUE; //make pointer to room the path is going to!
-		new->from = previous;
-		printf("path->room = %s\n", path->room->name);
+		new = get_shortest_link(path->room, shortest_distance, link);
+		path->room->path_id = TRUE; //need to change to amount of paths || want to put this in linked list of existing paths
+		path->room->links->direction = TRUE; //make pointer to room the path is going to!
+		path->from = previous;
 		add_to_path(&path, new);
-		if (path->room->type == END)
-			break ;
+	}
+	while (path != NULL)
+	{
+		printf("path = %s\n", path->room->name);
 		path = path->next;
 	}
-	// while (path != NULL)
-	// {
-	// 	printf("path = %s\n", path->room->name);
-	// 	path = path->next;
-	// }
 	// path_set(path);
 }

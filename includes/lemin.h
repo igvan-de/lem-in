@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/05 17:40:27 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/07 17:12:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,15 +149,16 @@ void					set_links(t_table **table,
 t_queue					*create_end(t_ants *ants);
 t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
+int						bfs(t_ants **ants, t_table **table, size_t size);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
-void					bfs(t_ants **ants, t_table **table, size_t size);
 
 /*
 **===============================DINICS FUNCTIONS===============================
 */
-void					find_path(t_ants **ants);
-void					path_set(t_path_data *path);
+void					find_path(t_path_set **data_set, t_ants **ants);
+void					path_set(t_path_set **data_set, t_path_data *path);
+// void					path_set(t_path_data *path);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

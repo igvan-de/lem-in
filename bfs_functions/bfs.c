@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/03 16:15:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/07 15:38:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		set_value(t_table **table, size_t size)
 	}
 }
 
-void		bfs(t_ants **ants, t_table **table, size_t size)
+int				bfs(t_ants **ants, t_table **table, size_t size)
 {
 	t_queue *queue;
 	t_queue *start;
@@ -72,12 +72,11 @@ void		bfs(t_ants **ants, t_table **table, size_t size)
 		// printf("queue->name = %s\tqueue->to->distance = %d\n", queue->to->name, queue->to->distance);
 		// printf("===========\n");
 		pop_out_queue(&queue);
-		// if (queue->to->type == START)
-		// 	break ;
 	}
 	if (start->to->visited == FALSE)
 	{
 		ft_putendl("There is no path from start to end");
-		exit(0);
+		return (FALSE);
 	}
+	return (TRUE);
 }

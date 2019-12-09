@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/07 17:12:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/09 16:26:39 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef	struct			s_rooms
 
 typedef struct			s_links
 {
-	short				direction; //0 als uit 1 als aan
+	short				direction; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	struct s_table		*to;
 	struct s_links		*next;
 }						t_links;
@@ -102,7 +102,7 @@ typedef struct			s_table
 	char				*name;
 	int					distance;
 	short				visited;
-	int					path_id;
+	short				path;
 	t_object_type		type;
 	struct s_links		*links;
 	struct s_table		*next;

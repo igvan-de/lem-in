@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/06 15:29:56 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/09 15:39:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,22 @@ void	print_queue(t_queue *queue)
 	}
 }
 
+void				print_path_set(t_path_set *data_set)
+{
+	t_path_set	*probe;
+	t_path_data	*tmp;
+
+	probe = data_set;
+	while (probe != NULL)
+	{
+		tmp = probe->path;
+		printf("data_set->path_id = %d\n", probe->path_id);
+		while (tmp != NULL)
+		{
+			printf("data->set->path = %s\n", tmp->room->name);
+			tmp = tmp->next;
+		}
+		probe = probe->next;
+		printf("--------------------\n");
+	}
+}

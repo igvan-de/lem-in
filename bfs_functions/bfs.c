@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 16:26:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/09 16:34:49 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_table	*set_null(t_table *head)
 		probe->distance = 0;
 		probe->visited = 0;
 		if (probe->type == END || probe->type == START)
-			probe->path_id = FALSE;
+			probe->path = FALSE;
 		probe = probe->next;
 	}
 	return (head);

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 16:26:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/09 16:34:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_li
 	while (link != NULL)
 	{
 		// printf("room %s\tdirection = %d\n",new->room->name, new->room->links->direction);
-		if (link->to->distance < shortest_distance && link->to->path_id == FALSE)
+		if (link->to->distance < shortest_distance && link->to->path == FALSE)
 		{
 			shortest_distance = link->to->distance;
 			new->room = link->to;

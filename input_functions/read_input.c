@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 15:44:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/10 16:08:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 {
 	t_table			**table;
 	t_path_set		*data_set;
+	t_path_data		*path;
 	size_t			size;
 	char			*line;
 
@@ -105,11 +106,12 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 	size = get_rooms(rooms, &line, ants);
 	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	data_set = (t_path_set*)ft_memalloc(sizeof(t_path_set));
+	path = (t_path_data*)ft_memalloc(sizeof(t_path_data));
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
 	// remove_link(table, size);
-	while (bfs(ants, table, size) == TRUE)
-		find_path(&data_set, ants);
+	while (bfs(ants, table, size, path) == TRUE)
+		find_path(&path, &data_set, ants);
 	// print_hash(table, size);
 	// print_rooms(*rooms, ants);
 }

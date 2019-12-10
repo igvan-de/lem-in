@@ -1,2 +1,3 @@
 SRCS += bfs_functions/bfs.c \
-bfs_functions/queue.c
+bfs_functions/queue.c \
+bfs_functions/value.c

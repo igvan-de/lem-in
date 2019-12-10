@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 16:34:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/10 16:07:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void			add_to_path(t_path_data **path, t_path_data *new)
 	while (probe->next != NULL)
 		probe = probe->next;
 	probe->next = new;
+	probe->towards = new->room;
 }
 
 static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_links *link)
@@ -41,7 +42,6 @@ static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_li
 	new->room = room;
 	while (link != NULL)
 	{
-		// printf("room %s\tdirection = %d\n",new->room->name, new->room->links->direction);
 		if (link->to->distance < shortest_distance && link->to->path == FALSE)
 		{
 			shortest_distance = link->to->distance;
@@ -71,15 +71,14 @@ static void		create_path(t_path_data **path, t_path_data *new)
 	}
 }
 
-void			find_path(t_path_set **data_set, t_ants **ants)
+void			find_path(t_path_data **path, t_path_set **data_set, t_ants **ants)
 {
-	t_path_data	*path;
 	t_path_data	*new;
 
-	path = get_start(*ants);
-	new = path;
-	create_path(&path, new);
+	*path = get_start(*ants);
+	new = *path;
+	create_path(path, new);
 	new = NULL;
 	free(new);
-	path_set(data_set, path);
+	path_set(data_set, *path);
 }

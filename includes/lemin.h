@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 16:26:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/10 16:09:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct			s_links
 {
 	short				direction; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	struct s_table		*to;
+	struct s_path_data	*path;
 	struct s_links		*next;
 }						t_links;
 
@@ -149,14 +150,17 @@ void					set_links(t_table **table,
 t_queue					*create_end(t_ants *ants);
 t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
-int						bfs(t_ants **ants, t_table **table, size_t size);
+int						bfs(t_ants **ants, t_table **table, size_t size, t_path_data *path);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
+void					create_queue(t_queue **queue, t_path_data *path);
+
 
 /*
 **===============================DINICS FUNCTIONS===============================
 */
-void					find_path(t_path_set **data_set, t_ants **ants);
+void					find_path(t_path_data **path, t_path_set **data_set,
+						t_ants **ants);
 void					path_set(t_path_set **data_set, t_path_data *path);
 // void					path_set(t_path_data *path);
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/03 15:32:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 15:39:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/10 16:07:00 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void			add_to_set(t_path_set **data_set, t_path_set *new)
 		return ;
 	if (probe->path == NULL)
 	{
-		*data_set = new;
 		new->path_id = probe->path_id + 1;
+		*data_set = new;
 		return ;
 	}
 	while (probe->next != NULL)
@@ -43,5 +43,5 @@ static void			add_to_set(t_path_set **data_set, t_path_set *new)
 void				path_set(t_path_set **data_set, t_path_data *path)
 {
 	add_to_set(data_set, new_path(path));
-	print_path_set(*data_set);
+	print_path_set(*data_set); //remove!
 }

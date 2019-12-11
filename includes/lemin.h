@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 14:41:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/11 17:57:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct			s_links
 {
 	short				shift; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	struct s_table		*to;
-	// struct s_path_data	*path;
 	struct s_links		*next;
 }						t_links;
 

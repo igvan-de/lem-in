@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 14:47:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/11 17:57:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ t_path_data	*get_end(t_path_data *path)
 	probe = path;
 	while (probe->room->type != END)
 		probe = probe->next;
-	// printf("probe->name = %s\n", probe->room->name);
 	return (probe);
 }

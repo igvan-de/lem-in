@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/26 17:51:03 by igvan-de      ########   odam.nl          #
+#    Updated: 2019/12/11 13:51:16 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ include input_functions/sources
 include hashtable_functions/sources
 include bfs_functions/sources
 include dinics_functions/sources
+include ants_functions/sources
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_RED = $(shell printf "\e[31;5;10m")

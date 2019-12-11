@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/09 16:57:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/11 14:47:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@ t_queue	*new_element(t_table *pointer)
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
 	queue->to = pointer;
 	return (queue);
+}
+
+t_path_data	*get_end(t_path_data *path)
+{
+	t_path_data	*probe;
+
+	if (path->room == NULL)
+		return (path);
+	probe = path;
+	while (probe->room->type != END)
+		probe = probe->next;
+	// printf("probe->name = %s\n", probe->room->name);
+	return (probe);
 }

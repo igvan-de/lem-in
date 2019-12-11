@@ -6,36 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/10 16:08:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/11 14:01:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-static void		get_ants(t_ants **ants)
-{
-	char			*line;
-	int				i;
-
-	i = 0;
-	if (get_next_line(STDIN_FILENO, &line) < 0)
-	{
-		ft_putendl("Error! Something went wrong when trying to read the file"); /*Error message to be determined*/
-		exit(0);
-	}
-	no_whitespaces(line);
-	while (line[i])
-	{
-		if (ft_isdigit(line[i]) == FALSE)
-		{
-			ft_putendl("Error! Number of ants must be a number"); /*Error message to be determined*/
-			exit(0);
-		}
-		i++;
-	}
-	(*ants)->start = ft_atoi(line);
-	(*ants)->finish = 0;
-}
 
 static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 {
@@ -104,14 +79,13 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 
 	get_ants(ants);
 	size = get_rooms(rooms, &line, ants);
-	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
-	data_set = (t_path_set*)ft_memalloc(sizeof(t_path_set));
-	path = (t_path_data*)ft_memalloc(sizeof(t_path_data));
+	init(size, &table, &data_set, &path);
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
 	// remove_link(table, size);
 	while (bfs(ants, table, size, path) == TRUE)
 		find_path(&path, &data_set, ants);
+	// move_ants(ants, data_set);
 	// print_hash(table, size);
 	// print_rooms(*rooms, ants);
 }

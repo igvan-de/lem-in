@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/10 16:07:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/11 14:19:51 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		create_path(t_path_data **path, t_path_data *new)
 		link = new->room->links;
 		new = get_shortest_link(new->room, shortest_distance, link);
 		new->room->path = TRUE; //need to change to amount of paths || want to put this in linked list of existing paths
-		new->room->links->direction = TRUE; //make pointer to room the path is going to!
+		new->room->links->shift = ON; //to make sure it doenst go into the wrong directions later
 		new->from = previous;
 		add_to_path(path, new);
 	}

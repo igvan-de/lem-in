@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 17:57:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/12 15:12:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct 			s_path_set
 typedef struct 			s_path_data
 {
 	struct s_table		*room;
-	struct s_table		*from;
+	// struct s_table		*from;
 	struct s_table		*towards;
 	struct s_path_data	*next;
 	short				existing; //might be needed, working on it
@@ -107,6 +107,7 @@ typedef struct			s_table
 	short				path;
 	t_object_type		type;
 	struct s_links		*links;
+	struct s_table		*towards;
 	struct s_table		*next;
 }						t_table;
 
@@ -160,10 +161,10 @@ t_queue					*create_end(t_ants *ants);
 t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
 t_path_data				*get_end(t_path_data *path);
-int						bfs(t_ants **ants, t_table **table, size_t size, t_path_data *path);
+int						bfs(t_ants **ants, t_table **table, size_t size);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
-void					create_queue(t_queue **queue, t_path_data *path);
+void					create_queue(t_queue **queue);
 
 
 /*

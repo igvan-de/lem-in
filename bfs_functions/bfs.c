@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/10 16:08:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/12 15:39:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static t_table	*set_null(t_table *head)
 		probe->distance = 0;
 		probe->visited = 0;
 		if (probe->type == END || probe->type == START)
+		{
 			probe->path = FALSE;
+			probe->towards = NULL;
+		}
 		probe = probe->next;
 	}
 	return (head);
@@ -44,7 +47,7 @@ static void		set_value(t_table **table, size_t size)
 	}
 }
 
-int				bfs(t_ants **ants, t_table **table, size_t size, t_path_data *path)
+int				bfs(t_ants **ants, t_table **table, size_t size)
 {
 	t_queue *queue;
 	t_queue *start;
@@ -54,7 +57,7 @@ int				bfs(t_ants **ants, t_table **table, size_t size, t_path_data *path)
 	set_value(table, size);
 	while (queue != NULL)
 	{
-		create_queue(&queue, path);
+		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
 	if (start->to->visited == FALSE)

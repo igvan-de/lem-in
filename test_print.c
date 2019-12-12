@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 17:38:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/12 15:17:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,10 @@ void				print_path_set(t_path_set *data_set)
 		printf("data_set->path_id = %d\n", probe->path_id);
 		while (tmp != NULL)
 		{
-			if (tmp->towards != NULL && tmp->from != NULL)
-				printf("data->set->path = %s\ttowards = %s\tfrom = %s\n", tmp->room->name, tmp->towards->name, tmp->from->name);
+			if (tmp->towards != NULL)
+				printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
 			else if (tmp->towards != NULL)
 				printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
-			else if (tmp->from != NULL)
-				printf("data->set->path = %s\tfrom = %s\n", tmp->room->name, tmp->from->name);
 			tmp = tmp->next;
 		}
 		probe = probe->next;

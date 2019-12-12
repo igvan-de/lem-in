@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 14:19:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/12 15:31:43 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void			add_to_path(t_path_data **path, t_path_data *new)
 		probe = probe->next;
 	probe->next = new;
 	probe->towards = new->room;
+	probe->room->towards = new->room;
 }
 
 static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_links *link)
@@ -54,19 +55,16 @@ static t_path_data	*get_shortest_link(t_table *room, int shortest_distance, t_li
 
 static void		create_path(t_path_data **path, t_path_data *new)
 {
-	t_table		*previous;
 	t_links		*link;
 	int			shortest_distance;
 
 	shortest_distance = (*path)->room->distance;
 	while (new->room->type != END)
 	{
-		previous = new->room;
 		link = new->room->links;
 		new = get_shortest_link(new->room, shortest_distance, link);
 		new->room->path = TRUE; //need to change to amount of paths || want to put this in linked list of existing paths
 		new->room->links->shift = ON; //to make sure it doenst go into the wrong directions later
-		new->from = previous;
 		add_to_path(path, new);
 	}
 }

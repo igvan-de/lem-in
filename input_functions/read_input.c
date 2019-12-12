@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 14:01:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/12 14:34:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
 	// remove_link(table, size);
-	while (bfs(ants, table, size, path) == TRUE)
+	while (bfs(ants, table, size) == TRUE)
 		find_path(&path, &data_set, ants);
 	// move_ants(ants, data_set);
 	// print_hash(table, size);

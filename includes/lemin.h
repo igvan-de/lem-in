@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/12 15:12:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/13 15:34:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct 			s_path_set
 typedef struct 			s_path_data
 {
 	struct s_table		*room;
-	// struct s_table		*from;
 	struct s_table		*towards;
 	struct s_path_data	*next;
 	short				existing; //might be needed, working on it
@@ -107,6 +106,7 @@ typedef struct			s_table
 	short				path;
 	t_object_type		type;
 	struct s_links		*links;
+	struct s_table		*from;
 	struct s_table		*towards;
 	struct s_table		*next;
 }						t_table;

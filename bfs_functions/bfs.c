@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/13 14:54:42 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/16 14:52:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int				bfs(t_ants **ants, t_table **table, size_t size)
 		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
-	if (start->to->visited == FALSE)
-	{
-		ft_putendl("There is no path from start to end");
-		return (FALSE);
-	}
+	// if (start->to->visited == FALSE)
+	// {
+	// 	ft_putendl("There is no path from start to end");
+	// 	return (FALSE);
+	// }
 	return (TRUE);
 }

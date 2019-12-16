@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/13 15:34:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/16 14:50:21 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct 			s_path_data
 	struct s_table		*room;
 	struct s_table		*towards;
 	struct s_path_data	*next;
-	short				existing; //might be needed, working on it
+	// short				existing; //might be needed, working on it
 }						t_path_data;
 
 typedef struct			s_queue
@@ -80,6 +80,12 @@ typedef struct			s_ants //change name!
 	struct s_table		*end;
 	struct s_table		*begin;
 }						t_ants;
+
+typedef struct			s_amount
+{
+	int					path_amount;
+	int					max_path_amount;
+}						t_amount;
 
 typedef	struct			s_rooms
 {
@@ -171,7 +177,7 @@ void					create_queue(t_queue **queue);
 **===============================DINICS FUNCTIONS===============================
 */
 void					find_path(t_path_data **path, t_path_set **data_set,
-						t_ants **ants);
+						t_ants **ants, t_amount **amount);
 void					path_set(t_path_set **data_set, t_path_data *path);
 // void					path_set(t_path_data *path);
 

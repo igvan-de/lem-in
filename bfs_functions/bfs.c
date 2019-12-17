@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/16 14:52:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 13:13:41 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int				bfs(t_ants **ants, t_table **table, size_t size)
 {
 	t_queue *queue;
 	t_queue *start;
+	t_queue *test;
 
 	queue = create_end(*ants);
 	start = create_start(*ants);
@@ -58,7 +59,27 @@ int				bfs(t_ants **ants, t_table **table, size_t size)
 	while (queue != NULL)
 	{
 		create_queue(&queue);
+		test = queue;
+		printf("============QUEUE=============\n");
+		while (test != NULL)
+		{
+			printf("•••test = %s\t", test->to->name);
+			printf("•••test->visisted = %d\t", test->to->visited);
+			printf("•••test->distence = %d\n\n", test->to->distance);
+			test = test->next;
+		}
+		/*place pop_out_queu function here*/
 		pop_out_queue(&queue);
+		printf("========AFTER POP=========\n");
+		test = queue;
+		while (test != NULL)
+		{
+			printf("test = %s\t", test->to->name);
+			printf("test->visisted = %d\t", test->to->visited);
+			printf("test->distence = %d\n\n", test->to->distance);
+			test = test->next;
+		}
+		printf("============================\n");
 	}
 	// if (start->to->visited == FALSE)
 	// {

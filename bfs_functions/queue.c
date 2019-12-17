@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/16 18:03:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 14:27:14 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_links	*follow_direction(t_links *probe)
+static void	follow_direction(t_queue **queue, t_links *probe)
 {
 	t_table *tmp;
 
@@ -21,13 +21,23 @@ static t_links	*follow_direction(t_links *probe)
 	{
 		if (tmp->links->shift == OFF)
 		{
-			tmp->distance = probe->to->distance + 1;
+			tmp->links->to->distance = probe->to->distance + 1;
+			tmp->visited = TRUE;
+			printf("tmp = %s\tdistance = %d\n", tmp->name, tmp->distance);
+			add_to_queue(queue, new_element(tmp->links->to));
+
 		}
 		tmp = tmp->towards;
 	}
-	printf("tmp = %s\n", tmp->links->to->name);
-	printf("tmp = %s\tdistance = %d\n", tmp->links->to->name, tmp->distance);
-	return (tmp->links);
+}
+
+static int	check_towards(t_links *probe)
+{
+	if (probe->to->towards == NULL)
+		return (FALSE);
+	if (probe->to->towards->type == END)
+		return (TRUE);
+	return (FALSE);
 }
 
 void		create_queue(t_queue **queue)
@@ -39,27 +49,25 @@ void		create_queue(t_queue **queue)
 		probe->to->visited = TRUE;
 	while (probe != NULL)
 	{
-		if (probe->to->visited == FALSE && probe->to->towards == NULL) //not sure if this is correct if we have paths that cross?
+		if (probe->to->visited == FALSE && check_towards(probe) == FALSE)
 		{
+			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
 			add_to_queue(queue, new_element(probe->to));
 			probe->to->visited = TRUE;
 			if (probe->to->type != END)
 				probe->to->distance = (*queue)->to->distance + 1;
 		}
-		else if (probe->to->path == TRUE)
+		else if (probe->to->path == TRUE && check_towards(probe) == FALSE)
 		{
-			probe->to->distance = (*queue)->to->distance + 1;
-			probe = follow_direction(probe);
-			printf("probe name  = %s\n", probe->to->name);
-			break ;
-			// printf("name = %s\tprobe->distance = %d\n", probe->to->name, probe->to->distance);
+			// probe->to->distance = (*queue)->to->distance + 1;
+			follow_direction(queue, probe);
+			printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
 		}
-		// if (probe->to->path == FALSE)
 		probe = probe->next;
 	}
 }
 
-void		add_to_queue(t_queue **queue, t_queue *new)
+void	add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
 

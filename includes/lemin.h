@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/20 12:29:12 by ygroenev      ########   odam.nl         */
+/*   Updated: 2019/12/17 13:25:36 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef enum			e_object_type
 	FREE = 0,
 	START = 1,
 	END = 2,
-	ANT = 3
+	ANT = 3,
+	USELESS = 4
 }						t_object_type;
 
 typedef enum			e_node_value

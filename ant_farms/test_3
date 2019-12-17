@@ -13,6 +13,12 @@ start 22 0
 7 13 6
 8 13 7
 9 13 8
+a 13 2312
+b 13 231
+c 13 231241
+d 13 12312
+e 123 231
+f 1231 1231231
 #nogeenrandomcomment
 10 13 9
 start-0
@@ -21,7 +27,11 @@ start-5
 5-7
 3-5
 #coooooomment
-4-8
+4-a
+a-b
+b-c
+c-d
+d-8
 8-10
 5-6
 6-9

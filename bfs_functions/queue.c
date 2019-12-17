@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 14:27:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 14:42:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	follow_direction(t_queue **queue, t_links *probe)
+static void	follow_direction(t_links *probe)
 {
 	t_table *tmp;
 
@@ -24,7 +24,7 @@ static void	follow_direction(t_queue **queue, t_links *probe)
 			tmp->links->to->distance = probe->to->distance + 1;
 			tmp->visited = TRUE;
 			printf("tmp = %s\tdistance = %d\n", tmp->name, tmp->distance);
-			add_to_queue(queue, new_element(tmp->links->to));
+			// add_to_queue(queue, new_element(tmp->links->to));
 
 		}
 		tmp = tmp->towards;
@@ -60,7 +60,7 @@ void		create_queue(t_queue **queue)
 		else if (probe->to->path == TRUE && check_towards(probe) == FALSE)
 		{
 			// probe->to->distance = (*queue)->to->distance + 1;
-			follow_direction(queue, probe);
+			follow_direction(probe);
 			printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
 		}
 		probe = probe->next;

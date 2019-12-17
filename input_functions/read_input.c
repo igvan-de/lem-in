@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/16 16:50:27 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:09:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void			set_path_amount(t_amount **amount, t_ants *ants)
 		(*amount)->max_path_amount = a;
 }
 
-int				check_path_amount(t_amount *dunno)
+int				check_path_amount(t_amount *amount)
 {
-	if (dunno->path_amount < dunno->max_path_amount)
+	if (amount->path_amount < amount->max_path_amount)
 		return (TRUE);
 	return (FALSE);
 }

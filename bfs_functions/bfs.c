@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 13:13:41 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:02:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				bfs(t_ants **ants, t_table **table, size_t size)
 	{
 		create_queue(&queue);
 		test = queue;
-		printf("============QUEUE=============\n");
+		printf("============QUEUE===========\n");
 		while (test != NULL)
 		{
 			printf("•••test = %s\t", test->to->name);

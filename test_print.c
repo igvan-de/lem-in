@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/12 15:17:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:14:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void				print_path_set(t_path_set *data_set)
 	{
 		tmp = probe->path;
 		printf("data_set->path_id = %d\n", probe->path_id);
+		printf("tmp size = %zu\n", tmp->steps_needed);
 		while (tmp != NULL)
 		{
 			if (tmp->towards != NULL)
@@ -110,4 +111,5 @@ void				print_path_set(t_path_set *data_set)
 		probe = probe->next;
 		printf("--------------------\n");
 	}
+
 }

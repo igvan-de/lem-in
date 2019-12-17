@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 12:49:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:14:11 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct 			s_path_data
 {
 	struct s_table		*room;
 	struct s_table		*towards;
+	size_t				steps_needed;
 	struct s_path_data	*next;
 	// short				existing; //might be needed, working on it
 }						t_path_data;

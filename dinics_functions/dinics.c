@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/16 16:51:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:14:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void			add_to_path(t_path_data **path, t_path_data *new)
 		return ;
 	while (probe->next != NULL)
 		probe = probe->next;
+	new->room->from = probe->room;
 	probe->next = new;
 	probe->towards = new->room;
 	probe->room->towards = new->room;
@@ -73,6 +74,7 @@ static void		create_path(t_path_data **path, t_path_data *new)
 		link = new->room->links;
 		new = get_shortest_link(new->room, shortest_distance, link);
 		add_to_path(path, new);
+		(*path)->steps_needed++;
 	}
 }
 

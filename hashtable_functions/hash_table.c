@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:35:07 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t			hash_function(unsigned char *str, size_t size)
 }
 
 void			hash_table(t_table **table, t_rooms *rooms,
-t_ants **ants, size_t size)
+t_data **ants, size_t size)
 {
 	size_t			index;
 

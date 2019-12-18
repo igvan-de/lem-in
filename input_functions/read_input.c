@@ -6,38 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:49 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 17:08:52 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void		get_ants(t_ants **ants)
-{
-	char			*line;
-	int				i;
-
-	i = 0;
-	if (get_next_line(STDIN_FILENO, &line) < 0)
-	{
-		ft_putendl("Error! Something went wrong when trying to read the file"); /*Error message to be determined*/
-		exit(0);
-	}
-	no_whitespaces(line);
-	while (line[i])
-	{
-		if (ft_isdigit(line[i]) == FALSE)
-		{
-			ft_putendl("Error! Number of ants must be a number"); /*Error message to be determined*/
-			exit(0);
-		}
-		i++;
-	}
-	(*ants)->start = ft_atoi(line);
-	(*ants)->finish = 0;
-}
-
-static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
+static size_t	get_rooms(t_rooms **rooms, char **line, t_data **ants)
 {
 	size_t			size;
 
@@ -94,18 +69,63 @@ char *line, size_t size)
 	get_rest_of_links(rooms, table, line, size, a_b);
 }
 
-void			read_input(t_rooms **rooms, t_ants **ants)
+void			set_path_amount(t_amount **amount, t_data *ants)
+{
+	t_links		*tmp;
+	int			a;
+	int			b;
+
+	a = 1;
+	b = 1;
+	tmp = ants->begin->links;
+	while (tmp->next != NULL)
+	{
+		a++;
+		tmp = tmp->next;
+	}
+	tmp = ants->end->links;
+	while (tmp->next != NULL)
+	{
+		b++;
+		tmp = tmp->next;
+	}
+	if (a >= b)
+		(*amount)->max_path_amount = b;
+	else
+		(*amount)->max_path_amount = a;
+}
+
+int				check_path_amount(t_amount *dunno)
+{
+	if (dunno->path_amount < dunno->max_path_amount)
+		return (TRUE);
+	return (FALSE);
+}
+
+void			read_input(t_rooms **rooms, t_data **data)
 {
 	t_table			**table;
-	char			*line;
+	t_path_set		*data_set;
+	t_path_data		*path;
+	t_amount		*amount;
 	size_t			size;
+	char			*line;
 
-	get_ants(ants);
-	size = get_rooms(rooms, &line, ants);
-	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
-	hash_table(table, *rooms, ants, size);
+	amount = (t_amount*)ft_memalloc(sizeof(t_amount));
+	get_ants(data);
+	size = get_rooms(rooms, &line, data);
+	init(size, &table, &data_set, &path);
+	hash_table(table, *rooms, data, size);
 	get_links(rooms, table, line, size);
-	bfs(*ants);
-	// print_rooms(*rooms, ants);
-	// print_hash(table, size);
+	//remove_link(table, size);
+	set_path_amount(&amount, *data);
+	while (check_path_amount(amount) == TRUE)
+	{
+		bfs(data, table, size);
+		find_path(&path, &data_set, data, &amount);
+		// if (amount->path_amount == 2)
+		// 	break ;
+	}
+	print_hash(table, size);
+	ants_calc(data, data_set);
 }

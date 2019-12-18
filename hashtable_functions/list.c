@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 16:35:21 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		add_node(t_rooms **node, t_rooms *new)
 	probe->next = new;
 }
 
-static t_rooms	*new_node(char *line, t_ants **ants)
+static t_rooms	*new_node(char *line, t_data **ants)
 {
 	t_rooms	*new_node;
 	char	**name_x_y;
@@ -73,7 +73,7 @@ static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
 	}
 }
 
-void			add_to_list(char *line, t_rooms **head, t_ants **ants)
+void			add_to_list(char *line, t_rooms **head, t_data **ants)
 {
 	t_rooms	*new;
 

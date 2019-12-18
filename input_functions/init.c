@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   init.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:27:20 by ygroenev      ########   odam.nl         */
+/*   Created: 2019/12/11 13:08:04 by igvan-de       #+#    #+#                */
+/*   Updated: 2019/12/17 16:24:09 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(void)
+void	init(size_t size, t_table ***table, t_path_set **data_set,
+t_path_data **path)
 {
-	t_rooms			*rooms;
-	t_data			*data;
-
-	data = (t_data*)ft_memalloc(sizeof(t_data));
-	read_input(&rooms, &data);
-	//free rooms?
-	//algorithm(table);
-	return (FALSE);
+	*table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
+	*data_set = (t_path_set*)ft_memalloc(sizeof(t_path_set));
+	*path = (t_path_data*)ft_memalloc(sizeof(t_path_data));
 }

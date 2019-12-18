@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/12/17 15:50:19 by ygroenev      ########   odam.nl          #
+#    Updated: 2019/12/17 16:01:41 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ include input_functions/sources
 include hashtable_functions/sources
 include bfs_functions/sources
 include ants_calc/sources
+include dinics_functions/sources
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_RED = $(shell printf "\e[31;5;10m")
@@ -45,7 +46,7 @@ libft/libft.a:
 	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
-	@rm -rf $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
 	@make -C ./Libft clean
 	@echo "$(PRINT_CLEAN) Cleaning objectives completed"
 

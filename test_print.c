@@ -6,18 +6,18 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:58:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/18 15:37:46 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 /*===============DELETE THIS FILE!!================*/
 #include "lemin.h"
-#include <stdio.h> 
+#include <stdio.h>
 
-void	print_rooms(t_rooms *rooms, t_ants **ants)
+void	print_rooms(t_rooms *rooms, t_data **ants)
 {
-	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->start);
+	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->starting_ants);
 	while (rooms)
 	{
 		printf("Room: %s\t\tx: %d\t\ty: %d",
@@ -69,22 +69,45 @@ void	print_queue(t_queue *queue)
 	t_queue *test;
 
 	test = queue;
+	// printf("============================\n");
 	while (test != NULL)
 	{
-		printf("test = %s\t", test->to->name);
-		printf("test->visisted = %d\t", test->to->visited);
-		printf("test->distence = %d\n\n", test->to->distance);
+		// printf("•••test = %s\t", test->to->name);
+		// printf("•••test->visisted = %d\t", test->to->visited);
+		// printf("•••test->distence = %d\n\n", test->to->distance);
 		test = test->next;
 	}
-	printf("============================\n");
 	/*place pop_out_queu function here*/
-	printf("========AFTER POP=========\n");
+	// printf("========AFTER POP=========\n");
 	test = queue;
 	while (test != NULL)
 	{
-		printf("test = %s\t", test->to->name);
-		printf("test->visisted = %d\t", test->to->visited);
-		printf("test->distence = %d\n\n", test->to->distance);
+		// printf("test = %s\t", test->to->name);
+		// printf("test->visisted = %d\t", test->to->visited);
+		// printf("test->distence = %d\n\n", test->to->distance);
 		test = test->next;
+	}
+}
+
+void				print_path_set(t_path_set *data_set)
+{
+	t_path_set	*probe;
+	t_path_data	*tmp;
+
+	probe = data_set;
+	while (probe != NULL)
+	{
+		tmp = probe->path;
+		// printf("data_set->path_id = %d\n", probe->path_id);
+		while (tmp != NULL)
+		{
+			// if (tmp->towards != NULL)
+				// printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
+			// else if (tmp->towards != NULL)
+				// printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
+			tmp = tmp->next;
+		}
+		probe = probe->next;
+		// printf("--------------------\n");
 	}
 }

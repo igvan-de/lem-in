@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/28 15:21:15 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_rooms	*new_node(char *line, t_ants **ants)
 
 static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
 {
-	while (head->next != NULL)
+	while (head != NULL)
 	{
 		if (ft_strequ(name, head->name) == TRUE)
 		{
@@ -81,7 +81,7 @@ void			add_to_list(char *line, t_rooms **head, t_ants **ants)
 	check_for_duplicates(new->name, new->x, new->y, *head);
 	if (new == NULL)
 		return ;
-	if ((*head)->name == NULL)
+	if (*head == NULL)
 		*head = new;
 	else
 		add_node(head, new);

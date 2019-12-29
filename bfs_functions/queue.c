@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 14:42:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/29 18:42:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,16 @@ static void	follow_direction(t_links *probe)
 	}
 }
 
-static int	check_towards(t_links *probe)
+static int	check_direction(t_links *probe, t_queue *node)
 {
+	printf("probe = %s\n", probe->to->name);
 	if (probe->to->towards == NULL)
 		return (FALSE);
-	if (probe->to->towards->type == END)
+	if (node->to->from != NULL)
+		printf("node = %s\n", node->to->from->name);
+	if (probe->to->from != NULL)
+		printf("towards = %s\n", node->to->from->towards->name);
+	if (probe->to->towards->type == END || node->to->from->towards == probe->to)
 		return (TRUE);
 	return (FALSE);
 }
@@ -49,7 +54,7 @@ void		create_queue(t_queue **queue)
 		probe->to->visited = TRUE;
 	while (probe != NULL)
 	{
-		if (probe->to->visited == FALSE && check_towards(probe) == FALSE)
+		if (probe->to->visited == FALSE && probe->to->path == FALSE && check_direction(probe, *queue) == FALSE)
 		{
 			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
 			add_to_queue(queue, new_element(probe->to));
@@ -57,14 +62,18 @@ void		create_queue(t_queue **queue)
 			if (probe->to->type != END)
 				probe->to->distance = (*queue)->to->distance + 1;
 		}
-		else if (probe->to->path == TRUE && check_towards(probe) == FALSE)
+		else if (probe->to->path == TRUE && check_direction(probe, *queue) == FALSE)
 		{
 			// probe->to->distance = (*queue)->to->distance + 1;
 			follow_direction(probe);
 			printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
 		}
+		printf("type = %s\n", probe->to->name);
 		probe = probe->next;
 	}
+	// if (probe->to->type == START)
+	// 	add_to_queue(queue, new_element(probe->to));
+
 }
 
 void	add_to_queue(t_queue **queue, t_queue *new)

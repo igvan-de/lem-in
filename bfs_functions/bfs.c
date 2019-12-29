@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:02:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/29 18:33:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_table	*set_null(t_table *head)
 		if (probe->type == END || probe->type == START)
 		{
 			probe->path = FALSE;
-			probe->towards = NULL;
+			// probe->towards = NULL;
 		}
 		probe = probe->next;
 	}

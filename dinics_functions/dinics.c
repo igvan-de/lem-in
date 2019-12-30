@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/29 18:41:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/29 18:57:52 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ static void			add_to_path(t_path_data **path, t_path_data *new)
 		probe = probe->next;
 	new->room->from = probe->room;
 	probe->next = new;
-	// printf("new room = %s\n", new->room->name);
-	// printf("from = %s\n", new->room->from->name);
 	probe->towards = new->room;
-	printf("room = %s\ttowards = %s\n", probe->room->name, probe->towards->name);
-	if (probe->room->from != NULL)
-		printf("room = %s\tfrom = %s\n", probe->room->name, probe->room->from->name);
 	probe->room->towards = new->room;
 	tmp = probe->room->links;
 	while (tmp != NULL)

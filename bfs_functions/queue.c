@@ -6,41 +6,28 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/29 18:42:54 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/30 15:03:39 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	follow_direction(t_links *probe)
-{
-	t_table *tmp;
-
-	tmp = probe->to->towards;
-	while (tmp != NULL && tmp->type != END)
-	{
-		if (tmp->links->shift == OFF)
-		{
-			tmp->links->to->distance = probe->to->distance + 1;
-			tmp->visited = TRUE;
-			printf("tmp = %s\tdistance = %d\n", tmp->name, tmp->distance);
-			// add_to_queue(queue, new_element(tmp->links->to));
-
-		}
-		tmp = tmp->towards;
-	}
-}
-
 static int	check_direction(t_links *probe, t_queue *node)
 {
+	printf("node = %s\n", node->to->name);
 	printf("probe = %s\n", probe->to->name);
-	if (probe->to->towards == NULL)
-		return (FALSE);
-	if (node->to->from != NULL)
-		printf("node = %s\n", node->to->from->name);
-	if (probe->to->from != NULL)
-		printf("towards = %s\n", node->to->from->towards->name);
-	if (probe->to->towards->type == END || node->to->from->towards == probe->to)
+	if (probe->to == node->to->from)
+	{
+		if (node->to->from != NULL)
+		{
+			printf("node = %s\n", node->to->from->name);
+			if (node->to->from->towards != NULL)
+				printf("towards = %s\n", node->to->from->towards->name);
+			if (node->to->from->towards == node->to || node->to->towards->type == END)
+				return (TRUE);
+		}
+	}
+	if (probe->to->towards != NULL)// && probe->to->towards->type == END)
 		return (TRUE);
 	return (FALSE);
 }
@@ -50,6 +37,7 @@ void		create_queue(t_queue **queue)
 	t_links		*probe;
 
 	probe = (*queue)->to->links;
+	printf("tmp = %s\n", (*queue)->to->name); //remove
 	if (probe->to->type == END)
 		probe->to->visited = TRUE;
 	while (probe != NULL)
@@ -58,22 +46,20 @@ void		create_queue(t_queue **queue)
 		{
 			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
 			add_to_queue(queue, new_element(probe->to));
-			probe->to->visited = TRUE;
-			if (probe->to->type != END)
-				probe->to->distance = (*queue)->to->distance + 1;
+			probe->to->visited = TRUE; // CHeck why if this is the right place in code for this!!
+			if (probe->to->type != END) // CHeck why if this is the right place in code for this!!
+				probe->to->distance = (*queue)->to->distance + 1; // CHeck why if this is the right place in code for this!!
 		}
-		else if (probe->to->path == TRUE && check_direction(probe, *queue) == FALSE)
+		else if (probe->to->visited == FALSE && probe->to->path == TRUE && check_direction(probe, *queue) == FALSE)
 		{
-			// probe->to->distance = (*queue)->to->distance + 1;
-			follow_direction(probe);
+			probe->to->visited = TRUE;
+			probe->to->distance = (*queue)->to->distance + 1;
 			printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
+			add_to_queue(queue, new_element(probe->to));
 		}
-		printf("type = %s\n", probe->to->name);
+		printf("type = %s\t type->visited = %d\n", probe->to->name, probe->to->visited);
 		probe = probe->next;
 	}
-	// if (probe->to->type == START)
-	// 	add_to_queue(queue, new_element(probe->to));
-
 }
 
 void	add_to_queue(t_queue **queue, t_queue *new)

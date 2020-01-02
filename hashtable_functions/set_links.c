@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/12 14:23:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/02 15:57:18 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static t_table		*get_table(t_table **table, size_t size, char *name)
 	t_table *t;
 	size_t index;
 
-	// VIND M SWS
 	index = hash_function((unsigned char*)name, size);
 	t = table[index];
 	while (ft_strequ(t->name, name) == FALSE)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/30 15:03:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/02 17:30:04 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ static int	check_direction(t_links *probe, t_queue *node)
 			printf("node = %s\n", node->to->from->name);
 			if (node->to->from->towards != NULL)
 				printf("towards = %s\n", node->to->from->towards->name);
-			if (node->to->from->towards == node->to || node->to->towards->type == END)
+			if (node->to->from->towards == node->to) //|| node->to->towards->type == END)
 				return (TRUE);
 		}
 	}
-	if (probe->to->towards != NULL)// && probe->to->towards->type == END)
-		return (TRUE);
 	return (FALSE);
 }
 
@@ -40,14 +38,26 @@ void		create_queue(t_queue **queue)
 	printf("tmp = %s\n", (*queue)->to->name); //remove
 	if (probe->to->type == END)
 		probe->to->visited = TRUE;
-	while (probe != NULL)
+	while (probe != NULL && (*queue)->to->type == END)
 	{
 		if (probe->to->visited == FALSE && probe->to->path == FALSE && check_direction(probe, *queue) == FALSE)
 		{
 			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
 			add_to_queue(queue, new_element(probe->to));
-			probe->to->visited = TRUE; // CHeck why if this is the right place in code for this!!
-			if (probe->to->type != END) // CHeck why if this is the right place in code for this!!
+			probe->to->visited = TRUE; // Check why if this is the right place in code for this!!
+			if (probe->to->type != END) // Check why if this is the right place in code for this!!
+				probe->to->distance = (*queue)->to->distance + 1; // CHeck why if this is the right place in code for this!!
+		}
+		probe = probe->next;
+	}
+	while (probe != NULL && (*queue)->to->type != END)
+	{
+		if (probe->to->visited == FALSE && probe->to->path == FALSE && check_direction(probe, *queue) == FALSE)
+		{
+			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
+			add_to_queue(queue, new_element(probe->to));
+			probe->to->visited = TRUE; // Check why if this is the right place in code for this!!
+			if (probe->to->type != END) // Check why if this is the right place in code for this!!
 				probe->to->distance = (*queue)->to->distance + 1; // CHeck why if this is the right place in code for this!!
 		}
 		else if (probe->to->visited == FALSE && probe->to->path == TRUE && check_direction(probe, *queue) == FALSE)

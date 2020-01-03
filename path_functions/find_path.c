@@ -6,29 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 11:53:49 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/02 17:39:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/02 17:48:05 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-// static t_from		*new_from(t_path_data *pointer)
-// {
-// 	t_from	*from;
-
-// 	from = (t_from*)ft_memalloc(sizeof(t_from));
-// 	from->room = pointer->room;
-// 	return (from);
-// }
-
-// static void			add_from(t_from **from, t_from *new)
-// {
-// 	if (new == NULL)
-// 		return ;
-// 	new->next = *from;
-// 	*from = new;
-// }
-// add_from(&new->room->from, new_from(probe));
 
 static t_path_data	*get_start(t_ants *ants)
 {

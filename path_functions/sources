@@ -1,2 +1,2 @@
-SRCS += dinics_functions/dinics.c \
-dinics_functions/path_set.c
+SRCS += path_functions/new_find_path.c \
+path_functions/path_set.c

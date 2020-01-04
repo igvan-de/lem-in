@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/29 17:52:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/04 16:43:14 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,9 @@ void			read_input(t_rooms **rooms, t_ants **ants)
 	while (check_path_amount(amount) == TRUE)
 	{
 		bfs(ants, table, size);
-		find_path(&path, &data_set, ants, &amount);
+		find_path(&path, ants);
+		path_set(&data_set, path);
+		amount->path_amount += 1;
 	}
 	// move_ants(ants, data_set);
 	// print_hash(table, size);

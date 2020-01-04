@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/02 17:24:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/04 17:01:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@
 
 # include <stdio.h> //REMOVE!!!!!!!!
 
-
 typedef enum			e_return
 {
 	FALSE = 0,
 	TRUE = 1,
-	OFF = 0,
-	ON = 1
 }						t_return;
 
 typedef enum			e_found_existing
@@ -47,8 +44,16 @@ typedef enum			e_node_value
 	X = 1,
 	Y = 2,
 	A = 0,
-	B = 1
+	B = 1,
+	OFF = 0,
+	ON = 1
 }						t_node_value;
+
+typedef struct 			s_paths
+{
+	struct s_path_data	*path;
+	struct s_paths		*next;
+}						t_paths;
 
 typedef struct 			s_path_set
 {
@@ -63,7 +68,6 @@ typedef struct 			s_path_data
 	struct s_table		*towards;
 	size_t				steps_needed;
 	struct s_path_data	*next;
-	// short				existing; //might be needed, working on it
 }						t_path_data;
 
 typedef struct			s_queue
@@ -177,8 +181,7 @@ void					create_queue(t_queue **queue);
 /*
 **===============================DINICS FUNCTIONS===============================
 */
-void					find_path(t_path_data **path, t_path_set **data_set,
-						t_ants **ants, t_amount **amount);
+void					find_path(t_path_data **path, t_ants **ants);//, t_amount **amount);
 void					path_set(t_path_set **data_set, t_path_data *path);
 // void					path_set(t_path_data *path);
 

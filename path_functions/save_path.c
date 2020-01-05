@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 19:20:22 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 19:30:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 21:05:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_paths	*new_path(t_path_data *new)
 
 	new_path = (t_paths*)ft_memalloc(sizeof(t_paths));
 	new_path->rooms = new;
+	printf("new_path = %s\n", new_path->rooms->room->name);
 	return (new_path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 15:13:50 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 19:54:10 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 21:06:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,34 @@ static	t_path_data	*follow_shifts(t_path_data *existing, t_links *connections)
 	t_path_data	*new;
 
 	new = (t_path_data*)ft_memalloc(sizeof(t_path_data));
-	new = existing;
+	new->room = existing->room;
 	while (connections != NULL)
 	{
-		printf("connection->name =%s\tshift = %hd\tpath = %d\n", connections->to->name, connections->shift, connections->to->path);
-		if (connections->shift == ON && connections->to->path == FALSE)
-		{
-			printf("connection->name =%s\n", connections->to->name);
+		if (connections->to->links->shift == ON && connections->to->path == FALSE)
 			new->room = connections->to;
-			new->room->path = TRUE;
-		}
+		printf("connection->name =%s\n", connections->to->name);
 		connections = connections->next;
 	}
 	return (new);
+}
+
+static void			add_to_path(t_path_data **start, t_path_data *new)
+{
+	t_path_data	*path;
+
+	path = *start;
+	if (path == NULL || new == NULL)
+		return ;
+	while (path->next != NULL)
+	{
+		printf("path->room = %s\n", path->room->name);
+		path = path->next;
+	}
+	path->next = new;
+	path->room->path = TRUE;
+	/* CHECK IF THESE TWO ARE NEEDED, GAVE VALUE EARLIER IN BFS_PATH */
+	// path->room->towards = new->room;
+	// new->room->from = path->room;
 }
 
 static void			create_path(t_paths **founded_paths, t_bfs *bfs_start)
@@ -62,14 +77,15 @@ static void			create_path(t_paths **founded_paths, t_bfs *bfs_start)
 	{
 		connections = new->room->links;
 		new = follow_shifts(new, connections);
+		add_to_path(&start, new);
 	}
+	save_path(founded_paths, start);
 	connections = start->room->links;
-	save_path(founded_paths, new);
 	while (connections != NULL)
 	{
-		if (connections->shift == OFF && connections->to->path == FALSE)
-			return (create_path(founded_paths, bfs_start));
-		else
+		// if (connections->shift == OFF && connections->to->path == FALSE)
+		// 	return (create_path(founded_paths, bfs_start));
+		// else
 			return ;
 		connections = connections->next;
 	}
@@ -83,13 +99,11 @@ void				search_paths(t_paths **founded_paths, t_ants **ants)
 
 	start = get_start_bfs(*ants);
 	new = start;
-	printf("start = %s\n", start->room->name);
 	while (new->room->type != END)
 	{
 		connections = new->room->links;
 		new = follow_bfs(new, connections);
 		bfs_path(&start, new);
-		printf("after bfs new->name =%s\tshift = %hd\tpath = %d\n", new->room->name, new->room->links->shift, new->room->path);
 	}
 	create_path(founded_paths, start);
 }

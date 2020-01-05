@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 19:47:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 20:54:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ void			bfs_path(t_bfs **start, t_bfs *new)
 	if (path == NULL || new == NULL)
 		return ;
 	while (path->next != NULL)
+	{
+		printf("bfs = %s\n", path->room->name);
 		path = path->next;
+	}
 	new->room->from = path->room;
 	path->next = new;
 	path->room->bfs = TRUE;
@@ -121,7 +124,6 @@ t_bfs	*follow_bfs(t_bfs *existing, t_links *connections)
 				new->room->links->shift = ON;
 		}
 		connections = connections->next;
-		printf("new->name =%s\tshift = %hd\tpath = %d\n", new->room->name, new->room->links->shift, new->room->path);
 	}
 	return (new);
 }

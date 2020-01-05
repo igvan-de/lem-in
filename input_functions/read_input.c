@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/04 16:43:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 16:17:24 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,63 +69,19 @@ char *line, size_t size)
 	get_rest_of_links(rooms, table, line, size, a_b);
 }
 
-void			set_path_amount(t_amount **amount, t_ants *ants)
-{
-	t_links		*tmp;
-	int			a;
-	int			b;
-
-	a = 1;
-	b = 1;
-	tmp = ants->begin->links;
-	while (tmp->next != NULL)
-	{
-		a++;
-		tmp = tmp->next;
-	}
-	tmp = ants->end->links;
-	while (tmp->next != NULL)
-	{
-		b++;
-		tmp = tmp->next;
-	}
-	if (a >= b)
-		(*amount)->max_path_amount = b;
-	else
-		(*amount)->max_path_amount = a;
-}
-
-int				check_path_amount(t_amount *amount)
-{
-	if (amount->path_amount < amount->max_path_amount)
-		return (TRUE);
-	return (FALSE);
-}
-
 void			read_input(t_rooms **rooms, t_ants **ants)
 {
 	t_table			**table;
-	t_path_set		*data_set;
-	t_path_data		*path;
-	t_amount		*amount;
 	size_t			size;
 	char			*line;
 
-	amount = (t_amount*)ft_memalloc(sizeof(t_amount));
 	get_ants(ants);
 	size = get_rooms(rooms, &line, ants);
-	init(size, &table, &data_set, &path);
+	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
 	// remove_link(table, size);
-	set_path_amount(&amount, *ants);
-	while (check_path_amount(amount) == TRUE)
-	{
-		bfs(ants, table, size);
-		find_path(&path, ants);
-		path_set(&data_set, path);
-		amount->path_amount += 1;
-	}
+	path(table, ants, size);
 	// move_ants(ants, data_set);
 	// print_hash(table, size);
 	// print_rooms(*rooms, ants);

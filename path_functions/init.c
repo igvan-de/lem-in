@@ -5,17 +5,16 @@
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/11 13:08:04 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:12:13 by igvan-de      ########   odam.nl         */
+/*   Created: 2020/01/05 15:04:02 by igvan-de       #+#    #+#                */
+/*   Updated: 2020/01/05 15:30:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	init(size_t size, t_table ***table, t_path_set **data_set,
-t_path_data **path)
+void	init(t_amount **amount ,t_paths **founded_paths, t_path_set **data_set)
 {
-	*table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
+	*amount = (t_amount*)ft_memalloc(sizeof(t_amount));
+	*founded_paths = (t_paths*)ft_memalloc(sizeof(t_paths));
 	*data_set = (t_path_set*)ft_memalloc(sizeof(t_path_set));
-	*path = (t_path_data*)ft_memalloc(sizeof(t_path_data));
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/04 16:27:49 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 19:27:41 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,27 @@ void	print_queue(t_queue *queue)
 void				print_path_set(t_path_set *data_set)
 {
 	t_path_set	*probe;
-	t_path_data	*tmp;
+	t_paths		*tmp;
 
 	probe = data_set;
 	while (probe != NULL)
 	{
 		tmp = probe->path;
-		printf("data_set->path_id = %d\n", probe->path_id);
-		printf("tmp size = %zu\n", tmp->steps_needed);
+		printf("data_set->path_id = %d\n", probe->set_id);
+		// printf("tmp size = %zu\n", tmp->steps_needed);
 		while (tmp != NULL)
 		{
-			if (tmp->towards != NULL)
+			if (tmp->rooms->room->towards != NULL)
 			{
-				printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
+				printf("data->set->path = %s\ttowards = %s\n", tmp->rooms->room->name, tmp->rooms->room->towards->name);
 				// if (tmp->room->links->shift == ON)
 				// 	printf("data->set->path = %s\ttowards = %s\tshit = %hd\n", tmp->room->name, tmp->towards->name, tmp->room->links->shift);
 			}
 			else
-				printf("data->set->path = %s\n", tmp->room->name);
+				printf("data->set->path = %s\n", tmp->rooms->room->name);
 			tmp = tmp->next;
 		}
 		probe = probe->next;
 		printf("--------------------\n");
 	}
-
 }

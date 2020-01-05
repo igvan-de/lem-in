@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/04 17:01:37 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 19:47:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef enum			e_return
 {
 	FALSE = 0,
 	TRUE = 1,
+	OFF = 0,
+	ON = 1
 }						t_return;
 
 typedef enum			e_found_existing
@@ -45,30 +47,35 @@ typedef enum			e_node_value
 	Y = 2,
 	A = 0,
 	B = 1,
-	OFF = 0,
-	ON = 1
 }						t_node_value;
 
 typedef struct 			s_paths
 {
-	struct s_path_data	*path;
+	struct s_path_data	*rooms;
 	struct s_paths		*next;
+	int					path_id;
 }						t_paths;
 
 typedef struct 			s_path_set
 {
-	struct s_path_data	*path;
+	struct s_paths		*path;
 	struct s_path_set	*next;
-	int					path_id;
+	int					set_id;
 }						t_path_set;
 
 typedef struct 			s_path_data
 {
 	struct s_table		*room;
-	struct s_table		*towards;
-	size_t				steps_needed;
 	struct s_path_data	*next;
 }						t_path_data;
+
+/*check if this is needed or if I reset path_data struct is better?! */
+typedef struct 			s_bfs
+{
+	struct s_table		*room;
+	size_t				steps_needed;
+	struct s_bfs		*next;
+}						t_bfs;
 
 typedef struct			s_queue
 {
@@ -114,6 +121,7 @@ typedef struct			s_table
 	char				*name;
 	int					distance;
 	short				visited;
+	short				bfs;
 	short				path;
 	t_object_type		type;
 	struct s_links		*links;
@@ -126,8 +134,6 @@ typedef struct			s_table
 **===============================READ FUNCTIONS=================================
 */
 void					read_input(t_rooms **rooms, t_ants **ants);
-void					init(size_t size, t_table ***table,
-						t_path_set **data_set, t_path_data **path);
 
 /*
 **===============================ANTS FUNCTIONS=================================
@@ -172,18 +178,25 @@ t_queue					*create_end(t_ants *ants);
 t_queue					*create_start(t_ants *ants);
 t_queue					*new_element(t_table *pointer);
 t_path_data				*get_end(t_path_data *path);
+t_bfs					*follow_bfs(t_bfs *existing, t_links *connections);
 int						bfs(t_ants **ants, t_table **table, size_t size);
+void					bfs_path(t_bfs **start, t_bfs *new);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
 void					create_queue(t_queue **queue);
 
 
+
 /*
-**===============================DINICS FUNCTIONS===============================
+**===============================PATH FUNCTIONS=================================
 */
-void					find_path(t_path_data **path, t_ants **ants);//, t_amount **amount);
-void					path_set(t_path_set **data_set, t_path_data *path);
-// void					path_set(t_path_data *path);
+void					init(t_amount **amount ,t_paths **founded_paths,
+						t_path_set **data_set);
+void					path(t_table **table, t_ants **ants, size_t size);
+void					path_set(t_path_set **data_set, t_paths *founded_paths);
+void					search_paths(t_paths **founded_paths, t_ants **ants);
+void					save_path(t_paths **founded_paths,
+						t_path_data *new_path);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

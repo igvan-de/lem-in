@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   path_set.c                                         :+:    :+:            */
+/*   save_path.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/03 15:32:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 19:25:02 by igvan-de      ########   odam.nl         */
+/*   Created: 2020/01/05 19:20:22 by igvan-de       #+#    #+#                */
+/*   Updated: 2020/01/05 19:30:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_path_set	*new_set(t_paths *founded_paths)
+static t_paths	*new_path(t_path_data *new)
 {
-	t_path_set	*new_set;
+	t_paths	*new_path;
 
-	new_set = (t_path_set*)ft_memalloc(sizeof(t_path_set));
-	new_set->path = founded_paths;
-	return (new_set);
+	new_path = (t_paths*)ft_memalloc(sizeof(t_paths));
+	new_path->rooms = new;
+	return (new_path);
 }
 
-static void			add_to_set(t_path_set **data_set, t_path_set *new)
+static void			add_to_set(t_paths **founded_path, t_paths *new)
 {
-	t_path_set	*probe;
+	t_paths	*probe;
 
-	probe = *data_set;
+	probe = *founded_path;
 	if (new == NULL)
 		return ;
-	if (probe->path == NULL)
+	if (probe == NULL)
 	{
-		new->set_id = probe->set_id + 1;
-		*data_set = new;
+		new->path_id = probe->path_id + 1;
+		*founded_path = new;
 		return ;
 	}
 	while (probe->next != NULL)
 		probe = probe->next;
 	probe->next = new;
-	new->set_id = probe->set_id + 1;
+	new->path_id = probe->path_id + 1;
 }
 
-void				path_set(t_path_set **data_set, t_paths *founded_paths)
+
+void	save_path(t_paths **founded_paths, t_path_data *path)
 {
-	add_to_set(data_set, new_set(founded_paths));
-	print_path_set(*data_set); //remove!
+	add_to_set(founded_paths, new_path(path));
 }

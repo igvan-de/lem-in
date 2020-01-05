@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 13:43:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/11 14:01:05 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 16:20:41 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_ants(t_ants **ants)
 void	move_ants(t_ants **ants, t_path_set *data_set)
 {
 	printf("ants = %d\n", (*ants)->start);
-	printf("room = %s\n", data_set->path->room->name);
+	printf("room = %s\n", data_set->path->rooms->room->name);
 	while ((*ants)->finish == 0)
 	{
 

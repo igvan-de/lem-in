@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/04 16:40:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/05 19:47:04 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,41 @@ int				bfs(t_ants **ants, t_table **table, size_t size)
 	// 	return (FALSE);
 	// }
 	return (TRUE);
+}
+
+void			bfs_path(t_bfs **start, t_bfs *new)
+{
+	t_bfs	*path;
+
+	path = *start;
+	if (path == NULL || new == NULL)
+		return ;
+	while (path->next != NULL)
+		path = path->next;
+	new->room->from = path->room;
+	path->next = new;
+	path->room->bfs = TRUE;
+	path->room->towards = new->room;
+}
+
+t_bfs	*follow_bfs(t_bfs *existing, t_links *connections)
+{
+	t_bfs	*new;
+
+	new = (t_bfs*)ft_memalloc(sizeof(t_bfs)); //check if needed and why?!
+	new->room = existing->room;
+	while (connections != NULL)
+	{
+		if (connections->to->distance == (new->room->distance - 1))
+		{
+			new->room = connections->to;
+			if (new->room->links->shift == ON)
+				new->room->links->shift = OFF;
+			else
+				new->room->links->shift = ON;
+		}
+		connections = connections->next;
+		printf("new->name =%s\tshift = %hd\tpath = %d\n", new->room->name, new->room->links->shift, new->room->path);
+	}
+	return (new);
 }

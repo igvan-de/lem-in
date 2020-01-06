@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 15:13:50 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 21:06:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/06 17:33:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static	t_path_data	*follow_shifts(t_path_data *existing, t_links *connections)
 	while (connections != NULL)
 	{
 		if (connections->to->links->shift == ON && connections->to->path == FALSE)
+		{
 			new->room = connections->to;
-		printf("connection->name =%s\n", connections->to->name);
+			printf("connection->name =%s\n", connections->to->name);
+		}
 		connections = connections->next;
 	}
 	return (new);
@@ -54,15 +56,10 @@ static void			add_to_path(t_path_data **start, t_path_data *new)
 	if (path == NULL || new == NULL)
 		return ;
 	while (path->next != NULL)
-	{
-		printf("path->room = %s\n", path->room->name);
 		path = path->next;
-	}
 	path->next = new;
+	// if (path->room->type != END)
 	path->room->path = TRUE;
-	/* CHECK IF THESE TWO ARE NEEDED, GAVE VALUE EARLIER IN BFS_PATH */
-	// path->room->towards = new->room;
-	// new->room->from = path->room;
 }
 
 static void			create_path(t_paths **founded_paths, t_bfs *bfs_start)

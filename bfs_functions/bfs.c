@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 20:54:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/06 17:23:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static t_table	*set_null(t_table *head)
 	{
 		probe->distance = 0;
 		probe->visited = 0;
+		probe->towards = NULL;
+		probe->from = NULL;
+		probe->path = FALSE;
 		if (probe->type == END || probe->type == START)
 		{
 			probe->path = FALSE;
@@ -97,10 +100,7 @@ void			bfs_path(t_bfs **start, t_bfs *new)
 	if (path == NULL || new == NULL)
 		return ;
 	while (path->next != NULL)
-	{
-		printf("bfs = %s\n", path->room->name);
 		path = path->next;
-	}
 	new->room->from = path->room;
 	path->next = new;
 	path->room->bfs = TRUE;
@@ -118,7 +118,7 @@ t_bfs	*follow_bfs(t_bfs *existing, t_links *connections)
 		if (connections->to->distance == (new->room->distance - 1))
 		{
 			new->room = connections->to;
-			if (new->room->links->shift == ON)
+			if (new->room->links->shift == ON && new->room->type != END)
 				new->room->links->shift = OFF;
 			else
 				new->room->links->shift = ON;

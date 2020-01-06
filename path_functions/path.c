@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 15:03:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 18:20:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/06 17:41:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,16 @@ void				path(t_table **table, t_ants **ants, size_t size)
 	set_path_amount(&amount, *ants);
 	while (check_path_amount(amount) == TRUE)
 	{
+		/*Need to check if bfs function needs to be in while loop*/
 		bfs(ants, table, size);
 		search_paths(&founded_paths, ants);
 		path_set(&data_set, founded_paths);
+		/*Added the next two lines, to reset the values.
+		Dont, want to take the previous paths in the new set.
+		Want to find all possible path(s)*/
+		founded_paths->rooms = NULL;
+		data_set->path = NULL;
+		/*====================================*/
 		amount->path_amount += 1;
 	}
 }

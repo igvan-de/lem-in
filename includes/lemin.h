@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 16:41:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 21:54:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@
 
 # define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
 # define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
+# define ROOM_CONNECTIONS (*queue)->room->links
+# define CURRENT_ROOM (*queue)->room
+# define CURRENT_ROOM_DISTANCE (*queue)->room->distance
 
 typedef enum			e_return
 {
 	FALSE = 0,
-	TRUE = 1
+	TRUE = 1,
+	FINISHED = 0 /*ask Yonne if he agrees with this*/
 }						t_return;
 
 typedef enum			e_object_type
@@ -42,6 +46,7 @@ typedef enum			e_node_value
 	Y = 2,
 	A = 0,
 	B = 1,
+	NOT_FOUND = 0,
 	FOUND = 1,
 	EXISTING = 2 ,
 	OFF = 0,
@@ -58,10 +63,10 @@ typedef struct			s_data
 {
 	int					start;
 	int					end;
-	int					path_amount;		/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
-	int					max_path_amount;	/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
-	short				found_start;
-	short				found_end;
+	int					path_amount;
+	int					max_path_amount;
+	short				found_start;	/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
+	short				found_end;		/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
 	struct s_rooms		*end_room;
 	struct s_rooms		*start_room;
 }						t_data;
@@ -71,8 +76,8 @@ typedef	struct			s_input
 	char				*name;
 	int					x;
 	int					y;
-	short				start;	/*Ask Yonne why we have these as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
-	short				end;	/*Ask Yonne why we have these as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
+	short				start;	/*Ask Yonne why we have these variables as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
+	short				end;	/*Ask Yonne why we have these variables as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
 	struct s_input		*next;
 }						t_input;
 
@@ -91,15 +96,9 @@ typedef struct			s_rooms
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;
-	// struct s_rooms		*from;
-	// struct s_rooms		*towards;
+	struct s_rooms		*towards;
 	struct s_rooms		*next;
 }						t_rooms;
-
-/*
-**===============================READ FUNCTIONS=================================
-*/
-void					read_input(t_input **rooms, t_data **ants);
 
 /*
 **===============================ANTS FUNCTIONS=================================
@@ -118,30 +117,34 @@ void					no_whitespaces(char *line);
 /*
 **===============================LIST FUNCTIONS=================================
 */
-void					add_to_list(char *line, t_input **head, t_data **ants);
+void					add_to_list(char *line, t_input **head, t_data **data);
 
 /*
 **===============================HASHTABLE FUNCTIONS============================
 */
 size_t					hash_function(unsigned char *str, size_t size);
 void					hash_table(t_rooms **table, t_input *room,
-						t_data **ants, size_t size);
+						t_data **data, size_t size);
 
 /*
 **===============================LINK FUNCTIONS=================================
 */
-int						compare_with_rooms(char **a_b, t_input **rooms);
-char					**lem_split(char *line, t_input **rooms);
+int						compare_with_rooms(char **a_b, t_input **input);
+char					**lem_split(char *line, t_input **input);
 char					**ft_split(char *line, int n, int c);
-void					set_links(t_rooms **table,
+void					get_links(t_input **input, t_rooms **rooms,
+						char *line, size_t size);
+void					set_links(t_rooms **rooms,
 						size_t size, char *name_a, char *name_b);
 
 /*
 **===============================BFS FUNCTIONS==================================
 */
+void					create_queue(t_queue **queue);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
-void					create_queue(t_queue **queue);
+t_queue					*create_start(t_data *data);
+t_queue					*new_element(t_rooms *room);
 
 /*
 **===============================PATH FUNCTIONS=================================
@@ -154,7 +157,7 @@ void					create_queue(t_queue **queue);
 void					print_hash(t_rooms **table, size_t size);
 void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
-void					print_path_set(t_path_set *data_set);
+// void					print_path_set(t_path_set *data_set);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 14:25:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:31:56 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 /*This function create a new space for the new room needed to be added in hash_table
 It also sets the type to, START, END or FREE.
 Depends of the room the start or end is of given grid*/
-static t_rooms	*new_room(t_input *rooms)
+static t_rooms	*new_room(t_input *room)
 {
-	t_rooms *table;
+	t_rooms *new_room;
 
-	table = (t_rooms*)ft_memalloc(sizeof(t_rooms));
-	if (rooms->start == TRUE)
-		table->type = START;
-	else if (rooms->end == TRUE)
-		table->type = END;
+	new_room = (t_rooms*)ft_memalloc(sizeof(t_rooms));
+	if (room->start == TRUE)
+		new_room->type = START;
+	else if (room->end == TRUE)
+		new_room->type = END;
 	else
-		table->type = FREE;
-	table->name = rooms->name;
-	return (table);
+		new_room->type = FREE;
+	new_room->name = room->name;
+	return (new_room);
 }
 
 /*This function adds a new room to the table*/
@@ -59,22 +59,22 @@ size_t			hash_function(unsigned char *str, size_t size)
 
 /*This function creates a hash_table from all the given data,
 the has_table contains all our rooms*/
-void			hash_table(t_rooms **table, t_input *rooms,
+void			hash_table(t_rooms **table_rooms, t_input *input,
 t_data **data, size_t size)
 {
 	size_t			index;
 
-	while (rooms != NULL)
+	while (input != NULL)
 	{
-		index = hash_function((unsigned char*)rooms->name, size);
-		if (table[index] == NULL)
-			table[index] = new_table(rooms);
+		index = hash_function((unsigned char*)input->name, size);
+		if (table_rooms[index] == NULL)
+			table_rooms[index] = new_room(input);
 		else
-			add_to_table(&table[index], new_room(rooms));
-		if (table[index]->type == START)
-			(*data)->start_room = table[index];
-		if (table[index]->type == END)
-			(*data)->end_room = table[index];
-		rooms = rooms->next;
+			add_to_table(&table_rooms[index], new_room(input));
+		if (table_rooms[index]->type == START)
+			(*data)->start_room = table_rooms[index];
+		if (table_rooms[index]->type == END)
+			(*data)->end_room = table_rooms[index];
+		input = input->next;
 	}
 }

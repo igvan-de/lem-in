@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 14:18:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 18:11:02 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void			is_start_or_end(char *line, t_data **data) /*check if command is start or
 		line++;
 	if (strict_start_end_checker(line) == 2)
 	{
-		if ((*data)->found_end == 0)
-			(*data)->found_end = 1;
-		else if ((*data)->found_end == 2)
+		/*changed the values 0, 1,2 to NOT_FOUND, FOUND and EXISTING
+		 ask Yonne if this is ok for our code*/
+		if ((*data)->found_end == NOT_FOUND)
+			(*data)->found_end = FOUND;
+		else if ((*data)->found_end == EXISTING)
 		{
 			ft_putendl("Error! There can't be more than 1 end room\n"); /*Error message to be determined*/
 			exit(0);
@@ -50,9 +52,9 @@ void			is_start_or_end(char *line, t_data **data) /*check if command is start or
 	}
 	else if (strict_start_end_checker(line) == 1)
 	{
-		if ((*data)->found_start == 0)
-			(*data)->found_start = 1;
-		else if ((*data)->found_start == 2)
+		if ((*data)->found_start == NOT_FOUND)
+			(*data)->found_start = FOUND;
+		else if ((*data)->found_start == EXISTING)
 		{
 			ft_putendl("Error! There can't be more than 1 start room\n"); /*Error message to be determined*/
 			exit(0);

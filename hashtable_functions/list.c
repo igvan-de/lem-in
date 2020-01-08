@@ -6,12 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:42:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*this functions add a new node at the back of the linked list*/
 static void		add_node(t_input **node, t_input *new)
 {
 	t_input *probe;
@@ -29,7 +30,8 @@ static void		add_node(t_input **node, t_input *new)
 	probe->next = new;
 }
 
-static t_input	*new_node(char *line, t_data **ants)
+/*this function creates a new node and set all its values*/
+static t_input	*new_node(char *line, t_data **data)
 {
 	t_input	*new_node;
 	char	**name_x_y;
@@ -38,15 +40,15 @@ static t_input	*new_node(char *line, t_data **ants)
 	new_node = (t_input*)ft_memalloc(sizeof(t_input));
 	if (new_node == NULL)
 		return (NULL);
-	if ((*ants)->found_start == FOUND)
+	if ((*data)->found_start == FOUND)
 	{
 		new_node->start = FOUND;
-		(*ants)->found_start = EXISTING;
+		(*data)->found_start = EXISTING;
 	}
-	else if ((*ants)->found_end == FOUND)
+	else if ((*data)->found_end == FOUND)
 	{
 		new_node->end = FOUND;
-		(*ants)->found_end = EXISTING;
+		(*data)->found_end = EXISTING;
 	}
 	new_node->name = name_x_y[NAME];
 	new_node->x = ft_atoi(name_x_y[X]);
@@ -55,6 +57,7 @@ static t_input	*new_node(char *line, t_data **ants)
 	return (new_node);
 }
 
+/*this function checks if there are any duplicates and returns error message if there's a duplicate founded*/
 static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 {
 	while (head != NULL)
@@ -73,16 +76,12 @@ static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 	}
 }
 
-void			add_to_list(char *line, t_input **head, t_data **ants)
+/*this function adds a new node to the list*/
+void			add_to_list(char *line, t_input **head, t_data **data)
 {
 	t_input	*new;
 
-	new = new_node(line, ants);
+	new = new_node(line, data);
 	check_for_duplicates(new->name, new->x, new->y, *head);
-	if (new == NULL)
-		return ;
-	if (*head == NULL)
-		*head = new;
-	else
-		add_node(head, new);
+	add_node(head, new_node(line, data));
 }

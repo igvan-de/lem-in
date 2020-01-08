@@ -6,14 +6,65 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 12:59:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 21:56:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*This function follows the path of connecting rooms*/
+static void	follow_path(t_queue **queue, t_rooms *room)
+{
+	t_links *connected;
+
+	connected = room->links;
+	/*need to make varaible and conditions that it only follows the towards room!!*/
+	while (connected != NULL)
+	{
+		/*follow direction of path*/
+		if (connected->room->path_id == room->path_id)
+		{
+			/*don't increase the first time the distance,
+			all the other times following a path its needed*/
+			connected->room->distance = CURRENT_ROOM_DISTANCE;
+			add_to_queue(queue, connected->room);
+		}
+		/*go to new room which is part of an other path*/
+		else if (connected->room->path_id != room->path_id)
+		{
+			connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
+			add_to_queue(queue, connected->room);
+		}
+		connected = connected->next;
+	}
+}
+
+/*This functions create the queue by adding the connecting rooms of current room to queue,
+this only happens if the connected rooms meet the rules we made before we want to add them*/
+void		create_queue(t_queue **queue)
+{
+	t_links	*connected;
+
+	connected = ROOM_CONNECTIONS; /*(*queue)->room->links, represents all conecting rooms of current room*/
+	while (connected != NULL)
+	{
+		if (connected->room->visited == FALSE)
+		{
+			if (connected->room->path_id == FALSE)
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
+				add_to_queue(queue, new_element(connected->room));
+			}
+			else if (connected->room->path_id != FALSE && CURRENT_ROOM->type != END)
+				follow_path(queue, connected->room);
+		}
+		connected = connected->next;
+	}
+}
+
 /*This functions adds a new room to the existing queue*/
-void	add_to_queue(t_queue **queue, t_queue *new)
+void		add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 13:39:39 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			no_whitespaces(char *line) /*checking for whitespaces in front of line*/
 	}
 }
 
-int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#" and checking if they're start or end*/
+int				check_if_command(char *line, t_data **ants) /*ignoring all commands "#" and checking if they're start or end*/
 {
 	int i;
 
@@ -38,7 +38,7 @@ int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#" a
 	return (FALSE);
 }
 
-int				check_format_room(char *line, t_ants **ants) /*making sure rooms are formatted correctly*/
+int				check_format_room(char *line, t_data **ants) /*making sure rooms are formatted correctly*/
 {
 	int i;
 	int space_count;
@@ -78,7 +78,7 @@ int				check_format_room(char *line, t_ants **ants) /*making sure rooms are form
 		return (FALSE);
 }
 
-int				check_format_link(char *line, t_rooms **rooms) /*making sure links are formatted correctly*/
+int				check_format_link(char *line, t_input **rooms) /*making sure links are formatted correctly*/
 { //check for duplicate links (or do we not care there's duplicates?) //we don't care
 	int i;
 	int dash_count;

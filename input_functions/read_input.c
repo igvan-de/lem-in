@@ -6,13 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/05 16:17:24 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
+static size_t	get_input(t_input **rooms, char **line, t_data **ants)
 {
 	size_t			size;
 
@@ -29,8 +29,8 @@ static size_t	get_rooms(t_rooms **rooms, char **line, t_ants **ants)
 	return (size);
 }
 
-static void		get_rest_of_links(t_rooms **rooms,
-t_table **table, char *line, size_t size, char **a_b)
+static void		get_rest_of_links(t_input **rooms,
+t_rooms **table, char *line, size_t size, char **a_b)
 {
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
 	check_format_link(line, rooms) == TRUE)
@@ -48,7 +48,7 @@ t_table **table, char *line, size_t size, char **a_b)
 	}
 }
 
-static void		get_links(t_rooms **rooms, t_table **table,
+static void		get_links(t_input **rooms, t_rooms **table,
 char *line, size_t size)
 { //Right now a room isn't allowed to link to itself, not sure if that's what we want
 	char	**a_b;
@@ -69,20 +69,20 @@ char *line, size_t size)
 	get_rest_of_links(rooms, table, line, size, a_b);
 }
 
-void			read_input(t_rooms **rooms, t_ants **ants)
+void			read_input(t_input **rooms, t_data **ants)
 {
-	t_table			**table;
+	t_rooms			**table;
 	size_t			size;
 	char			*line;
 
-	get_ants(ants);
-	size = get_rooms(rooms, &line, ants);
-	table = (t_table**)ft_memalloc(sizeof(t_table*) * size);
+	get_data(ants);
+	size = get_input(rooms, &line, ants);
+	table = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
 	hash_table(table, *rooms, ants, size);
 	get_links(rooms, table, line, size);
 	// remove_link(table, size);
 	path(table, ants, size);
 	// move_ants(ants, data_set);
 	// print_hash(table, size);
-	// print_rooms(*rooms, ants);
+	// print_input(*rooms, ants);
 }

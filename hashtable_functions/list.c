@@ -6,15 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/28 15:21:15 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void		add_node(t_rooms **node, t_rooms *new)
+static void		add_node(t_input **node, t_input *new)
 {
-	t_rooms *probe;
+	t_input *probe;
 
 	if (new == NULL)
 		return ;
@@ -29,13 +29,13 @@ static void		add_node(t_rooms **node, t_rooms *new)
 	probe->next = new;
 }
 
-static t_rooms	*new_node(char *line, t_ants **ants)
+static t_input	*new_node(char *line, t_data **ants)
 {
-	t_rooms	*new_node;
+	t_input	*new_node;
 	char	**name_x_y;
 
 	name_x_y = ft_strsplit(line, ' ');
-	new_node = (t_rooms*)ft_memalloc(sizeof(t_rooms));
+	new_node = (t_input*)ft_memalloc(sizeof(t_input));
 	if (new_node == NULL)
 		return (NULL);
 	if ((*ants)->found_start == FOUND)
@@ -55,7 +55,7 @@ static t_rooms	*new_node(char *line, t_ants **ants)
 	return (new_node);
 }
 
-static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
+static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 {
 	while (head != NULL)
 	{
@@ -73,9 +73,9 @@ static void		check_for_duplicates(char *name, int x, int y, t_rooms *head)
 	}
 }
 
-void			add_to_list(char *line, t_rooms **head, t_ants **ants)
+void			add_to_list(char *line, t_input **head, t_data **ants)
 {
-	t_rooms	*new;
+	t_input	*new;
 
 	new = new_node(line, ants);
 	check_for_duplicates(new->name, new->x, new->y, *head);

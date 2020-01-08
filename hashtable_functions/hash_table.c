@@ -6,17 +6,17 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:50:52 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_table	*new_table(t_rooms *rooms)
+static t_rooms	*new_table(t_input *rooms)
 {
-	t_table *table;
+	t_rooms *table;
 
-	table = (t_table*)ft_memalloc(sizeof(t_table));
+	table = (t_rooms*)ft_memalloc(sizeof(t_rooms));
 	if (rooms->start == TRUE)
 		table->type = START;
 	else if (rooms->end == TRUE)
@@ -27,7 +27,7 @@ static t_table	*new_table(t_rooms *rooms)
 	return (table);
 }
 
-static void		add_to_table(t_table **head, t_table *new)
+static void		add_to_table(t_rooms **head, t_rooms *new)
 {
 	if (head == NULL)
 		return ;
@@ -52,8 +52,8 @@ size_t			hash_function(unsigned char *str, size_t size)
 	return (hash % size);
 }
 
-void			hash_table(t_table **table, t_rooms *rooms,
-t_ants **ants, size_t size)
+void			hash_table(t_rooms **table, t_input *rooms,
+t_data **ants, size_t size)
 {
 	size_t			index;
 
@@ -65,7 +65,7 @@ t_ants **ants, size_t size)
 		else
 			add_to_table(&table[index], new_table(rooms));
 		if (table[index]->type == START)
-			(*ants)->begin = table[index];
+			(*ants)->start_room = table[index];
 		if (table[index]->type == END)
 			(*ants)->end = table[index];
 		rooms = rooms->next;

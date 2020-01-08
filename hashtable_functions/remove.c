@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 13:02:35 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/29 12:35:17 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:35:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	count_links(t_links *probe)
 	return (links);
 }
 
-static int	link_compare(t_table *table, t_table *link)
+static int	link_compare(t_rooms *table, t_rooms *link)
 {
 	printf("table = %s\n", table->links->to->name);
 	printf("link = %s\n", link->links->to->name);
@@ -35,7 +35,7 @@ static int	link_compare(t_table *table, t_table *link)
 		return (FALSE);
 }
 
-void		delete_link(t_table *table)
+void		delete_link(t_rooms *table)
 {
 	t_links *tmp;
 	t_links	*prev;
@@ -75,9 +75,9 @@ void		delete_link(t_table *table)
 			// 	return ;
 			// }
 
-t_table		*delete_node(t_table *head)
+t_rooms		*delete_node(t_rooms *head)
 {
-	t_table *probe;
+	t_rooms *probe;
 
 	if (!head)
 		return (NULL);
@@ -100,10 +100,10 @@ t_table		*delete_node(t_table *head)
 	return (head);
 }
 
-void		remove_link(t_table **table, size_t size)
+void		remove_link(t_rooms **table, size_t size)
 {
 	size_t	i;
-	t_table **probe;
+	t_rooms **probe;
 
 	i = 0;
 	probe = table;

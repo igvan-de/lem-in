@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 13:36:50 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int		strict_start_end_checker(char *line) /*check all start and end varia
 	return (0);
 }
 
-void			is_start_or_end(char *line, t_ants **ants) /*check if command is start or end*/
+void			is_start_or_end(char *line, t_data **ants) /*check if command is start or end*/
 {
 	while (*line == '#')
 		line++;

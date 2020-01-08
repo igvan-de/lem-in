@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 13:35:22 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ char		**ft_split(char *line, int n, int c)
 	return (a_b);
 }
 
-int			compare_with_rooms(char **a_b, t_rooms **rooms)
+int			compare_with_rooms(char **a_b, t_input **rooms)
 {
-	t_rooms	*find_room;
+	t_input	*find_room;
 	int		s;
 
 	s = 0;
@@ -59,7 +59,7 @@ int			compare_with_rooms(char **a_b, t_rooms **rooms)
 	return (FALSE);
 }
 
-char		**lem_split(char *line, t_rooms **rooms)
+char		**lem_split(char *line, t_input **rooms)
 {
 	char	**a_b;
 	int		i;

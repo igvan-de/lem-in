@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/06 14:09:17 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 12:48:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "lemin.h"
 #include <stdio.h>
 
-void	print_rooms(t_rooms *rooms, t_ants **ants)
+void	print_input(t_input *rooms, t_data **ants)
 {
 	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->start);
 	while (rooms)
@@ -32,7 +32,7 @@ void	print_rooms(t_rooms *rooms, t_ants **ants)
 	}
 }
 
-void    print_hash(t_table **table, size_t size)
+void    print_hash(t_rooms **table, size_t size)
 {
     size_t i;
 

@@ -1,5 +1,1 @@
-SRCS += path_functions/path.c \
-path_functions/search_path.c \
-path_functions/path_set.c \
-path_functions/save_path.c \
-path_functions/init.c
+SRCS += path_functions/

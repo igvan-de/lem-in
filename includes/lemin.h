@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 12:50:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 14:41:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,25 @@ typedef struct			s_queue
 	struct s_queue		*next;
 }						t_queue;
 
-/*Check if s_data and s_amount can be one struct!*/
-typedef struct			s_data //change name!
+typedef struct			s_data
 {
 	int					start;
 	int					end;
+	int					path_amount;		/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
+	int					max_path_amount;	/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
 	short				found_start;
 	short				found_end;
 	struct s_rooms		*end_room;
 	struct s_rooms		*start_room;
 }						t_data;
 
-typedef struct			s_amount
-{
-	int					path_amount;
-	int					max_path_amount;
-}						t_amount;
-/*================================================*/
-
 typedef	struct			s_input
 {
 	char				*name;
 	int					x;
 	int					y;
-	short				start;
-	short				end;
+	short				start;	/*Ask Yonne why we have these as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
+	short				end;	/*Ask Yonne why we have these as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
 	struct s_input		*next;
 }						t_input;
 
@@ -106,8 +100,7 @@ void					read_input(t_input **rooms, t_data **ants);
 /*
 **===============================ANTS FUNCTIONS=================================
 */
-void					get_data(t_data **ants);
-void					move_ants(t_data **ants, t_path_set *data_set);
+void					get_ants(t_data **ants);
 
 /*
 **===============================FORMAT FUNCTIONS===============================
@@ -142,29 +135,14 @@ void					set_links(t_rooms **table,
 /*
 **===============================BFS FUNCTIONS==================================
 */
-t_queue					*create_end(t_data *ants);
-t_queue					*create_start(t_data *ants);
-t_queue					*new_element(t_rooms *pointer);
-t_path_data				*get_end(t_path_data *path);
-t_bfs					*follow_bfs(t_bfs *existing, t_links *connections);
-int						bfs(t_data **ants, t_rooms **table, size_t size);
-void					bfs_path(t_bfs **start, t_bfs *new);
 void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
 void					create_queue(t_queue **queue);
 
-
-
 /*
 **===============================PATH FUNCTIONS=================================
 */
-void					init(t_amount **amount ,t_paths **founded_paths,
-						t_path_set **data_set);
-void					path(t_rooms **table, t_data **ants, size_t size);
-void					path_set(t_path_set **data_set, t_paths *founded_paths);
-void					search_paths(t_paths **founded_paths, t_data **ants);
-void					save_path(t_paths **founded_paths,
-						t_path_data *new_path);
+
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

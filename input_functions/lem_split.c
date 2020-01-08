@@ -6,12 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 12:48:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 14:32:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*This functions set a_b[A] to  the first given room(name)
+and a_b[B] to second given room(name)*/
 char		**ft_split(char *line, int n, int c)
 {
 	char	**a_b;
@@ -39,6 +41,7 @@ char		**ft_split(char *line, int n, int c)
 	return (a_b);
 }
 
+/*This functions check the if the links of rooms to exist*/
 int			compare_with_rooms(char **a_b, t_input **rooms)
 {
 	t_input	*find_room;
@@ -59,6 +62,8 @@ int			compare_with_rooms(char **a_b, t_input **rooms)
 	return (FALSE);
 }
 
+/*This function splits the given line so that we can seperate the first given room
+and the second given room*/
 char		**lem_split(char *line, t_input **rooms)
 {
 	char	**a_b;

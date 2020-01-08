@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 13:02:35 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 12:35:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 14:06:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int	count_links(t_links *probe)
 
 static int	link_compare(t_rooms *table, t_rooms *link)
 {
-	printf("table = %s\n", table->links->to->name);
-	printf("link = %s\n", link->links->to->name);
+	printf("table = %s\n", table->links->room->name);
+	printf("link = %s\n", link->links->room->name);
 	if (table == link)
 		return (TRUE);
 	else
@@ -40,22 +40,22 @@ void		delete_link(t_rooms *table)
 	t_links *tmp;
 	t_links	*prev;
 
-	tmp = table->links->to->links;
+	tmp = table->links->room->links;
 	prev = tmp;
 	if (tmp != NULL)
 	{
 		while (tmp != NULL)
 		{
 			printf("===============\n");
-			printf("prev = %s\n", prev->to->name);
-			if (link_compare(table, tmp->to) == TRUE)
+			printf("prev = %s\n", prev->room->name);
+			if (link_compare(table, tmp->room) == TRUE)
 			{
-				printf("tmp = %s\n", tmp->to->name);
-				tmp->to = NULL;
-				printf("tmp = %p\n", tmp->to);
+				printf("tmp = %s\n", tmp->room->name);
+				tmp->room = NULL;
+				printf("tmp = %p\n", tmp->room);
 				free (tmp);
-				prev->next->to = tmp->next->to;
-				printf("prev->next = %s\n", prev->next->to->name);
+				prev->next->room = tmp->next->room;
+				printf("prev->next = %s\n", prev->next->room->name);
 				return ;
 			}
 			// printf("room name %s\n", tmp->to->name);

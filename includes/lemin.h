@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 14:41:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 16:41:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "libft.h"
 
 # include <stdio.h> //REMOVE!!!!!!!!
+
+# define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
+# define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
 
 typedef enum			e_return
 {
@@ -84,11 +87,12 @@ typedef struct			s_rooms
 {
 	char				*name;
 	int					distance;
+	int					path_id; /*to know which room belongs to which path*/
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;
-	struct s_rooms		*from;
-	struct s_rooms		*towards;
+	// struct s_rooms		*from;
+	// struct s_rooms		*towards;
 	struct s_rooms		*next;
 }						t_rooms;
 

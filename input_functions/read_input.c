@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 14:38:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 14:51:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ char *line, size_t size)
 	get_rest_of_links(rooms, table, line, size, a_b);
 }
 
-
+/*This function is the brain of our program. It reads, saves, and processes all the data.
+From here we continue to all our other functions. (We want this as our main, need to check with Yonne how to do that!)*/
 void			read_input(t_input **rooms, t_data **data)
 {
 	t_rooms			**table;
@@ -86,7 +87,7 @@ void			read_input(t_input **rooms, t_data **data)
 	hash_table(table, *rooms, data, size);
 	get_links(rooms, table, line, size);
 	/*
-	1. BFS function to find quickest path
+	1. BFS function to find quickest path (MOST IMPORTANT FUNCTION!!!)
 	2. Path function to create path (turn shift on or off in oppisite values as there are when probing over them)
 	3. Save path
 	4. Repeat step 1 and 2

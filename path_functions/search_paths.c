@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 15:55:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 21:19:15 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@
 			3. add new paths to set
 */
 
+/*this functions probes through connections of start to check if there's a connection
+where the link->shift is ON*/
+static int		check_start_connections(t_path *path)
+{
+	t_links	*connected;
+
+	connected = path->room->links;
+	while (connected != NULL)
+	{
+		if (CONNECTED_ROOM_SHIFT == ON)
+			return (TRUE);
+		connected = connected->next;
+	}
+	return (FALSE);
+}
+
 /*This function mallocs path struct and sets it first node to room with type START*/
 static t_path	*set_start(t_data *data)
 {
@@ -47,9 +63,12 @@ static void	add_to_path(t_path **path, t_rooms *new_room)
 	t_path	*path_rooms;
 
 	path_rooms = *path;
-	while (path_rooms != NULL)
+	/*need to check if I assign the right values here!*/
+	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
-	path_rooms->room = new_room;
+	path_rooms->room->towards = new_room;
+	path_rooms->room->next = new_room;
+	path_rooms->path_size += 1;
 }
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
@@ -62,11 +81,11 @@ static void	follow_shifts(t_path **path)
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{
-		if (connected->shift == ON && connected->room->path_id == CURRENT_PATH_ROOM->path_id)
+		// printf("connected = %s\t%d\n", connected->room->name, connected->room->links->shift);
+		if (CONNECTED_ROOM_SHIFT == ON)
 		{
 			connected->room->path_id = PATH_ID;
 			add_to_path(path, connected->room);
-			connected = CURRENT_PATH_ROOM_LINKS;
 		}
 		connected = connected->next;
 	}
@@ -74,24 +93,24 @@ static void	follow_shifts(t_path **path)
 
 /*This function follows the bfs values in decreasing order by a value of 1,
 it also turn all shift values on or off in the oppiste value then current state*/
-static void	follow_bfs(t_data *data)
+static void	follow_bfs(t_rooms **start)
 /*CHECK!! not sure if t_rooms **rooms is needed to give as parameter to change values globally in program*/
 {
 	t_links	*connected;
 	int		current_distance;
 
-	connected = data->start_room->links;
-	current_distance = connected->room->distance;
-	while (connected)
+	connected = (*start)->links;
+	current_distance = (*start)->distance;
+	while (connected != NULL)
 	{
-		if (current_distance == (connected->room->distance - 1)
-		|| current_distance == connected->room->distance)
+		if (connected->room->distance == (current_distance - 1)
+		|| (current_distance == connected->room->distance && CONNECTED_ROOM_SHIFT == ON))
 		{
-			connected = connected->room->links;
 			if (CONNECTED_ROOM_SHIFT == ON)
 				CONNECTED_ROOM_SHIFT = OFF;
 			else
 				CONNECTED_ROOM_SHIFT = ON;
+			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;
 	}
@@ -102,10 +121,15 @@ from here we start fallowing the bfs values and the shift values,
 also we save the paths and caluculate if the new finded paths are quicker to use then older paths*/
 void		search_path(t_data *data)
 {
-	t_path	*path;
+	t_path		*path;
+	t_rooms		*start;
 
 	path = set_start(data);
-	follow_bfs(data);
-	while (CONNECTED_ROOM->path_id == FALSE && CONNECTED_ROOM->links->shift == ON)
+	start = data->start_room;
+	follow_bfs(&start);
+	while (CONNECTED_ROOM->path_id == FALSE && check_start_connections(path) == TRUE)
+	//CONNECTED_ROOM->links->shift == ON)
 		follow_shifts(&path);
+	/*funtion to calculate if new founded paths are better to use*/
+	save_paths(path);
 }

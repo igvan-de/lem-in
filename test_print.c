@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 12:36:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 20:05:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,36 +89,33 @@ void    print_hash(t_rooms **table, size_t size)
 // 	}
 // }
 
-// void				print_path_set(t_path_set *data_set)
-// {
-// 	t_path_set	*probe_set;
-// 	t_paths		*probe_paths;
-// 	t_path_data	*probe_rooms;
+void				print_path_set(t_path_set *path_set)
+{
+	t_path_set	*probe_set;
+    t_path      *probe_paths;
+    t_rooms     *probe_rooms;
 
-// 	probe_set = data_set;
-// 	while (probe_set != NULL)
-// 	{
-// 		probe_paths = probe_set->path;
-// 		printf("data_set->set_id = %d\n", probe_set->set_id);
-// 		// printf("tmp size = %zu\n", tmp->steps_needed);
-// 		while (probe_paths != NULL)
-// 		{
-// 			probe_rooms = probe_paths->rooms;
-// 			while (probe_rooms != NULL)
-// 			{
-// 				if (probe_rooms->room->towards != NULL)
-// 				{
-// 					printf("data->set->path = %s\ttowards = %s\n", probe_rooms->room->name, probe_rooms->room->towards->name);
-// 					// if (tmp->room->links->shift == ON)
-// 					// 	printf("data->set->path = %s\ttowards = %s\tshit = %hd\n", tmp->room->name, tmp->towards->name, tmp->room->links->shift);
-// 				}
-// 				else
-// 					printf("data->set->path = %s\n", probe_rooms->room->name);
-// 				probe_rooms = probe_rooms->next;
-// 			}
-// 			probe_paths = probe_paths->next;
-// 		}
-// 		probe_set = probe_set->next;
-// 		printf("--------------------\n");
-// 	}
-// }
+
+	probe_set = path_set;
+	while (probe_set != NULL)
+	{
+		probe_paths = probe_set->path;
+		while (probe_paths != NULL)
+		{
+			probe_rooms = probe_paths->room;
+			while (probe_rooms != NULL)
+			{
+				if (probe_rooms->towards != NULL)
+				{
+					printf("data->set->path = %s\ttowards = %s\n", probe_rooms->name, probe_rooms->towards->name);
+				}
+				else
+					printf("data->set->path = %s\n", probe_rooms->name);
+				probe_rooms = probe_rooms->next;
+			}
+			probe_paths = probe_paths->next;
+		}
+		probe_set = probe_set->next;
+		printf("--------------------\n");
+	}
+}

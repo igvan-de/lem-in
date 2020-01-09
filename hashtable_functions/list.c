@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 20:42:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 19:57:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,11 @@ void			add_to_list(char *line, t_input **head, t_data **data)
 
 	new = new_node(line, data);
 	check_for_duplicates(new->name, new->x, new->y, *head);
-	add_node(head, new_node(line, data));
+	if (new == NULL)
+		return ;
+	if (*head == NULL)
+		*head = new;
+	else
+		add_node(head, new);
+	// add_node(head, new_node(line, data));
 }

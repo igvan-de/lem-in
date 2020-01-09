@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 15:52:34 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 21:18:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,15 @@ typedef enum			e_node_value
 	ON = 1
 }						t_node_value;
 
+typedef struct 			s_path_set
+{
+	struct s_path		*path;
+	struct s_path_set	*next;
+}						t_path_set;
+
 typedef struct 			s_path
 {
+	int					path_size;
 	struct s_rooms		*room;
 	struct s_path		*next;
 }						t_path;
@@ -160,7 +167,8 @@ t_queue					*new_element(t_rooms *room);
 /*
 **===============================PATH FUNCTIONS=================================
 */
-
+void					search_path(t_data *data);
+void					save_paths(t_path *path);
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================
@@ -168,7 +176,7 @@ t_queue					*new_element(t_rooms *room);
 void					print_hash(t_rooms **table, size_t size);
 void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
-// void					print_path_set(t_path_set *data_set);
+void					print_path_set(t_path_set *path_set);
 
 
 

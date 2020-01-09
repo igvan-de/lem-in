@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 21:54:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 12:26:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ typedef struct			s_queue
 
 typedef struct			s_data
 {
-	int					start;
-	int					end;
+	int					amount_ants_start;
+	int					amount_ants_end;
 	int					path_amount;
 	int					max_path_amount;
 	short				found_start;	/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
@@ -140,8 +140,8 @@ void					set_links(t_rooms **rooms,
 /*
 **===============================BFS FUNCTIONS==================================
 */
+int						bfs(t_rooms **rooms, t_data *data, size_t size);
 void					create_queue(t_queue **queue);
-void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
 t_queue					*create_start(t_data *data);
 t_queue					*new_element(t_rooms *room);

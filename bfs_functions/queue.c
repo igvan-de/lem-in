@@ -6,11 +6,29 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 21:56:40 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 12:30:07 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+/*This functions adds a new room to the existing queue*/
+static void	add_to_queue(t_queue **queue, t_queue *new)
+{
+	t_queue	*probe;
+
+	if (new == NULL)
+		return ;
+	if ((*queue) == NULL)
+	{
+		(*queue) = new;
+		return ;
+	}
+	probe = *queue;
+	while (probe->next != NULL)
+		probe = probe->next;
+	probe->next = new;
+}
 
 /*This function follows the path of connecting rooms*/
 static void	follow_path(t_queue **queue, t_rooms *room)
@@ -18,22 +36,31 @@ static void	follow_path(t_queue **queue, t_rooms *room)
 	t_links *connected;
 
 	connected = room->links;
-	/*need to make varaible and conditions that it only follows the towards room!!*/
 	while (connected != NULL)
 	{
-		/*follow direction of path*/
-		if (connected->room->path_id == room->path_id)
+		/*follow direction of path by checking the path_id's
+		and if the connected room is the same room as room->towards is pointing to*/
+		if (connected->room->visited == FALSE) /*check if this statement is needed again*/
 		{
-			/*don't increase the first time the distance,
-			all the other times following a path its needed*/
-			connected->room->distance = CURRENT_ROOM_DISTANCE;
-			add_to_queue(queue, connected->room);
-		}
-		/*go to new room which is part of an other path*/
-		else if (connected->room->path_id != room->path_id)
-		{
-			connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
-			add_to_queue(queue, connected->room);
+			if (connected->room->path_id == room->path_id && connected->room == room->towards)
+			{
+				/* NEED TO CHECK THIS LATER!
+				don't increase the first time the distance,
+				all the other times following a path its needed*/
+				connected->room->visited = TRUE;
+				/*need to make statement that if it's the second room on path
+				distance will be incremented*/
+				connected->room->distance = CURRENT_ROOM_DISTANCE;
+				add_to_queue(queue, connected->room);
+			}
+			/*go to new room which is part of an other path
+			don't go to room->type START*/
+			else if (connected->room->path_id != room->path_id && connected->room->type != START)
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
+				add_to_queue(queue, connected->room);
+			}
 		}
 		connected = connected->next;
 	}
@@ -41,7 +68,7 @@ static void	follow_path(t_queue **queue, t_rooms *room)
 
 /*This functions create the queue by adding the connecting rooms of current room to queue,
 this only happens if the connected rooms meet the rules we made before we want to add them*/
-void		create_queue(t_queue **queue)
+void	create_queue(t_queue **queue)
 {
 	t_links	*connected;
 
@@ -63,26 +90,8 @@ void		create_queue(t_queue **queue)
 	}
 }
 
-/*This functions adds a new room to the existing queue*/
-void		add_to_queue(t_queue **queue, t_queue *new)
-{
-	t_queue	*probe;
-
-	if (new == NULL)
-		return ;
-	if ((*queue) == NULL)
-	{
-		(*queue) = new;
-		return ;
-	}
-	probe = *queue;
-	while (probe->next != NULL)
-		probe = probe->next;
-	probe->next = new;
-}
-
 /*This functions pops the first room of the queue*/
-void		pop_out_queue(t_queue **queue)
+void	pop_out_queue(t_queue **queue)
 {
 	t_queue	*first_node;
 

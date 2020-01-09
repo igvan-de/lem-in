@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 21:24:56 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 12:33:19 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	1. Set all values to NULL
 		a. distance
 		b. visited
-	2. Find room with type END
+	2. Find room with type END, because we want our BFS to calculate from end to start
 	3. Probe through connections of current room (in the beginning room with type END)
 		*WHEN TO PROBE TO NEXT ROOM
 		1. if connected room isn't visited
@@ -28,8 +28,9 @@
 					- towards of connected room
 					- add_to_queue the room of the towards
 					  with the same distance value as current room (only the first time)
-					- while connected room has same path_id as current room add_to_queue with
-						a. SUM=(connection->distance = current_room->distance + 1)
+					- while connected room has same path_id as current room and
+					towards->room == connected->room add_to_queue with
+						a. SUM=(connection->distance = current_room->distance)
 					- if connected room hasn't the same path_id as current room add_to_queue with
 						a. SUM=(connection->distance = current_room->distance + 1)
 		*IF PROBING TO CONNECTED ROOM IS ALLOWED
@@ -42,7 +43,7 @@
 
 static t_rooms	*set_to_null(t_rooms *head)
 {
-	t_rooms *probe;
+	t_rooms	*probe;
 
 	probe = head;
 	if (probe == NULL)
@@ -70,18 +71,22 @@ static void		set_value(t_rooms **rooms, size_t size)
 	}
 }
 
-void		bfs(t_rooms **rooms, t_data *data, size_t size)
+int			bfs(t_rooms **rooms, t_data *data, size_t size)
 {
-	t_queue *queue;
+	t_queue	*queue;
+	t_queue	*start;
 
 	set_value(rooms, size);
 	queue = create_end(data);
+	start = create_start(data);
 	while (queue != NULL)
 	/*also possible while loop = while (queue->room->type != START),
 	but only if we calculate the amount of paths before we use bfs. NOT SURE IF THATS BETTER*/
 	{
-		/*create_queue(&queue)*/
-		/*pop_out_queue(&queue)*/
+;		create_queue(&queue);
+		pop_out_queue(&queue);
 	}
-
+	if (start->room->visited == FALSE)
+		return (FALSE);
+	return (TRUE);
 }

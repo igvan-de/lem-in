@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 12:05:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 13:36:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		main(int argc, char **argv) // make back to void
 	// 		b. save new path(s)*/
 	// }
 	print_hash(rooms, size);
-	return (FINISHED);//could also just make it a 0
+	return (0);
 }
 
 

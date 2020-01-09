@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 12:30:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 15:52:44 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ static void	follow_path(t_queue **queue, t_rooms *room)
 				connected->room->visited = TRUE;
 				/*need to make statement that if it's the second room on path
 				distance will be incremented*/
-				connected->room->distance = CURRENT_ROOM_DISTANCE;
-				add_to_queue(queue, connected->room);
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE;
+				add_to_queue(queue, new_element(connected->room));
 			}
 			/*go to new room which is part of an other path
 			don't go to room->type START*/
 			else if (connected->room->path_id != room->path_id && connected->room->type != START)
 			{
 				connected->room->visited = TRUE;
-				connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
-				add_to_queue(queue, connected->room);
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
+				add_to_queue(queue, new_element(connected->room));
 			}
 		}
 		connected = connected->next;
@@ -80,10 +80,10 @@ void	create_queue(t_queue **queue)
 			if (connected->room->path_id == FALSE)
 			{
 				connected->room->visited = TRUE;
-				connected->room->distance = CURRENT_ROOM_DISTANCE + 1;
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
 				add_to_queue(queue, new_element(connected->room));
 			}
-			else if (connected->room->path_id != FALSE && CURRENT_ROOM->type != END)
+			else if (connected->room->path_id != FALSE && CURRENT_QUEUE_ROOM->type != END)
 				follow_path(queue, connected->room);
 		}
 		connected = connected->next;

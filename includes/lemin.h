@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 12:26:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 15:52:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@
 # define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
 # define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
 # define ROOM_CONNECTIONS (*queue)->room->links
-# define CURRENT_ROOM (*queue)->room
-# define CURRENT_ROOM_DISTANCE (*queue)->room->distance
+# define CURRENT_QUEUE_ROOM (*queue)->room
+# define CURRENT_QUEUE_ROOM_DISTANCE (*queue)->room->distance
+# define CURRENT_PATH_ROOM (*path)->room
+# define CURRENT_PATH_ROOM_LINKS (*path)->room->links
+# define PATH_ID (*path)->room->path_id
+# define CONNECTED_ROOM path->room->links->room
+# define CONNECTED_ROOM_SHIFT connected->room->links->shift
 
 typedef enum			e_return
 {
 	FALSE = 0,
 	TRUE = 1,
-	FINISHED = 0 /*ask Yonne if he agrees with this*/
 }						t_return;
 
 typedef enum			e_object_type
@@ -52,6 +56,12 @@ typedef enum			e_node_value
 	OFF = 0,
 	ON = 1
 }						t_node_value;
+
+typedef struct 			s_path
+{
+	struct s_rooms		*room;
+	struct s_path		*next;
+}						t_path;
 
 typedef struct			s_queue
 {
@@ -144,6 +154,7 @@ int						bfs(t_rooms **rooms, t_data *data, size_t size);
 void					create_queue(t_queue **queue);
 void					pop_out_queue(t_queue **queue);
 t_queue					*create_start(t_data *data);
+t_queue					*create_end(t_data *data);
 t_queue					*new_element(t_rooms *room);
 
 /*

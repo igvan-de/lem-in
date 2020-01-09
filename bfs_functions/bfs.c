@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 12:33:19 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 15:07:56 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 	5. stop bfs if there is no more possible path from end to start
 */
 
+/*This function set values distance and visited to 0 in all the rooms*/
 static t_rooms	*set_to_null(t_rooms *head)
 {
 	t_rooms	*probe;
@@ -57,6 +58,7 @@ static t_rooms	*set_to_null(t_rooms *head)
 	return (head);
 }
 
+/*This function probes through all rooms to set values to 0*/
 static void		set_value(t_rooms **rooms, size_t size)
 {
 	size_t	i;
@@ -71,6 +73,8 @@ static void		set_value(t_rooms **rooms, size_t size)
 	}
 }
 
+/*This function calculates the distance values for every room,
+it also checks for all possible paths*/
 int			bfs(t_rooms **rooms, t_data *data, size_t size)
 {
 	t_queue	*queue;
@@ -80,10 +84,8 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 	queue = create_end(data);
 	start = create_start(data);
 	while (queue != NULL)
-	/*also possible while loop = while (queue->room->type != START),
-	but only if we calculate the amount of paths before we use bfs. NOT SURE IF THATS BETTER*/
 	{
-;		create_queue(&queue);
+		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
 	if (start->room->visited == FALSE)

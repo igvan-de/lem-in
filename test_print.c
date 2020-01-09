@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 20:43:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/09 12:36:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	print_input(t_input *rooms, t_data **ants)
 {
-	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->start);
+	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->amount_ants_start);
 	while (rooms)
 	{
 		printf("Room: %s\t\tx: %d\t\ty: %d",

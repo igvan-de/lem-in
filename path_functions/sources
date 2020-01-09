@@ -1,1 +1,1 @@
-SRCS += path_functions/
+SRCS += path_functions/search_paths.c

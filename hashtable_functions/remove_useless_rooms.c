@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 14:17:00 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/09 13:43:10 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,3 @@ void		remove_useless_rooms(t_table **table, size_t size)
 		i++;
 	}
 }
-

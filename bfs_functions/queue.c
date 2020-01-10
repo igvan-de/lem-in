@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 17:36:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 19:28:52 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,15 @@ void	create_queue(t_queue **queue)
 	{
 		if (connected->room->visited == FALSE)
 		{
-			if (connected->room->path_id == FALSE || connected->room->type == START)
+			if (connected->room->path_id == FALSE ||
+			(connected->room->type == START && connected->room->towards != CURRENT_QUEUE_ROOM))
 			{
 				connected->room->visited = TRUE;
 				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
 				add_to_queue(queue, new_element(connected->room));
 			}
-			else if (connected->room->path_id != FALSE && CURRENT_QUEUE_ROOM->type != END)
+			else if (connected->room->path_id != FALSE && CURRENT_QUEUE_ROOM->type != END
+			&& connected->room->type != START)
 				follow_path(queue, connected->room);
 		}
 		connected = connected->next;

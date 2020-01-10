@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 17:38:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 20:34:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	follow_shifts(t_path **path)
 	{
 		/*will get problem with overlapping paths,
 		need to set path_id to 0 if shift is turned off!*/
-		if (CONNECTED_ROOM_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
+		if (CONNECTED_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
 		{
 			if (connected->room->type != END)
 				connected->room->path_id = PATH_ID;
@@ -55,13 +55,19 @@ void	follow_bfs(t_rooms **room)
 	current_distance = (*room)->distance;
 	while (connected != NULL)
 	{
+		/*have problem with checking the correct shift data!!*/
 		if (connected->room->distance == (current_distance - 1)
-		|| (current_distance == connected->room->distance && CONNECTED_ROOM_SHIFT == OFF))
+		|| (current_distance == connected->room->distance && CONNECTED_SHIFT == ON))
 		{
-			if (CONNECTED_ROOM_SHIFT == ON)
-				CONNECTED_ROOM_SHIFT = OFF;
+			/*need to create function that check if CONNECT_ROOM_SHIT
+			is pointing to the right room before we turn it off*/
+			if (CONNECTED_SHIFT == ON && connected->room->type != END)
+				CONNECTED_SHIFT = OFF;
 			else
-				CONNECTED_ROOM_SHIFT = ON;
+			{
+				CONNECTED_SHIFT = ON;
+				printf("connected->room = %s\tconnected->shit = %d\n", connected->room->name, connected->shift);
+			}
 			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;

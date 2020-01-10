@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 16:46:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 20:10:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define PATH_ID (*path)->room->path_id
 # define CONNECTED_ROOM_PATH_ID connected->room->path_id
 # define CONNECTED_ROOM_SHIFT connected->room->links->shift
+# define CONNECTED_SHIFT connected->shift
+
 
 typedef enum			e_return
 {
@@ -82,8 +84,8 @@ typedef struct			s_data
 	int					amount_ants_end;
 	int					path_amount;
 	int					max_path_amount;
-	short				found_start;	/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
-	short				found_end;		/*Check if we calculate these values, if it makes our program faster. Because we could also check it with BFS. If BFS isnt possible anymore. Then we found the most possible amount of paths*/
+	short				found_start;
+	short				found_end;
 	struct s_rooms		*end_room;
 	struct s_rooms		*start_room;
 }						t_data;
@@ -93,8 +95,8 @@ typedef	struct			s_input
 	char				*name;
 	int					x;
 	int					y;
-	short				start;	/*Ask Yonne why we have these variables as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
-	short				end;	/*Ask Yonne why we have these variables as shorts and not as ints? Because amount of ants can be bigger then a short can handle?*/
+	short				start;
+	short				end;
 	struct s_input		*next;
 }						t_input;
 
@@ -109,7 +111,7 @@ typedef struct			s_rooms
 {
 	char				*name;
 	int					distance;
-	int					path_id; /*to know which room belongs to which path*/
+	int					path_id;
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;

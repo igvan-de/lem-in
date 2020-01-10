@@ -1,2 +1,3 @@
 SRCS += path_functions/search_paths.c \
-path_functions/save_paths.c
+path_functions/save_paths.c \
+path_functions/follow.c

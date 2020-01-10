@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 15:52:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 17:36:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ static void	follow_path(t_queue **queue, t_rooms *room)
 				/* NEED TO CHECK THIS LATER!
 				don't increase the first time the distance,
 				all the other times following a path its needed*/
+				room->visited = TRUE;
 				connected->room->visited = TRUE;
 				/*need to make statement that if it's the second room on path
 				distance will be incremented*/
-				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE;
+				room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
+				connected->room->distance = room->distance;
+				add_to_queue(queue, new_element(room));
 				add_to_queue(queue, new_element(connected->room));
 			}
 			/*go to new room which is part of an other path
@@ -77,7 +80,7 @@ void	create_queue(t_queue **queue)
 	{
 		if (connected->room->visited == FALSE)
 		{
-			if (connected->room->path_id == FALSE)
+			if (connected->room->path_id == FALSE || connected->room->type == START)
 			{
 				connected->room->visited = TRUE;
 				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 20:05:34 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 18:10:13 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,22 @@ void				print_path_set(t_path_set *path_set)
 {
 	t_path_set	*probe_set;
     t_path      *probe_paths;
-    t_rooms     *probe_rooms;
-
 
 	probe_set = path_set;
+	printf("--------NEW SET--------\n");
 	while (probe_set != NULL)
 	{
 		probe_paths = probe_set->path;
 		while (probe_paths != NULL)
 		{
-			probe_rooms = probe_paths->room;
-			while (probe_rooms != NULL)
+			if (probe_paths->room->towards != NULL)
 			{
-				if (probe_rooms->towards != NULL)
-				{
-					printf("data->set->path = %s\ttowards = %s\n", probe_rooms->name, probe_rooms->towards->name);
-				}
-				else
-					printf("data->set->path = %s\n", probe_rooms->name);
-				probe_rooms = probe_rooms->next;
+				printf("data->set->path = %s\ttowards = %s\n", probe_paths->room->name, probe_paths->room->towards->name);
 			}
+			else
+				printf("data->set->path = %s\n", probe_paths->room->name);
 			probe_paths = probe_paths->next;
 		}
 		probe_set = probe_set->next;
-		printf("--------------------\n");
 	}
 }

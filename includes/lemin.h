@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 21:18:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 16:46:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # define CURRENT_QUEUE_ROOM (*queue)->room
 # define CURRENT_QUEUE_ROOM_DISTANCE (*queue)->room->distance
 # define CURRENT_PATH_ROOM (*path)->room
-# define CURRENT_PATH_ROOM_LINKS (*path)->room->links
+# define CURRENT_PATH_ROOM_LINKS get_last_room->room->links
 # define PATH_ID (*path)->room->path_id
-# define CONNECTED_ROOM path->room->links->room
+# define CONNECTED_ROOM_PATH_ID connected->room->path_id
 # define CONNECTED_ROOM_SHIFT connected->room->links->shift
 
 typedef enum			e_return
@@ -169,6 +169,12 @@ t_queue					*new_element(t_rooms *room);
 */
 void					search_path(t_data *data);
 void					save_paths(t_path *path);
+void					follow_shifts(t_path **path);
+void					follow_bfs(t_rooms **room);
+void					add_to_path(t_path **path, t_path *new_room);
+t_path					*new_room_to_path(t_rooms *room);
+
+
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

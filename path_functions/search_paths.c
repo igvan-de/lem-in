@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 21:29:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/10 15:36:24 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_ROOM_SHIFT == ON)
+		if (CONNECTED_ROOM_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
 			return (TRUE);
 		connected = connected->next;
 	}
@@ -57,8 +57,18 @@ static t_path	*set_start(t_data *data)
 	return (start);
 }
 
+/*This function creates a t_path pointer of the new room which need to be added to path*/
+t_path	*new_room_to_path(t_rooms *room)
+{
+	t_path	*new_room;
+
+	new_room = (t_path*)ft_memalloc(sizeof(t_path));
+	new_room->room = room;
+	return (new_room);
+}
+
 /*This function adds a new room at the end of linked list of existing path*/
-static void	add_to_path(t_path **path, t_rooms *new_room)
+void		add_to_path(t_path **path, t_path *new_room)
 {
 	t_path	*path_rooms;
 
@@ -66,56 +76,9 @@ static void	add_to_path(t_path **path, t_rooms *new_room)
 	/*need to check if I assign the right values here!*/
 	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
-	path_rooms->room->towards = new_room;
-	/*need to change this this t_path or need to solve problem that path_rooms->next->room is NULL*/
+	new_room->path_size = path_rooms->path_size + 1;
+	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
-	/*============================================================================================*/
-	path_rooms->path_size += 1;
-}
-
-/*This function fallows shifts and add connecting->rooms with shift value ON
-to path linked list. This to create a path, it gives also the path_id values*/
-static void	follow_shifts(t_path **path)
-{
-	t_links	*connected;
-
-	PATH_ID += 1;
-	connected = CURRENT_PATH_ROOM_LINKS;
-	while (connected != NULL)
-	{
-		// printf("connected = %s\t%d\n", connected->room->name, connected->room->links->shift);
-		if (CONNECTED_ROOM_SHIFT == ON)
-		{
-			connected->room->path_id = PATH_ID;
-			add_to_path(path, connected->room);
-		}
-		connected = connected->next;
-	}
-}
-
-/*This function follows the bfs values in decreasing order by a value of 1,
-it also turn all shift values on or off in the oppiste value then current state*/
-static void	follow_bfs(t_rooms **start)
-/*CHECK!! not sure if t_rooms **rooms is needed to give as parameter to change values globally in program*/
-{
-	t_links	*connected;
-	int		current_distance;
-
-	connected = (*start)->links;
-	current_distance = (*start)->distance;
-	while (connected != NULL)
-	{
-		if (connected->room->distance == (current_distance - 1)
-		|| (current_distance == connected->room->distance && CONNECTED_ROOM_SHIFT == ON))
-		{
-			if (CONNECTED_ROOM_SHIFT == ON)
-				CONNECTED_ROOM_SHIFT = OFF;
-			else
-				CONNECTED_ROOM_SHIFT = ON;
-			return (follow_bfs(&connected->room));
-		}
-		connected = connected->next;
-	}
 }
 
 /*This function the hart of our path searching algorithm
@@ -129,8 +92,7 @@ void		search_path(t_data *data)
 	path = set_start(data);
 	start = data->start_room;
 	follow_bfs(&start);
-	while (CONNECTED_ROOM->path_id == FALSE && check_start_connections(path) == TRUE)
-	//CONNECTED_ROOM->links->shift == ON)
+	while (check_start_connections(path) == TRUE)
 		follow_shifts(&path);
 	/*funtion to calculate if new founded paths are better to use*/
 	save_paths(path);

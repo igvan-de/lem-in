@@ -6,14 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/18 16:12:46 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/10 18:39:23 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-// MATHS WE MIGHT NEED!
 // (turns to get ants through path x) = (path x distance) + (ants) - 1
+
 // (amount of ants that can go through path in x turns) = (x turns) - (path distance) + 1
 
 /*
@@ -36,13 +36,12 @@ static void	print_paths(t_path_set *paths)
 	}
 }
 
-void		ants_calc(t_data **data, t_path_set *paths)
+/*
+** sends ants through the rooms
+*/
+void		send_ants(t_data **data, t_path_set *paths)
 {
 	int			start_ants;
-	// int		one = 3; //temporary path 1 length for ant_farms/test_4
-	// int		two = 4; //temporary path 2 length for ant_farms/test_4
-	// int		path_amount = 2; //temporary path amount for ant_farms/test_4
-
 
 	/*
 	** ant_id starts on 1, the first ant that leaves start will be ant 1
@@ -50,9 +49,10 @@ void		ants_calc(t_data **data, t_path_set *paths)
 	*/
 	(*data)->ant_id = 1;
 	/*
-	** saving amount of starting ants because we count down the amount of
-	** starting ants in the struct as they go on their journey to the end
-	** so we know when we can stop sending new ants from start
+	** saving amount of starting ants to compare with ending ants
+	** because we count down the amount of starting ants in the struct
+	** as they go on their journey to the end so we know when we can
+	** stop sending new ants from start
 	*/
 	start_ants = (*data)->starting_ants;
 	/*
@@ -60,10 +60,56 @@ void		ants_calc(t_data **data, t_path_set *paths)
 	*/
 	while ((*data)->finishing_ants != start_ants)
 	{
-		// print_paths(paths); //temporary
-
-		(*data)->starting_ants--;
-		(*data)->ant_id++;
+		print_paths(paths); //temporary
+		if ((*data)->starting_ants != 0)
+		{
+			/*
+			** send ant through fastest path
+			**
+			** while leftover ants are more than difference between next
+			** fastest path and fastest path send next ant through next fastest path
+			**
+			*/
+			(*data)->starting_ants--;
+			(*data)->ant_id++;
+		}
 		return ;
 	}
+}
+
+/*
+** calculates and returns how many ants we can get through in turns
+*/
+static int	how_many_ants(t_path *paths, int turns)
+{
+	int ants;
+	int	calc;
+
+	ants = 0;
+	while (paths)
+	{
+		calc = turns - paths->path_size + 1;
+		if (calc > 0)
+			ants = ants + calc;
+		paths = paths->next;
+	}
+	return (ants);
+}
+
+/*
+** predicts and returns amount of turns needed to send ants through with current paths
+*/
+int			calc_turn_amount(t_data *data, t_path *paths)
+{
+	int		turns;
+	int		ants;
+
+	turns = 1;
+	ants = 0;
+	while (ants < data->amount_ants_start)
+	{
+		ants = how_many_ants(paths, turns);
+		turns++;
+	}
+	return (turns);
 }

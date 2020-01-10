@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 17:08:52 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/09 14:50:30 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ void			read_input(t_rooms **rooms, t_data **data)
 		// 	break ;
 	}
 	print_hash(table, size);
-	ants_calc(data, data_set);
+	send_ants(data, data_set);
 }

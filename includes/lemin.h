@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 20:10:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 13:13:33 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,13 +170,10 @@ t_queue					*new_element(t_rooms *room);
 **===============================PATH FUNCTIONS=================================
 */
 void					search_path(t_data *data);
-void					save_paths(t_path *path);
+void					save_paths(t_path_set **path_set, t_path *path);
+void					reset_paths(t_path_set **path_set);
 void					follow_shifts(t_path **path);
 void					follow_bfs(t_rooms **room);
-void					add_to_path(t_path **path, t_path *new_room);
-t_path					*new_room_to_path(t_rooms *room);
-
-
 
 /*
 **==============================TEMPERARY PRINT FUNCTIONS=======================

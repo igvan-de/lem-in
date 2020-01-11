@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 14:46:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 15:17:51 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 		a. SUM=(connection->distance = current_room->distance + 1)
 		b. Set visited on TRUE (this because you don't want to look again to room you have already visited)
 	5. stop bfs if there is no more possible path from end to start
+	MAKE CODE MORE DYNAMIC, need to check if this will work
+		1. should not add start in queue if current->room->from == connected->room->type == START
 */
 
 /*This function set values distance and visited to 0 in all the rooms*/
@@ -79,7 +81,6 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 {
 	t_queue	*queue;
 	t_queue	*start;
-	// t_queue *test;
 
 	set_value(rooms, size);
 	queue = create_end(data);
@@ -87,31 +88,12 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 	while (queue != NULL)
 	{
 		create_queue(&queue);
-		// test = queue;
-		// printf("============================\n");
-		// while (test != NULL)
-		// {
-		// 	printf("•••test = %s\t", test->room->name);
-		// 	printf("•••test->visisted = %d\t", test->room->visited);
-		// 	printf("•••test->distence = %d\n\n", test->room->distance);
-		// 	test = test->next;
-		// }
 		if (queue->room->type == START)
 		{
 			queue = NULL;
 			return (TRUE);
 		}
 		pop_out_queue(&queue);
-		/*place pop_out_queu function here*/
-		// printf("========AFTER POP=========\n");
-		// test = queue;
-		// while (test != NULL)
-		// {
-		// 	printf("test = %s\t", test->room->name);
-		// 	printf("test->visisted = %d\t", test->room->visited);
-		// 	printf("test->distence = %d\n\n", test->room->distance);
-		// 	test = test->next;
-		// }
 	}
 	if (start->room->visited == FALSE)
 		return (FALSE);

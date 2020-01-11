@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 13:31:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 15:14:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void			add_to_path(t_path **path, t_path *new_room)
 	t_path	*path_rooms;
 
 	path_rooms = *path;
-	/*need to check if I assign the right values here!*/
 	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
 	new_room->path_size = path_rooms->path_size + 1;

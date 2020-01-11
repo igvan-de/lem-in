@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 13:13:33 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 15:08:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,9 @@ t_queue					*new_element(t_rooms *room);
 /*
 **===============================PATH FUNCTIONS=================================
 */
-void					search_path(t_data *data);
+void					create_paths(t_rooms **rooms, t_data *data, size_t size);
 void					save_paths(t_path_set **path_set, t_path *path);
-void					reset_paths(t_path_set **path_set);
+void					reset_path_ids(t_path_set **path);
 void					follow_shifts(t_path **path);
 void					follow_bfs(t_rooms **room);
 

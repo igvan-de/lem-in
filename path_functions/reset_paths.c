@@ -6,13 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 13:07:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 14:53:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	reset_paths(t_path_set **path_set)
+/*this function resets all path_id values to 0*/
+void	reset_path_ids(t_path_set **path_set)
 {
 	t_path_set	*probe_set;
 	t_path		*probe_paths;

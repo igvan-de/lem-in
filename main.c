@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 19:16:12 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/11 15:08:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,8 @@ int		main(int argc, char **argv) // make back to void
 	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
 	hash_table(rooms, input, &data, size);
 	get_links(&input, rooms, line, size);
-	while (bfs(rooms, data, size) == TRUE)
-	{
-		/*search_path function*/
-		/*Next to functions can be in one function in this while loop
-			a. calculate new path(s) if they are quicker
-			b. save new path(s)*/
-		search_path(data);
-	}
+	create_paths(rooms, data, size);
+	/*move ants*/
 	return (0);
 }
 

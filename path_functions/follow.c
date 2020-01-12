@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 15:14:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/12 13:59:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void			add_to_path(t_path **path, t_path *new_room)
 	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
 	new_room->path_size = path_rooms->path_size + 1;
+	// new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
 }
@@ -73,25 +74,25 @@ void				follow_bfs(t_rooms **room)
 	t_links	*connected;
 	int		current_distance;
 
-	if ((*room)->links == NULL)
+	if ((*room)->links == NULL || (*room)->type == END)
 		return ;
 	connected = (*room)->links;
 	current_distance = (*room)->distance;
 	while (connected != NULL)
 	{
-		/*have problem with checking the correct shift data!!*/
-		if ((connected->room->distance == (current_distance - 1) && CONNECTED_SHIFT == FALSE)
-		|| (current_distance == connected->room->distance && CONNECTED_SHIFT == ON))
+		if (connected->room->distance == (current_distance - 1) && CONNECTED_SHIFT == FALSE)
 		{
-			/*need to create function that check if CONNECT_ROOM_SHIT
-			is pointing to the right room before we turn it off*/
 			if (CONNECTED_SHIFT == ON && connected->room->type != END)
 				CONNECTED_SHIFT = OFF;
 			else
-			{
 				CONNECTED_SHIFT = ON;
-				printf("connected->room = %s\tconnected->shit = %d\n", connected->room->name, connected->shift);
-			}
+			return (follow_bfs(&connected->room));
+		}
+		if (connected->room->distance == current_distance && connected->room->links->shift == ON
+		&& connected->room != (*room)->towards)
+		{
+			if (connected->room->links->shift == ON && connected->room->towards == *room)
+				connected->room->links->shift = OFF;
 			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;

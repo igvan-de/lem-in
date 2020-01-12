@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 15:09:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/12 13:57:19 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_ROOM_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
+		if (CONNECTED_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
 			return (TRUE);
 		connected = connected->next;
 	}

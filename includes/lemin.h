@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/11 15:08:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/12 13:07:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define PATH_ID (*path)->room->path_id
 # define CONNECTED_ROOM_PATH_ID connected->room->path_id
 # define CONNECTED_ROOM_SHIFT connected->room->links->shift
+// # define CONNECTED_SHIFT connected->room->links->shift
 # define CONNECTED_SHIFT connected->shift
-
 
 typedef enum			e_return
 {
@@ -183,10 +183,6 @@ void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
 void					print_path_set(t_path_set *path_set);
 
-
-
 void		remove_link(t_rooms **table, size_t size);
-
-
 
 #endif

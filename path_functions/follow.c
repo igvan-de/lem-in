@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/12 13:59:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 10:58:44 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ static void			add_to_path(t_path **path, t_path *new_room)
 	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
 	new_room->path_size = path_rooms->path_size + 1;
-	// new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
 }
-
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
 to path linked list. This to create a path, it gives also the path_id values*/
@@ -54,8 +52,6 @@ void				follow_shifts(t_path **path)
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{
-		/*will get problem with overlapping paths,
-		need to set path_id to 0 if shift is turned off!*/
 		if (CONNECTED_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
 		{
 			if (connected->room->type != END)
@@ -88,7 +84,7 @@ void				follow_bfs(t_rooms **room)
 				CONNECTED_SHIFT = ON;
 			return (follow_bfs(&connected->room));
 		}
-		if (connected->room->distance == current_distance && connected->room->links->shift == ON
+		else if (connected->room->distance == current_distance && connected->room->links->shift == ON
 		&& connected->room != (*room)->towards)
 		{
 			if (connected->room->links->shift == ON && connected->room->towards == *room)

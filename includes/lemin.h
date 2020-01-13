@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/12 13:07:08 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 10:58:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define PATH_ID (*path)->room->path_id
 # define CONNECTED_ROOM_PATH_ID connected->room->path_id
 # define CONNECTED_ROOM_SHIFT connected->room->links->shift
-// # define CONNECTED_SHIFT connected->room->links->shift
 # define CONNECTED_SHIFT connected->shift
 
 typedef enum			e_return

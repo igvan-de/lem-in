@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 10:58:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 14:43:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void				follow_bfs(t_rooms **room)
 	{
 		if (connected->room->distance == (current_distance - 1) && CONNECTED_SHIFT == FALSE)
 		{
+			printf("name = %s\tdistance = %d\n", connected->room->name, connected->room->distance);
 			if (CONNECTED_SHIFT == ON && connected->room->type != END)
 				CONNECTED_SHIFT = OFF;
 			else
@@ -85,8 +86,9 @@ void				follow_bfs(t_rooms **room)
 			return (follow_bfs(&connected->room));
 		}
 		else if (connected->room->distance == current_distance && connected->room->links->shift == ON
-		&& connected->room != (*room)->towards)
+		&& connected->room->towards == *room)
 		{
+			printf("name = %s\tdistance = %d\n", connected->room->name, connected->room->distance);
 			if (connected->room->links->shift == ON && connected->room->towards == *room)
 				connected->room->links->shift = OFF;
 			return (follow_bfs(&connected->room));

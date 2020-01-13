@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 18:39:23 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/10 19:07:31 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void		send_ants(t_data **data, t_path_set *paths)
 			**
 			** while leftover ants are more than difference between next
 			** fastest path and fastest path send next ant through next fastest path
-			**
 			*/
 			(*data)->starting_ants--;
 			(*data)->ant_id++;
@@ -101,11 +100,11 @@ static int	how_many_ants(t_path *paths, int turns)
 */
 int			calc_turn_amount(t_data *data, t_path *paths)
 {
-	int		turns;
 	int		ants;
+	int		turns;
 
-	turns = 1;
 	ants = 0;
+	turns = 1;
 	while (ants < data->amount_ants_start)
 	{
 		ants = how_many_ants(paths, turns);

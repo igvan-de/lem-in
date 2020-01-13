@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 15:20:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:49:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	create_queue(t_queue **queue)
 	t_links	*connected;
 
 	connected = ROOM_CONNECTIONS;
+	/*if((*queue)->room->path_id == FALSE*/
+	/*if((*queue)->room->path_id != FALSE*/
+		// follow_path
 	while (connected != NULL)
 	{
 		if (connected->room->visited == FALSE)

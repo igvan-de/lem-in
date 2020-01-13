@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/09 14:54:52 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:07:08 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,5 +199,6 @@ void					remove_link(t_table **table, size_t size);
 */
 
 void					send_ants(t_data **data, t_path_set *paths);
+int						calc_turn_amount(t_data *data, t_path *paths);
 
 #endif

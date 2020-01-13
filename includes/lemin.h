@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 10:58:40 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 20:20:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct 			s_path_set
 
 typedef struct 			s_path
 {
-	int					path_size;
 	struct s_rooms		*room;
 	struct s_path		*next;
 }						t_path;
@@ -114,6 +113,7 @@ typedef struct			s_rooms
 	short				visited;
 	t_object_type		type;
 	struct s_links		*links;
+	struct s_rooms		*from;
 	struct s_rooms		*towards;
 	struct s_rooms		*next;
 }						t_rooms;

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 21:36:15 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/14 17:15:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ static void			add_to_path(t_path **path, t_path *new_room)
 	new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
+}
+
+static void			set_link_shift(t_rooms **room, t_rooms **connected_room)
+{
+	t_links	*probe_rooms;
+
+	probe_rooms = (*room)->links;
+	while (probe_rooms != NULL)
+	{
+		if (probe_rooms->room == (*connected_room))
+		{
+			if (probe_rooms->shift == OFF)
+				probe_rooms->shift = ON;
+			else
+				probe_rooms->shift = OFF;
+		}
+		probe_rooms = probe_rooms->next;
+	}
 }
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
@@ -76,21 +94,23 @@ void				follow_bfs(t_rooms **room)
 	current_distance = (*room)->distance;
 	while (connected != NULL)
 	{
-		if (connected->room->distance == (current_distance - 1) && CONNECTED_SHIFT == FALSE)
+		if (connected->room->distance == (current_distance - 1))
 		{
-			printf("name = %s\tdistance = %d\n", connected->room->name, connected->room->distance);
-			if (CONNECTED_SHIFT == ON && connected->room->type != END)
-				CONNECTED_SHIFT = OFF;
-			else
-				CONNECTED_SHIFT = ON;
+			set_link_shift(room, &connected->room);
+			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
-		else if (connected->room->distance == current_distance &&
-		CONNECTED_SHIFT == ON && connected->room->towards == *room)
+		else if (connected->room->distance == -2 && connected->room->towards == *room)
 		{
-			printf("name 2 = %s\tdistance = %d\n", connected->room->name, connected->room->distance);
-			if (connected->room->links->shift == ON && connected->room->towards == *room)
-				connected->room->links->shift = OFF;
+			set_link_shift(room, &connected->room);
+			set_link_shift(&connected->room, room);
+			return (follow_bfs(&connected->room));
+		}
+		else if (connected->room->branch != NULL && (*room)->towards != connected->room)
+		{
+			connected->room->distance = (*room)->distance;
+			set_link_shift(room, &connected->room);
+			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;

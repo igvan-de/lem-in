@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 20:20:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/14 16:56:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ typedef struct			s_data
 {
 	int					amount_ants_start;
 	int					amount_ants_end;
-	int					path_amount;
-	int					max_path_amount;
 	short				found_start;
 	short				found_end;
 	struct s_rooms		*end_room;
@@ -115,6 +113,7 @@ typedef struct			s_rooms
 	struct s_links		*links;
 	struct s_rooms		*from;
 	struct s_rooms		*towards;
+	struct s_rooms		*branch;
 	struct s_rooms		*next;
 }						t_rooms;
 

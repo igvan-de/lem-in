@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 16:58:50 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/14 18:54:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	add_to_queue(t_queue **queue, t_queue *new)
 	probe->next = new;
 }
 
+/*this function checks if the node is pointing to end when node is end*/
 static int	check_end(t_queue **queue, t_rooms *room)
 {
 	if ((*queue)->room->type == END && room->towards->type == END)
@@ -41,7 +42,6 @@ static int	check_end(t_queue **queue, t_rooms *room)
 static void	on_path(t_queue **queue, t_rooms *room)
 {
 	t_links	*connected;
-	t_rooms	*right_connected_room;
 
 	connected = room->links;
 	while (connected != NULL)
@@ -51,7 +51,7 @@ static void	on_path(t_queue **queue, t_rooms *room)
 			connected->room->visited = TRUE;
 			if (connected->room->distance == 0)
 				connected->room->distance = -2;
-			right_connected_room = connected->room;
+			connected->room->branch = room;
 			connected = connected->room->links;
 			break ;
 		}
@@ -65,7 +65,6 @@ static void	on_path(t_queue **queue, t_rooms *room)
 		{
 			if (connected->room->path_id != room->path_id)
 			{
-				right_connected_room->branch = connected->room;
 				connected->room->visited = TRUE;
 				connected->room->distance = room->distance + 1;
 				add_to_queue(queue, new_element(connected->room));
@@ -87,6 +86,8 @@ void		create_queue(t_queue **queue)
 {
 	t_links	*connected;
 
+	if ((*queue)->room->type == START)
+		return ;
 	connected = ROOM_CONNECTIONS;
 	while (connected != NULL)
 	{
@@ -101,7 +102,10 @@ void		create_queue(t_queue **queue)
 		&& connected->room->visited == FALSE && check_end(queue, connected->room) == FALSE)
 		{
 			connected->room->visited = TRUE;
-			connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
+			if (connected->room->path_id == (*queue)->room->path_id)
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE;
+			else
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
 			add_to_queue(queue, new_element(connected->room));
 			on_path(queue, connected->room);
 		}

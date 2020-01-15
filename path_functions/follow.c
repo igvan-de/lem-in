@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 18:56:42 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/15 19:07:11 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,15 @@ void				follow_bfs(t_rooms **room)
 	current_distance = (*room)->distance;
 	while (connected != NULL)
 	{
-		if (connected->room->distance == (current_distance - 1))
+		if (connected->room->distance == (current_distance - 1) && connected->room->from != *room)
 		{
 			set_link_shift(room, &connected->room);
 			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
-		else if (connected->room->distance == -2 && connected->room->towards == *room)
-		{
-			set_link_shift(room, &connected->room);
-			set_link_shift(&connected->room, room);
-			return (follow_bfs(&connected->room));
-		}
-		else if (connected->room->distance == (*room)->distance && connected->room->towards == *room)
-		{
-			set_link_shift(room, &connected->room);
-			set_link_shift(&connected->room, room);
-			return (follow_bfs(&connected->room));
-		}
-		else if (connected->room->branch != NULL && (*room)->towards != connected->room)
+		/*need to check for branches for follow the right BFS path*/
+		else if (connected->room->branch != NULL && connected->room != (*room)->towards
+		&& connected->room->distance != (*room)->distance)
 		{
 			connected->room->distance = (*room)->distance;
 			set_link_shift(room, &connected->room);

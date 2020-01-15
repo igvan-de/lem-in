@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 18:54:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/15 18:47:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	add_to_queue(t_queue **queue, t_queue *new)
 /*this function checks if the node is pointing to end when node is end*/
 static int	check_end(t_rooms *current_room, t_rooms *connected_room)
 {
+	if (connected_room->towards == NULL)
+		return (FALSE);
 	if (current_room->type == END && connected_room->towards->type == END)
 		return (TRUE);
 	return (FALSE);
@@ -81,14 +83,11 @@ static void	on_path(t_queue **queue, t_rooms *room)
 	connected = room->links;
 	while (connected != NULL)
 	{
-		if (connected->room->visited == FALSE)
+		if (connected->room->path_id == room->path_id && room->towards == connected->room)
 		{
-			if (connected->room->path_id == room->path_id && room->towards == connected->room)
-			{
-				connected->room->visited = TRUE;
-				connected->room->distance = room->distance;
-				follow_path(queue, room, connected->room->links);
-			}
+			connected->room->visited = TRUE;
+			connected->room->branch = room;
+			follow_path(queue, connected->room, connected->room->links);
 		}
 		connected = connected->next;
 	}
@@ -109,7 +108,7 @@ void		create_queue(t_queue **queue)
 	{
 		while (connected != NULL)
 		{
-			if (connected->room->visited == FALSE)
+			if (connected->room->visited == FALSE && check_end(current_room, connected->room) == FALSE)
 			{
 				connected->room->visited = TRUE;
 				connected->room->distance = current_room->distance + 1;

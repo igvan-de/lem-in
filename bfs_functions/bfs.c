@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 18:58:05 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/15 19:07:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,12 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 	start = create_start(data);
 	while (queue != NULL)
 	{
+		if (queue->room->type == START)
+		{
+			free(queue);
+			queue = NULL;
+			return (TRUE);
+		}
 		create_queue(&queue);
 		// test = queue;
 		// printf("============================\n");
@@ -98,12 +104,6 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 		// 	printf("•••test->distence = %d\n\n", test->room->distance);
 		// 	test = test->next;
 		// }
-		if (queue->room->type == START)
-		{
-			free(queue);
-			queue = NULL;
-			return (TRUE);
-		}
 		pop_out_queue(&queue);
 		// printf("========AFTER POP=========\n");
 		// test = queue;

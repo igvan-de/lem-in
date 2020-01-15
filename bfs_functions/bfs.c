@@ -50,11 +50,11 @@ static void		set_value(t_table **table, size_t size)
 int				bfs(t_ants **ants, t_table **table, size_t size)
 {
 	t_queue *queue;
-	t_queue *start;
+	// t_queue *start;
 	t_queue *test;
 
 	queue = create_end(*ants);
-	start = create_start(*ants);
+	// start = create_start(*ants);
 	set_value(table, size);
 	while (queue != NULL)
 	{

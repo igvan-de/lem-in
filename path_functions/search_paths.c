@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:12:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/15 20:51:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void		search_path(t_path_set **old_path_set, t_data *data)
 		save_paths(&new_path_set, path);
 		path = set_start(data);
 	}
-	/*funtion to calculate if new founded paths are better to use*/
 	*old_path_set = new_path_set;
 	print_path_set(*old_path_set);
 }

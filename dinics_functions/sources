@@ -1,2 +1,0 @@
-SRCS += dinics_functions/dinics.c \
-dinics_functions/path_set.c

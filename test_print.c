@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/18 15:37:46 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/15 15:25:54 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "lemin.h"
 #include <stdio.h>
 
-void	print_rooms(t_rooms *rooms, t_data **ants)
+void	print_input(t_input *rooms, t_data **ants)
 {
-	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->starting_ants);
+	printf("%d ants need to get from start to end or they will be eaten by a dragon.\n", (*ants)->amount_ants_start);
 	while (rooms)
 	{
 		printf("Room: %s\t\tx: %d\t\ty: %d",
@@ -32,7 +32,7 @@ void	print_rooms(t_rooms *rooms, t_data **ants)
 	}
 }
 
-void    print_hash(t_table **table, size_t size)
+void    print_hash(t_rooms **table, size_t size)
 {
     size_t i;
 
@@ -52,7 +52,7 @@ void    print_hash(t_table **table, size_t size)
                 printf("has no links..");
             while (table[i]->links)
             {
-                printf(" \033[0;36m%s\033[0m", table[i]->links->to->name);
+                printf(" \033[0;36m%s\033[0m", table[i]->links->room->name);
                 if (table[i]->links->next)
                     printf(" &");
                 table[i]->links = table[i]->links->next;
@@ -64,50 +64,52 @@ void    print_hash(t_table **table, size_t size)
     }
 }
 
-void	print_queue(t_queue *queue)
+// void	print_queue(t_queue *queue)
+// {
+// 	t_queue *test;
+
+// 	test = queue;
+// 	printf("============================\n");
+// 	while (test != NULL)
+// 	{
+// 		printf("•••test = %s\t", test->to->name);
+// 		printf("•••test->visisted = %d\t", test->to->visited);
+// 		printf("•••test->distence = %d\n\n", test->to->distance);
+// 		test = test->next;
+// 	}
+// 	/*place pop_out_queu function here*/
+// 	printf("========AFTER POP=========\n");
+// 	test = queue;
+// 	while (test != NULL)
+// 	{
+// 		printf("test = %s\t", test->to->name);
+// 		printf("test->visisted = %d\t", test->to->visited);
+// 		printf("test->distence = %d\n\n", test->to->distance);
+// 		test = test->next;
+// 	}
+// }
+
+void				print_path_set(t_path_set *path_set)
 {
-	t_queue *test;
+	t_path_set	*probe_set;
+    t_path      *probe_paths;
 
-	test = queue;
-	// printf("============================\n");
-	while (test != NULL)
+	probe_set = path_set;
+	printf("--------NEW SET--------\n");
+	while (probe_set != NULL)
 	{
-		// printf("•••test = %s\t", test->to->name);
-		// printf("•••test->visisted = %d\t", test->to->visited);
-		// printf("•••test->distence = %d\n\n", test->to->distance);
-		test = test->next;
-	}
-	/*place pop_out_queu function here*/
-	// printf("========AFTER POP=========\n");
-	test = queue;
-	while (test != NULL)
-	{
-		// printf("test = %s\t", test->to->name);
-		// printf("test->visisted = %d\t", test->to->visited);
-		// printf("test->distence = %d\n\n", test->to->distance);
-		test = test->next;
-	}
-}
-
-void				print_path_set(t_path_set *data_set)
-{
-	t_path_set	*probe;
-	t_path_data	*tmp;
-
-	probe = data_set;
-	while (probe != NULL)
-	{
-		tmp = probe->path;
-		// printf("data_set->path_id = %d\n", probe->path_id);
-		while (tmp != NULL)
+		probe_paths = probe_set->path;
+		while (probe_paths != NULL)
 		{
-			// if (tmp->towards != NULL)
-				// printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
-			// else if (tmp->towards != NULL)
-				// printf("data->set->path = %s\ttowards = %s\n", tmp->room->name, tmp->towards->name);
-			tmp = tmp->next;
+			if (probe_paths->room->towards != NULL)
+			{
+				printf("data->set->path = %s\n", probe_paths->room->name);
+			}
+			else
+				printf("data->set->path = %s\n", probe_paths->room->name);
+			probe_paths = probe_paths->next;
 		}
-		probe = probe->next;
-		// printf("--------------------\n");
+		printf("-----------------\n");
+		probe_set = probe_set->next;
 	}
 }

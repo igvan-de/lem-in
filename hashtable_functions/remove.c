@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 13:02:35 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:58:08 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:30:34 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,30 @@ static int	count_links(t_links *probe)
 	return (links);
 }
 
-static int	link_compare(t_table *table, t_table *link)
+static int	link_compare(t_rooms *room, t_rooms *link)
 {
-	// printf("table = %s\n", table->links->to->name);
-	// printf("link = %s\n", link->links->to->name);
-	if (table == link)
+	if (room == link)
 		return (TRUE);
 	else
 		return (FALSE);
 }
 
-void		delete_link(t_table *table)
+void		delete_link(t_rooms *room)
 {
 	t_links *tmp;
 	t_links	*prev;
 
-	tmp = table->links->to->links;
+	tmp = room->links->room->links;
 	prev = tmp;
 	if (tmp != NULL)
 	{
 		while (tmp != NULL)
 		{
-			// printf("===============\n");
-			// printf("prev = %s\n", prev->to->name);
-			if (link_compare(table, tmp->to) == TRUE)
+			if (link_compare(room, tmp->room) == TRUE)
 			{
-				// printf("tmp = %s\n", tmp->to->name);
-				tmp->to = NULL;
-				// printf("tmp = %p\n", tmp->to);
+				tmp->room = NULL;
 				free (tmp);
-				prev->next->to = tmp->next->to;
-				// printf("prev->next = %s\n", prev->next->to->name);
+				prev->next->room = tmp->next->room;
 				return ;
 			}
 			// printf("room name %s\n", tmp->to->name);
@@ -75,9 +68,9 @@ void		delete_link(t_table *table)
 			// 	return ;
 			// }
 
-t_table		*delete_node(t_table *head)
+t_rooms		*delete_node(t_rooms *head)
 {
-	t_table *probe;
+	t_rooms *probe;
 
 	if (!head)
 		return (NULL);
@@ -100,13 +93,13 @@ t_table		*delete_node(t_table *head)
 	return (head);
 }
 
-void		remove_link(t_table **table, size_t size)
+void		remove_link(t_rooms **rooms, size_t size)
 {
 	size_t	i;
-	t_table **probe;
+	t_rooms **probe;
 
 	i = 0;
-	probe = table;
+	probe = rooms;
 	while (i < size)
 	{
 		probe[i] = delete_node(probe[i]);

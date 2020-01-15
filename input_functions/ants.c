@@ -6,13 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 13:43:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/18 15:38:03 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:17:28 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	get_ants(t_data **ants)
+/*This function finds amount of ants*/
+void	get_ants(t_data **ants)//Ask Yonne to check if this is a better name!
 {
 	char			*line;
 	int				i;
@@ -33,6 +34,17 @@ void	get_ants(t_data **ants)
 		}
 		i++;
 	}
-	(*ants)->starting_ants = ft_atoi(line);
-	(*ants)->finishing_ants = 0;
+	(*ants)->amount_ants_start = ft_atoi(line);
+	(*ants)->amount_ants_end = 0;
 }
+
+
+// void	move_ants(t_data **ants, t_path_set *data_set)
+// {
+// 	printf("ants = %d\n", (*ants)->start);
+// 	printf("room = %s\n", data_set->path->rooms->room->name);
+// 	while ((*ants)->end == 0)
+// 	{
+
+// 	}
+// }

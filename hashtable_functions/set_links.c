@@ -6,25 +6,26 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/12 14:23:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:24:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_table		*get_table(t_table **table, size_t size, char *name)
+/*This function gets the right room pointer*/
+static t_rooms		*get_room(t_rooms **rooms, size_t size, char *name)
 {
-	t_table *t;
+	t_rooms *room;
 	size_t index;
 
-	// VIND M SWS
 	index = hash_function((unsigned char*)name, size);
-	t = table[index];
-	while (ft_strequ(t->name, name) == FALSE)
-		t = t->next;
-	return (t);
+	room = rooms[index];
+	while (ft_strequ(room->name, name) == FALSE)
+		room = room->next;
+	return (room);
 }
 
+/*This function adds a new link in front of linked list of links(connections) of a room*/
 static void			add_link(t_links **link, t_links *new)
 {
 	if (link == NULL || new == NULL)
@@ -33,22 +34,24 @@ static void			add_link(t_links **link, t_links *new)
 	*link = new;
 }
 
-static t_links		*new_link(t_table *pointer)
+/*This function creates a new link for a room*/
+static t_links		*new_link(t_rooms *pointer)
 {
 	t_links	*link;
 
 	link = (t_links*)ft_memalloc(sizeof(t_links));
-	link->to = pointer;
+	link->room = pointer;
 	return (link);
 }
 
-void				set_links(t_table **table,
+/*This function sets the links to all rooms*/
+void				set_links(t_rooms **rooms,
 size_t size, char *name_a, char *name_b)
 {
-	t_table	*a;
-	t_table	*b;
+	t_rooms	*a;
+	t_rooms	*b;
 
-	a = get_table(table, size, name_a);
-	b = get_table(table, size, name_b);
+	a = get_room(rooms, size, name_a);
+	b = get_room(rooms, size, name_b);
 	add_link(&a->links, new_link(b));
 }

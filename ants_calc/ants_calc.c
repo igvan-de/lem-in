@@ -6,86 +6,93 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/10 19:07:31 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/15 21:03:38 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-// (turns to get ants through path x) = (path x distance) + (ants) - 1
-
-// (amount of ants that can go through path in x turns) = (x turns) - (path distance) + 1
-
-/*
-** temporary print function for testing
-*/
-static void	print_paths(t_path_set *paths)
+static void	push_leftovers(t_data **data, t_path *begin)
 {
-	while (paths)
+	if (!begin)
+		return ;
+	push_leftovers(data, begin->next);
+	if (begin->room->type == END || begin->room->type == START || begin->room->ant_id == 0)
+		return ;
+	else
 	{
-		printf("path %d: ", paths->path_id);
-		while (paths->path)
+		if (begin->next->room->type == END && begin->room->ant_id != 0)
+			(*data)->amount_ants_end++;
+		begin->next->room->ant_id = begin->room->ant_id;
+		ft_putchar('L');
+		ft_putnbr(begin->next->room->ant_id);
+		ft_putchar('-');
+		ft_putstr(begin->next->room->name);
+		begin->room->ant_id = 0;
+		// ft_putchar(' ');
+	}
+}
+
+static void	push_ants(t_data **data, t_path *begin)
+{
+	if (!begin)
+		return ;
+	push_ants(data, begin->next);
+	if (begin->room->type == END || begin->room->ant_id == 0)
+		return ;
+	else
+	{
+		if (begin->next->room->type == END && begin->room->ant_id != 0)
+			(*data)->amount_ants_end++;
+		begin->next->room->ant_id = begin->room->ant_id;
+		ft_putchar('L');
+		ft_putnbr(begin->next->room->ant_id);
+		ft_putchar('-');
+		ft_putstr(begin->next->room->name);
+		if (begin->room->type == START && (begin->room->ant_id <= (*data)->amount_ants_start))
+			begin->room->ant_id++;
+		else
 		{
-			printf("%s", paths->path->room->name);
-			if (paths->path->next)
-				printf(", ");
-			paths->path = paths->path->next;
+			begin->room->ant_id = 0;
+			ft_putchar(' ');
 		}
-		printf("\n");
-		paths = paths->next;
 	}
 }
 
 /*
 ** sends ants through the rooms
 */
-void		send_ants(t_data **data, t_path_set *paths)
+void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 {
-	int			start_ants;
+	t_path_set	*paths;
 
-	/*
-	** ant_id starts on 1, the first ant that leaves start will be ant 1
-	** then ant_id++ so the next ant that leaves start will be ant 2 etc.
-	*/
-	(*data)->ant_id = 1;
-	/*
-	** saving amount of starting ants to compare with ending ants
-	** because we count down the amount of starting ants in the struct
-	** as they go on their journey to the end so we know when we can
-	** stop sending new ants from start
-	*/
-	start_ants = (*data)->starting_ants;
-	/*
-	** while loop isn't finished until amount of finishing ants is the same as starting
-	*/
-	while ((*data)->finishing_ants != start_ants)
+	paths = *begin;
+	while (paths)
 	{
-		print_paths(paths); //temporary
-		if ((*data)->starting_ants != 0)
+		//printf("[path size: %d\tturns: %d\tcurrent turn: %d\tturns - current turn: %d]\n", paths->path_size, (*data)->turns, current_turn, (*data)->turns - current_turn);
+		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
+			push_ants(data, paths->path);
+		else
+			push_leftovers(data, paths->path);
+		paths = paths->next;
+		if (!paths && current_turn <= (*data)->turns)
 		{
-			/*
-			** send ant through fastest path
-			**
-			** while leftover ants are more than difference between next
-			** fastest path and fastest path send next ant through next fastest path
-			*/
-			(*data)->starting_ants--;
-			(*data)->ant_id++;
+			ft_putchar('\n');
+			send_ants(data, begin, (current_turn + 1));
 		}
-		return ;
 	}
 }
 
 /*
 ** calculates and returns how many ants we can get through in turns
 */
-static int	how_many_ants(t_path *paths, int turns)
+static int	how_many_ants(t_path_set *paths, int turns)
 {
 	int ants;
 	int	calc;
 
 	ants = 0;
-	while (paths)
+	while (paths != NULL)
 	{
 		calc = turns - paths->path_size + 1;
 		if (calc > 0)
@@ -98,17 +105,17 @@ static int	how_many_ants(t_path *paths, int turns)
 /*
 ** predicts and returns amount of turns needed to send ants through with current paths
 */
-int			calc_turn_amount(t_data *data, t_path *paths)
+int			calc_turn_amount(t_data *data, t_path_set *paths)
 {
 	int		ants;
 	int		turns;
 
 	ants = 0;
-	turns = 1;
+	turns = 0;
 	while (ants < data->amount_ants_start)
 	{
-		ants = how_many_ants(paths, turns);
 		turns++;
+		ants = how_many_ants(paths, turns);
 	}
 	return (turns);
 }

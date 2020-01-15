@@ -6,13 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:34:33 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:17:34 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void			no_whitespaces(char *line) /*checking for whitespaces in front of line*/
+/*checking for whitespaces in front of line*/
+void			no_whitespaces(char *line)
 {
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
 		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
@@ -22,7 +23,8 @@ void			no_whitespaces(char *line) /*checking for whitespaces in front of line*/
 	}
 }
 
-int				check_if_command(char *line, t_data **ants) /*ignoring all commands "#" and checking if they're start or end*/
+/*ignoring all commands "#" and checking if they're start or end*/
+int				check_if_command(char *line, t_data **data)
 {
 	int i;
 
@@ -32,13 +34,14 @@ int				check_if_command(char *line, t_data **ants) /*ignoring all commands "#" a
 	if (i != 0 && line[0] == '#')
 	{
 		if (i >= 1 && line[1] == '#')
-			is_start_or_end(line, ants);
+			is_start_or_end(line, data);
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-int				check_format_room(char *line, t_data **ants) /*making sure rooms are formatted correctly*/
+/*making sure rooms are formatted correctly*/
+int				check_format_room(char *line, t_data **data)
 {
 	int i;
 	int space_count;
@@ -46,7 +49,7 @@ int				check_format_room(char *line, t_data **ants) /*making sure rooms are form
 	i = 0;
 	space_count = 1; /*already counted first space because we skip it*/
 	no_whitespaces(line);
-	if (check_if_command(line, ants) == TRUE)
+	if (check_if_command(line, data) == TRUE)
 		return (TRUE);
 	if (!line[i])
 	{
@@ -78,7 +81,8 @@ int				check_format_room(char *line, t_data **ants) /*making sure rooms are form
 		return (FALSE);
 }
 
-int				check_format_link(char *line, t_rooms **rooms) /*making sure links are formatted correctly*/
+/*making sure links are formatted correctly*/
+int				check_format_link(char *line, t_input **input)
 { //check for duplicate links (or do we not care there's duplicates?) //we don't care
 	int i;
 	int dash_count;
@@ -88,7 +92,7 @@ int				check_format_link(char *line, t_rooms **rooms) /*making sure links are fo
 	no_whitespaces(line);
 	if (line && line[0] == '#') /*skip commands*/
 		return (TRUE);
-	if (compare_with_rooms(lem_split(line, rooms), rooms) == FALSE)
+	if (compare_with_rooms(lem_split(line, input), input) == FALSE)
 	{
 		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
 		exit(0);

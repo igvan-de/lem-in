@@ -6,48 +6,42 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:35:42 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:19:32 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_queue	*create_start(t_data *ants)
+/*This function find the room with type STRAT,
+so we can later check if start if found in BFS*/
+t_queue	*create_start(t_data *data)
 {
 	t_queue *start;
 
 	start = (t_queue*)ft_memalloc(sizeof(t_queue));
-	start->to = ants->begin;
+	start->room = data->start_room;
 	return (start);
 }
 
-t_queue	*create_end(t_data *ants)
+/*This function is to get the room with type END for queue,
+we need to function to start our BFS algorithm from end
+and then culculate our way back to start*/
+t_queue	*create_end(t_data *data)
 {
 	t_queue *queue;
 
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
-	queue->to = ants->end;
-	queue->to->visited = TRUE;
+	queue->room = data->end_room;
+	queue->room->visited = TRUE;
 	return (queue);
 }
 
-t_queue	*new_element(t_table *pointer)
+/*This function creates a new element for the queue*/
+t_queue	*new_element(t_rooms *room)
 {
 	t_queue	*queue;
 
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
-	queue->to = pointer;
+	queue->room = room;
 	return (queue);
-}
-
-t_path_data	*get_end(t_path_data *path)
-{
-	t_path_data	*probe;
-
-	if (path->room == NULL)
-		return (path);
-	probe = path;
-	while (probe->room->type != END)
-		probe = probe->next;
-	return (probe);
 }

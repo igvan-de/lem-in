@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/12/17 16:01:41 by ygroenev      ########   odam.nl          #
+#    Updated: 2020/01/13 16:25:19 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ include sources
 include input_functions/sources
 include hashtable_functions/sources
 include bfs_functions/sources
+include path_functions/sources
 include ants_calc/sources
-include dinics_functions/sources
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_RED = $(shell printf "\e[31;5;10m")
@@ -25,7 +25,7 @@ COLOR_DEFAULT = $(shell printf "\e[39m")
 NAME = lem-in
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g #remove -g!
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')

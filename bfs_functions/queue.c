@@ -6,68 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/17 16:57:29 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:19:27 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	follow_direction(t_queue **queue, t_links *probe)
-{
-	t_table *tmp;
-
-	tmp = probe->to->towards;
-	while (tmp != NULL && tmp->type != END)
-	{
-		if (tmp->links->shift == OFF)
-		{
-			tmp->links->to->distance = probe->to->distance + 1;
-			tmp->visited = TRUE;
-			// printf("tmp = %s\tdistance = %d\n", tmp->name, tmp->distance);
-			add_to_queue(queue, new_element(tmp->links->to));
-
-		}
-		tmp = tmp->towards;
-	}
-}
-
-static int	check_towards(t_links *probe)
-{
-	if (probe->to->towards == NULL)
-		return (FALSE);
-	if (probe->to->towards->type == END)
-		return (TRUE);
-	return (FALSE);
-}
-
-void		create_queue(t_queue **queue)
-{
-	t_links		*probe;
-
-	probe = (*queue)->to->links;
-	if (probe->to->type == END)
-		probe->to->visited = TRUE;
-	while (probe != NULL)
-	{
-		if (probe->to->visited == FALSE && check_towards(probe) == FALSE)
-		{
-			// printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
-			add_to_queue(queue, new_element(probe->to));
-			probe->to->visited = TRUE;
-			if (probe->to->type != END)
-				probe->to->distance = (*queue)->to->distance + 1;
-		}
-		else if (probe->to->path == TRUE && check_towards(probe) == FALSE)
-		{
-			// probe->to->distance = (*queue)->to->distance + 1;
-			follow_direction(queue, probe);
-			// printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
-		}
-		probe = probe->next;
-	}
-}
-
-void	add_to_queue(t_queue **queue, t_queue *new)
+/*This functions adds a new room to the existing queue*/
+static void	add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
 
@@ -84,7 +30,45 @@ void	add_to_queue(t_queue **queue, t_queue *new)
 	probe->next = new;
 }
 
-void		pop_out_queue(t_queue **queue)
+/*This functions create the queue by adding the connecting rooms of current room to queue,
+this only happens if the connected rooms meet the rules we made before we want to add them*/
+void	create_queue(t_queue **queue)
+{
+	t_links	*connected;
+
+	connected = ROOM_CONNECTIONS;
+	while (connected != NULL)
+	{
+		if (connected->room->visited == FALSE)
+		{
+			if (connected->room->path_id == FALSE ||
+			(connected->room->type == START && connected->room->towards != CURRENT_QUEUE_ROOM))
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = CURRENT_QUEUE_ROOM_DISTANCE + 1;
+				add_to_queue(queue, new_element(connected->room));
+			}
+			else if (connected->room->path_id == CURRENT_QUEUE_ROOM->path_id &&
+			CURRENT_QUEUE_ROOM->towards == connected->room)
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = CURRENT_QUEUE_ROOM->distance;
+				add_to_queue(queue, new_element(connected->room));
+			}
+			else if (connected->room->path_id != CURRENT_QUEUE_ROOM->path_id && connected->room->type != START
+			&& CURRENT_QUEUE_ROOM->type != END)
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = CURRENT_QUEUE_ROOM->distance + 1;
+				add_to_queue(queue, new_element(connected->room));
+			}
+		}
+		connected = connected->next;
+	}
+}
+
+/*This functions pops the first room of the queue*/
+void	pop_out_queue(t_queue **queue)
 {
 	t_queue	*first_node;
 

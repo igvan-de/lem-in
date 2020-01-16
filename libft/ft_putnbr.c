@@ -6,7 +6,7 @@
 /*   By: igvan-de <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 15:08:52 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/09/25 16:00:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/15 19:54:55 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	ft_putnbr(int n)
 	}
 	if (n < 0)
 	{
-		ft_putchar('-');
 		n *= -1;
+		ft_putchar('-');
 	}
-	if (n >= 9)
+	if (n >= 10)
 	{
 		ft_putnbr(n / 10);
 		ft_putnbr(n % 10);
 	}
-	if (n <= 9)
+	else
 		ft_putchar(n + '0');
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/15 21:25:30 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/16 15:28:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,38 +62,6 @@ int		main(int argc, char **argv) // make back to void
 	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
 	hash_table(rooms, input, &data, size);
 	get_links(&input, rooms, line, size);
-	create_paths(rooms, data, size);
-	/*move ants*/
+	create_paths_and_send_ants(rooms, data, size);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*
-	1. BFS function to find quickest path (MOST IMPORTANT FUNCTION!!!)
-	2. Path function to create path (turn shift on or off in oppisite values as there are when probing over them)
-	3. Save path
-	4. Repeat step 1 and 2
-	5. Before saving new paths, calculate if the newly finded paths are quicker to use for amount of ants
-	6. If step 5 is prover that the new paths are quicker, save them
-	*/
-	// remove_link(table, size);
-	// move_ants(ants, data_set);
-	// print_hash(rooms, size);
-	// print_input(*rooms, ants);

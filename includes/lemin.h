@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 13:35:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/16 14:42:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum			e_node_value
 
 typedef struct 			s_path_set
 {
+	int					path_size;
 	struct s_path		*path;
 	struct s_path_set	*next;
 }						t_path_set;
@@ -80,9 +81,9 @@ typedef struct			s_queue
 typedef struct			s_data
 {
 	int					amount_ants_start;
-	int					amount_ants_end;
 	short				found_start;
 	short				found_end;
+	int					turns;
 	struct s_rooms		*end_room;
 	struct s_rooms		*start_room;
 }						t_data;
@@ -110,6 +111,7 @@ typedef struct			s_rooms
 	int					distance;
 	int					path_id;
 	short				visited;
+	int					ant_id;
 	t_object_type		type;
 	struct s_links		*links;
 	struct s_rooms		*from;
@@ -168,10 +170,10 @@ t_queue					*new_element(t_rooms *room);
 /*
 **===============================PATH FUNCTIONS=================================
 */
-void					create_paths(t_rooms **rooms, t_data *data, size_t size);
-void					save_paths(t_path_set **path_set, t_path *path);
+void					create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size);
+void					save_paths(t_path_set **path_set, t_path_set *path);
 void					reset_path_ids(t_path_set **path);
-void					follow_shifts(t_path **path);
+void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);
 
 /*
@@ -183,5 +185,8 @@ void					print_queue(t_queue *queue);
 void					print_path_set(t_path_set *path_set);
 
 void		remove_link(t_rooms **table, size_t size);
+
+int			calc_turn_amount(t_data *data, t_path_set *paths);
+void		send_ants(t_data **data, t_path_set **paths, int turns);
 
 #endif

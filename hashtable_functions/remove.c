@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 13:02:35 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 20:23:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/13 16:30:34 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int	count_links(t_links *probe)
 
 static int	link_compare(t_rooms *room, t_rooms *link)
 {
-	printf("table = %s\n", room->links->room->name);
-	printf("link = %s\n", link->links->room->name);
 	if (room == link)
 		return (TRUE);
 	else
@@ -46,16 +44,11 @@ void		delete_link(t_rooms *room)
 	{
 		while (tmp != NULL)
 		{
-			printf("===============\n");
-			printf("prev = %s\n", prev->room->name);
 			if (link_compare(room, tmp->room) == TRUE)
 			{
-				printf("tmp = %s\n", tmp->room->name);
 				tmp->room = NULL;
-				printf("tmp = %p\n", tmp->room);
 				free (tmp);
 				prev->next->room = tmp->next->room;
-				printf("prev->next = %s\n", prev->next->room->name);
 				return ;
 			}
 			// printf("room name %s\n", tmp->to->name);

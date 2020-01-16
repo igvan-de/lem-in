@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/15 21:26:08 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/16 14:40:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static t_path		*new_room_to_path(t_rooms *room)
 }
 
 /*This function adds a new room at the end of linked list of existing path*/
-static void			add_to_path(t_path **path, t_path *new_room)
+static void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 {
 	t_path	*path_rooms;
 
 	path_rooms = *path;
 	while (path_rooms->next != NULL)
 		path_rooms = path_rooms->next;
+	set->path_size++;
 	new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
@@ -56,7 +57,7 @@ static void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
 to path linked list. This to create a path, it gives also the path_id values*/
-void				follow_shifts(t_path **path)
+void				follow_shifts(t_path **path, t_path_set *set)
 {
 	t_links	*connected;
 	t_path	*get_last_room;
@@ -75,8 +76,8 @@ void				follow_shifts(t_path **path)
 		{
 			if (connected->room->type != END)
 				connected->room->path_id = PATH_ID;
-			add_to_path(path, new_room_to_path(connected->room));
-			return (follow_shifts(path));
+			add_to_path(path, new_room_to_path(connected->room), set);
+			return (follow_shifts(path, set));
 		}
 		connected = connected->next;
 	}

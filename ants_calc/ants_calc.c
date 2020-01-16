@@ -6,12 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/15 21:03:38 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 14:19:15 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*
+** recursively loops through the paths and pushes all leftover ants one room
+*/
 static void	push_leftovers(t_data **data, t_path *begin)
 {
 	if (!begin)
@@ -21,18 +24,21 @@ static void	push_leftovers(t_data **data, t_path *begin)
 		return ;
 	else
 	{
-		if (begin->next->room->type == END && begin->room->ant_id != 0)
-			(*data)->amount_ants_end++;
 		begin->next->room->ant_id = begin->room->ant_id;
 		ft_putchar('L');
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
+		if (begin->room->from->type != START &&
+		begin->room->ant_id != 0 && begin->room->from->ant_id != 0)
+			ft_putchar(' ');
 		begin->room->ant_id = 0;
-		// ft_putchar(' ');
 	}
 }
 
+/*
+** recursively loops through the paths and pushes all ants one room
+*/
 static void	push_ants(t_data **data, t_path *begin)
 {
 	if (!begin)
@@ -42,8 +48,6 @@ static void	push_ants(t_data **data, t_path *begin)
 		return ;
 	else
 	{
-		if (begin->next->room->type == END && begin->room->ant_id != 0)
-			(*data)->amount_ants_end++;
 		begin->next->room->ant_id = begin->room->ant_id;
 		ft_putchar('L');
 		ft_putnbr(begin->next->room->ant_id);
@@ -69,17 +73,20 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 	paths = *begin;
 	while (paths)
 	{
-		//printf("[path size: %d\tturns: %d\tcurrent turn: %d\tturns - current turn: %d]\n", paths->path_size, (*data)->turns, current_turn, (*data)->turns - current_turn);
 		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
 			push_ants(data, paths->path);
 		else
+		{
 			push_leftovers(data, paths->path);
-		paths = paths->next;
-		if (!paths && current_turn <= (*data)->turns)
+		}
+		if (!paths->next && current_turn <= (*data)->turns)
 		{
 			ft_putchar('\n');
 			send_ants(data, begin, (current_turn + 1));
 		}
+		else
+			ft_putchar(' ');
+		paths = paths->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 13:43:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:17:28 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 13:39:47 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	get_ants(t_data **ants)//Ask Yonne to check if this is a better name!
 		i++;
 	}
 	(*ants)->amount_ants_start = ft_atoi(line);
-	(*ants)->amount_ants_end = 0;
 }
 
 

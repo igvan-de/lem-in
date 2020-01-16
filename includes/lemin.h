@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 16:56:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/16 13:35:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include <stdio.h> //REMOVE!!!!!!!!
 
+//NEED TO CHECK DEFINES IF WE USE THEM AND/OR ARE THEY REALLY USEFULL
 # define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
 # define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
 # define ROOM_CONNECTIONS (*queue)->room->links

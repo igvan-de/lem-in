@@ -6,14 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:58:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 13:27:39 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 /*===============DELETE THIS FILE!!================*/
 #include "lemin.h"
-#include <stdio.h> 
+#include <stdio.h>
 
 void	print_rooms(t_rooms *rooms, t_ants **ants)
 {
@@ -41,7 +41,13 @@ void    print_hash(t_table **table, size_t size)
     {
         while (table[i] != NULL)
         {
-            printf("hash[%zu] = \033[0;35m%s \033[0m", i, table[i]->name);
+			if (table[i]->type == USELESS)
+			{
+				table[i] = table[i]->next;
+				continue ;
+			}
+			if (table[i]->name != NULL)
+           		printf("hash[%zu] = \033[0;35m%s \033[0m", i, table[i]->name);
             if (table[i]->type == START)
                 printf("(\033[0;34mstart\033[0m) ");
             else if (table[i]->type == END)
@@ -52,12 +58,14 @@ void    print_hash(t_table **table, size_t size)
                 printf("has no links..");
             while (table[i]->links)
             {
-                printf(" \033[0;36m%s\033[0m", table[i]->links->to->name);
+				if (table[i]->links->to->name != NULL)
+                	printf(" \033[0;36m%s\033[0m", table[i]->links->to->name);
                 if (table[i]->links->next)
                     printf(" &");
                 table[i]->links = table[i]->links->next;
             }
-            printf("\n");
+			if (table[i]->name != NULL)
+        		printf("\n");
             table[i] = table[i]->next;
         }
         i++;

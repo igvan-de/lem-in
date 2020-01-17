@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2019/12/17 13:25:36 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef enum			e_object_type
 	FREE = 0,
 	START = 1,
 	END = 2,
-	ANT = 3
+	ANT = 3,
+	USELESS = 4
 }						t_object_type;
 
 typedef enum			e_node_value
@@ -116,6 +117,8 @@ size_t					hash_function(unsigned char *str, size_t size);
 
 void					hash_table(t_table **table, t_rooms *room,
 						t_ants **ants, size_t size);
+void					remove_useless_rooms(t_table **table, size_t size);
+
 
 /*
 **===============================LINK FUNCTIONS=================================

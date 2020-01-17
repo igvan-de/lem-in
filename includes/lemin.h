@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 14:42:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/17 15:54:14 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ typedef struct			s_rooms
 	char				*name;
 	int					distance;
 	int					path_id;
-	short				visited;
 	int					ant_id;
+	short				visited;
 	t_object_type		type;
 	struct s_links		*links;
 	struct s_rooms		*from;
@@ -123,6 +123,8 @@ typedef struct			s_rooms
 /*
 **===============================ANTS FUNCTIONS=================================
 */
+int						calc_turn_amount(t_data *data, t_path_set *paths);
+void					send_ants(t_data **data, t_path_set **paths, int turns);
 void					get_ants(t_data **ants);
 
 /*
@@ -186,7 +188,5 @@ void					print_path_set(t_path_set *path_set);
 
 void		remove_link(t_rooms **table, size_t size);
 
-int			calc_turn_amount(t_data *data, t_path_set *paths);
-void		send_ants(t_data **data, t_path_set **paths, int turns);
 
 #endif

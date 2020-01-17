@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 15:28:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/16 16:46:51 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int		main(int argc, char **argv) // make back to void
 	size_t			size;
 	char			*line;
 
-	data = (t_data*)ft_memalloc(sizeof(t_data));
 	// remove from here
 	if (argc != 2)
 	{
@@ -57,6 +56,7 @@ int		main(int argc, char **argv) // make back to void
 		return (FALSE);
 	}
 	// until here. Is for debugging
+	data = (t_data*)ft_memalloc(sizeof(t_data));
 	get_ants(&data);
 	size = get_input(&input, &line, &data);
 	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);

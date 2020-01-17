@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 14:43:03 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/17 14:49:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms
 	t_links	*path_connected;
 
 	connected = connected_rooms;
-	path_connected = NULL; /*not sure if this is needed!*/
+	path_connected = NULL;
 	while (connected != NULL)
 	{
 		if (connected->room->visited == FALSE)
@@ -104,7 +104,7 @@ void		create_queue(t_queue **queue)
 		return ;
 	current_room = (*queue)->room;
 	connected = current_room->links;
-	if (current_room->path_id == FALSE)
+	if (current_room->path_id == FALSE || current_room->type == END)
 	{
 		while (connected != NULL)
 		{

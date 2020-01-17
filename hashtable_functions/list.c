@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:17:08 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 16:41:24 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static t_input	*new_node(char *line, t_data **data)
 	new_node->name = name_x_y[NAME];
 	new_node->x = ft_atoi(name_x_y[X]);
 	new_node->y = ft_atoi(name_x_y[Y]);
-	new_node->next = NULL; /*unnecessary?*/
 	return (new_node);
 }
 
@@ -89,5 +88,4 @@ void			add_to_list(char *line, t_input **head, t_data **data)
 		*head = new;
 	else
 		add_node(head, new);
-	// add_node(head, new_node(line, data));
 }

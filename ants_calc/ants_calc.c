@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 15:15:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/17 13:27:44 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	push_ants(t_data **data, t_path *begin)
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
-		if (begin->room->type == START && (begin->room->ant_id <= (*data)->amount_ants_start))
+		if (begin->room->type == START && (begin->room->ant_id < (*data)->amount_ants_start))
 			begin->room->ant_id++;
 		else
 		{
@@ -95,8 +95,8 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 */
 static int	how_many_ants(t_path_set *paths, int turns)
 {
-	int ants;
-	int	calc;
+	int		ants;
+	int		calc;
 
 	ants = 0;
 	while (paths != NULL)

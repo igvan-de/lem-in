@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 18:07:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 18:33:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 }
 
 /*this function shift links on or off in both direction for connected rooms*/
-static void			set_link_shift(t_rooms **room, t_rooms **connected_room)
+void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 {
 	t_links	*probe_rooms;
 

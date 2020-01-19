@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 18:12:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 18:50:18 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,18 @@ static void	add_to_queue(t_queue **queue, t_queue *new)
 }
 
 /*this function checks if the node is pointing to end when node is end*/
-static int	check_end(t_rooms *current_room, t_rooms *connected_room)
+static int	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (connected_room->towards == NULL)
 		return (FALSE);
 	if (current_room->type == END && connected_room->towards->type == END)
+		return (TRUE);
+	return (FALSE);
+}
+
+static int	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
+{
+	if (current_room->type == END && connected_room->type == START && current_room->path_id != FALSE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -109,7 +116,8 @@ void		create_queue(t_queue **queue)
 	{
 		while (connected != NULL)
 		{
-			if (connected->room->visited == FALSE && check_end(current_room, connected->room) == FALSE)
+			if (connected->room->visited == FALSE && connected_to_end(current_room, connected->room) == FALSE
+			&& start_end_connection(current_room, connected->room)== FALSE)
 			{
 				connected->room->visited = TRUE;
 				connected->room->distance = current_room->distance + 1;

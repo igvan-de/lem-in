@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 18:12:33 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 19:06:49 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 		// 	printf("•••test->distence = %d\n\n", test->room->distance);
 		// 	test = test->next;
 		// }
-		pop_out_queue(&queue);
 		/*place pop_out_queu function here*/
+		pop_out_queue(&queue);
 		// printf("========AFTER POP=========\n");
 		// test = queue;
 		// while (test != NULL)

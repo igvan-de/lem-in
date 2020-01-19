@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 16:38:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 20:03:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef	struct			s_input
 
 typedef struct			s_links
 {
+	short				end; /*this is to set link between start and end off*/
 	short				shift; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	struct s_rooms		*room;
 	struct s_links		*next;
@@ -189,5 +190,8 @@ void					print_hash(t_rooms **table, size_t size);
 void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
 void					print_path_set(t_path_set *path_set);
+
+void			set_link_shift(t_rooms **room, t_rooms **connected_room);
+
 
 #endif

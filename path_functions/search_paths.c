@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 17:30:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 20:10:58 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
+		if (CONNECTED_SHIFT == ON && (CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
 			return (TRUE);
 		connected = connected->next;
 	}
@@ -46,6 +46,36 @@ static t_path	*set_start(t_data *data)
 
 	start = (t_path*)ft_memalloc(sizeof(t_path));
 	start->room = data->start_room;
+	if (start->room->towards != NULL)
+	{
+		/*this gives problems when there are more then two possible paths
+		It doens't recognized the link between start and end anymore*/
+		if (start->room->towards->type == END && start->room->towards->path_id != FALSE)
+		{
+			set_link_shift(&start->room, &start->room->towards);
+			set_link_shift(&start->room->towards, &start->room);
+		}
+	}
+	return (start);
+}
+
+/*this function sets of the link between start and end when its founded as a path*/
+static t_path	*reset_start(t_data *data)
+{
+	t_path	*start;
+
+	start = (t_path*)ft_memalloc(sizeof(t_path));
+	start->room = data->start_room;
+	if (start->room->towards != NULL)
+	{
+		/*this gives problems when there are more then two possible paths
+		It doens't recognized the link between start and end anymore*/
+		if (start->room->towards->type == END && start->room->towards->path_id != FALSE)
+		{
+			set_link_shift(&start->room, &start->room->towards);
+			set_link_shift(&start->room->towards, &start->room);
+		}
+	}
 	return (start);
 }
 
@@ -69,7 +99,7 @@ static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
 		set = new_path(path);
 		follow_shifts(&path, set);
 		save_paths(&new_path_set, set);
-		path = set_start(data);
+		path = reset_start(data);
 	}
 	if (turns == 0 || turns > calc_turn_amount(data, new_path_set))
 	{

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:17:15 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/19 14:17:02 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ size_t			hash_function(unsigned char *str, size_t size)
 }
 
 /*This function creates a hash_table from all the given data,
-the has_table contains all our rooms*/
+the hash_table contains all our rooms*/
 void			hash_table(t_rooms **table_rooms, t_input *input,
 t_data **data, size_t size)
 {

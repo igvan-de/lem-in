@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:18:40 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_rooms **table, char *line, size_t size, char **a_b)
 		if (ft_strequ(a_b[A], a_b[B]) == TRUE)
 		{
 			ft_putendl("Error! A room can't link to itself"); /*Error message to be determined*/
-			exit(0);
+			exit(-1);
 		}
 		a_b = lem_split(line, rooms);
 		set_links(table, size, a_b[A], a_b[B]); /*sets link A-B*/
@@ -50,7 +50,10 @@ char *line, size_t size)
 	else
 	{
 		ft_putendl("Error! The imput is formatted incorrectly"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 	get_rest_of_links(rooms, table, line, size, a_b);
+	free(a_b[A]);
+	free(a_b[B]);
+	free(a_b);
 }

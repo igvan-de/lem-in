@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:17:34 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			no_whitespaces(char *line)
 		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
 		ft_putendl("Error! Whitespaces where there shouldn't be any"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 }
 
@@ -54,14 +54,14 @@ int				check_format_room(char *line, t_data **data)
 	if (!line[i])
 	{
 		ft_putendl("Error! Empty line"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 	while (line[i] && line[i] != ' ')
 		i++;
 	if (line[0] == 'L')
 	{
 		ft_putendl("Error! Room name can't start with 'L'"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 	i++;
 	while (line[i] && space_count < 3)
@@ -71,7 +71,7 @@ int				check_format_room(char *line, t_data **data)
 		else if (ft_isdigit(line[i]) == FALSE)
 		{
 			ft_putendl("Error! Room coordinates must be numbers"); /*Error message to be determined*/
-			exit(0);
+			exit(-1);
 		}
 		i++;
 	}
@@ -95,7 +95,7 @@ int				check_format_link(char *line, t_input **input)
 	if (compare_with_rooms(lem_split(line, input), input) == FALSE)
 	{
 		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 	while (line[i])
 	{
@@ -108,6 +108,6 @@ int				check_format_link(char *line, t_input **input)
 	else
 	{
 		ft_putendl("Error! One or more of the links are not formatted correctly"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 }

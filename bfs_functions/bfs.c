@@ -6,42 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 12:19:09 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/17 18:12:39 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-/* Which steps are needed for breadth first search
-	1. Set all values to NULL
-		a. distance
-		b. visited
-	2. Find room with type END, because we want our BFS to calculate from end to start
-	3. Probe through connections of current room (in the beginning room with type END)
-		*WHEN TO PROBE TO NEXT ROOM
-		1. if connected room isn't visited
-		2. if connected room has an path_id
-			- probe only to connected room if
-				a. current room isn't room type END
-				b. connected room is of the same path value
-				c. follow direction of room according to path_id
-					- towards of connected room
-					- add_to_queue the room of the towards
-					  with the same distance value as current room (only the first time)
-					- while connected room has same path_id as current room and
-					towards->room == connected->room add_to_queue with
-						a. SUM=(connection->distance = current_room->distance)
-					- if connected room hasn't the same path_id as current room add_to_queue with
-						a. SUM=(connection->distance = current_room->distance + 1)
-		*IF PROBING TO CONNECTED ROOM IS ALLOWED
-		1. add connected room to queue
-	4. Give value to connected room (only if its added to queue)
-		a. SUM=(connection->distance = current_room->distance + 1)
-		b. Set visited on TRUE (this because you don't want to look again to room you have already visited)
-	5. stop bfs if there is no more possible path from end to start
-	MAKE CODE MORE DYNAMIC, need to check if this will work
-		1. should not add start in queue if current->room->from == connected->room->type == START
-*/
 
 /*This function set values distance and visited to 0 in all the rooms*/
 static t_rooms	*set_to_null(t_rooms *head)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 19:53:41 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char		**ft_split(char *line, int n, int c)
 
 	i = 0;
 	a_b = (char**)ft_memalloc(sizeof(char*) * 2);
-	a_b[A] = (char *)ft_memalloc(sizeof(char) * (n + 1));
-	a_b[B] = (char *)ft_memalloc(sizeof(char) * (c + 1));
+	a_b[A] = (char*)ft_memalloc(sizeof(char) * (n + 1));
+	a_b[B] = (char*)ft_memalloc(sizeof(char) * (c + 1));
 	while (i < n)
 	{
 		a_b[A][i] = line[i];
@@ -88,7 +88,7 @@ char		**lem_split(char *line, t_input **input)
 	if (a_b == NULL || compare_with_rooms(a_b, input) == FALSE)
 	{
 		ft_putendl("Error! Linking to an unexisting room"); /*Error message to be determined*/
-		exit(0);
+		exit(-1);
 	}
 	return (a_b);
 }

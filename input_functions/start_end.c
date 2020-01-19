@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:18:50 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			is_start_or_end(char *line, t_data **data) /*check if command is start or
 		else if ((*data)->found_end == EXISTING)
 		{
 			ft_putendl("Error! There can't be more than 1 end room\n"); /*Error message to be determined*/
-			exit(0);
+			exit(-1);
 		}
 	}
 	else if (strict_start_end_checker(line) == 1)
@@ -57,7 +57,7 @@ void			is_start_or_end(char *line, t_data **data) /*check if command is start or
 		else if ((*data)->found_start == EXISTING)
 		{
 			ft_putendl("Error! There can't be more than 1 start room\n"); /*Error message to be determined*/
-			exit(0);
+			exit(-1);
 		}
 	}
 }

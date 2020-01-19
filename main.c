@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 16:46:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 15:40:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		main(int argc, char **argv) // make back to void
 	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
 	hash_table(rooms, input, &data, size);
 	get_links(&input, rooms, line, size);
+	// remove_useless_rooms(rooms, size); /*doens't really work*/
 	create_paths_and_send_ants(rooms, data, size);
 	return (0);
 }

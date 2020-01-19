@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 20:03:40 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 20:22:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef	struct			s_input
 
 typedef struct			s_links
 {
-	short				end; /*this is to set link between start and end off*/
+	short				end; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	short				shift; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
 	struct s_rooms		*room;
 	struct s_links		*next;

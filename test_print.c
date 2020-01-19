@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 16:36:02 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 16:49:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void				print_path_set(t_path_set *path_set)
 				printf("data->set->path = %s\tpath_id = %d\n", probe_paths->room->name, probe_paths->room->path_id);
 			probe_paths = probe_paths->next;
 		}
-		printf("-----------------\n");
+		printf("-----------------------\n");
 		probe_set = probe_set->next;
 	}
 }

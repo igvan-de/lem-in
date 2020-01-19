@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 17:44:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/19 18:12:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static void	on_path(t_queue **queue, t_rooms *room)
 	connected = room->links;
 	while (connected != NULL)
 	{
-		if (connected->room->path_id == room->path_id && room->towards == connected->room)
+		if (connected->room->path_id == room->path_id && room->towards == connected->room
+		&& connected->room->type != END)
 		{
 			connected->room->visited = TRUE;
 			connected->room->branch = room;

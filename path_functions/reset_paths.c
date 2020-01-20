@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 11:57:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 12:21:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	reset_path_ids(t_path_set **path_set)
 	}
 }
 
+/*this function resets the link->end type back to FALSE if the value is TRUE,
+this for the reason the dont go back in start-end later in follow_shifts function*/
 void	reset_link_value(t_path **start)
 {
 	t_links	*connected;

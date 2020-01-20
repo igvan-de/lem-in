@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 16:31:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		**ft_split(char *line, int n, int c)
 	int		i;
 
 	i = 0;
-	a_b = (char**)ft_memalloc(sizeof(char*) * 2);
+	a_b = (char**)ft_memalloc(sizeof(char*) * 3);
 	a_b[A] = (char*)ft_memalloc(sizeof(char) * (n + 1));
 	a_b[B] = (char*)ft_memalloc(sizeof(char) * (c + 1));
 	while (i < n)
@@ -38,6 +38,7 @@ char		**ft_split(char *line, int n, int c)
 		i++;
 	}
 	a_b[B][n] = '\0';
+	a_b[2] = NULL;
 	return (a_b);
 }
 
@@ -82,6 +83,12 @@ char		**lem_split(char *line, t_input **input)
 			a_b = ft_split(line, i, (c - i - 1));
 			if (compare_with_rooms(a_b, input) == TRUE)
 				break ;
+			else
+			{
+				free(a_b[A]);
+				free(a_b[B]);
+				free(a_b);
+			}
 		}
 		i++;
 	}

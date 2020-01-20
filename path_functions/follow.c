@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 18:33:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 10:51:07 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void				follow_shifts(t_path **path, t_path_set *set)
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && (CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
+		if (CONNECTED_SHIFT == ON && (CONNECTED_ROOM_PATH_ID == FALSE ||
+		(connected->room->type == END && connected->end == FALSE)))
 		{
 			// if (connected->room->type != END)
 			connected->room->path_id = PATH_ID;

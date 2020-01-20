@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 16:47:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 10:53:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	reset_path_ids(t_path_set **path_set)
 		{
 			if (probe_paths->room->path_id != FALSE)
 				probe_paths->room->path_id = FALSE;
+			if (probe_paths->room->links->end == TRUE)
+				probe_paths->room->links->end = FALSE;
 			probe_paths = probe_paths->next;
 		}
 		probe_set = probe_set->next;

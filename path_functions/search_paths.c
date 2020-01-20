@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 20:32:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 10:52:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static t_path_set	*new_path(t_path *path)
 	return (new_path);
 }
 
+/*function to check path_id of start and end and the shift, if they have same value. NOT 0!, and shift is on.
+then it needs to skip this*/
+
 /*this functions probes through connections of start to check if there's a connection
 where the link->shift is ON*/
 static int		check_start_connections(t_path *path)
@@ -32,8 +35,7 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && connected->room->links->end == FALSE &&
-		(CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
+		if (CONNECTED_SHIFT == ON && connected->end == FALSE && CONNECTED_ROOM_PATH_ID == FALSE)
 			return (TRUE);
 		connected = connected->next;
 	}

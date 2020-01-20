@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 10:50:05 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 12:19:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ t_queue					*new_element(t_rooms *room);
 void					create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size);
 void					save_paths(t_path_set **path_set, t_path_set *path);
 void					reset_path_ids(t_path_set **path);
+void					reset_link_value(t_path **start);
 void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);
 
@@ -191,40 +192,4 @@ void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
 void					print_path_set(t_path_set *path_set);
 
-int				start_end_path_id(t_rooms *start_room, t_rooms *connected);
-
-
 #endif
-
-// /*function to check path_id of start and end and the shift, if they have same value. NOT 0!, and shift is on.
-// then it needs to skip this*/
-// int		start_end_path_id(t_rooms *start_room, t_rooms *connected)
-// {
-// 	if (start_room->type != START)
-// 		return (FALSE);
-// 	if (connected->type != END)
-// 		return (FALSE);
-// 	if (start_room->path_id == FALSE == connected->path_id == FALSE && connected->path_id == FALSE)
-// 		return (FALSE);
-// 	return (TRUE);
-// }
-
-
-// /*this functions probes through connections of start to check if there's a connection
-// where the link->shift is ON*/
-// static int		check_start_connections(t_path *path)
-// {
-// 	t_links	*connected;
-
-// 	connected = path->room->links;
-// 	while (connected != NULL)
-// 	{
-// 		if (CONNECTED_SHIFT == ON && CONNECTED_ROOM_PATH_ID == FALSE)
-// 		{
-// 			if (start_end_path_id(path->room, connected->room) == FALSE)
-// 				return (TRUE);
-// 		}
-// 		connected = connected->next;
-// 	}
-// 	return (FALSE);
-// }

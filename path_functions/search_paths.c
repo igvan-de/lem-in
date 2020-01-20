@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 10:52:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 12:17:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ static t_path_set	*new_path(t_path *path)
 	return (new_path);
 }
 
-/*function to check path_id of start and end and the shift, if they have same value. NOT 0!, and shift is on.
-then it needs to skip this*/
-
 /*this functions probes through connections of start to check if there's a connection
 where the link->shift is ON*/
 static int		check_start_connections(t_path *path)
@@ -35,7 +32,7 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && connected->end == FALSE && CONNECTED_ROOM_PATH_ID == FALSE)
+		if (CONNECTED_SHIFT == ON && connected->end == FALSE && (CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
 			return (TRUE);
 		connected = connected->next;
 	}
@@ -51,7 +48,7 @@ static t_path	*set_start(t_data *data)
 	start = (t_path*)ft_memalloc(sizeof(t_path));
 	start->room = data->start_room;
 	probe_links = start->room->links;
-	if (start->room->towards != NULL)
+	if (start->room->towards != NULL && start->room->path_id != FALSE)
 	{
 		if (start->room->towards->type == END && start->room->towards->path_id != FALSE)
 		{
@@ -77,9 +74,10 @@ static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
 	t_rooms		*start;
 
 	new_path_set = NULL;
-	path = set_start(data);
-	start = data->start_room;
 	reset_path_ids(old_path_set);
+	path = set_start(data);
+	reset_link_value(&path);
+	start = data->start_room;
 	follow_bfs(&start);
 	while (check_start_connections(path) == TRUE)
 	{

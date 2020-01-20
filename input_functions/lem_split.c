@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 16:31:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 17:29:43 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ char		**lem_split(char *line, t_input **input)
 			if (compare_with_rooms(a_b, input) == TRUE)
 				break ;
 			else
-			{
-				free(a_b[A]);
-				free(a_b[B]);
-				free(a_b);
-			}
+				ft_free_stringarray(a_b);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: igvan-de <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 10:18:46 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/10/08 13:37:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 17:27:33 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_lstaddend(t_list **alst, t_list *new);
 void				ft_swap(int *a, int *b);
 void				ft_strarrdel(char ***arr);
+void		 		ft_free_stringarray(char **array);
 
 char				*ft_strdup(const char *src);
 char				*ft_strcpy(char *dst, const char *src);

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 19:09:21 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:18:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void			get_links(t_input **rooms, t_rooms **table,
 char *line, size_t size)
 { //Right now a room isn't allowed to link to itself, not sure if that's what we want
 	char	**a_b;
-	int		i;
 
-	i = 0;
 	a_b = lem_split(line, rooms);
 	if (check_format_link(line, rooms) == TRUE &&
 	ft_strequ(a_b[A], a_b[B]) == FALSE)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 13:27:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:28:27 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	push_leftovers(t_data **data, t_path *begin)
 	push_leftovers(data, begin->next);
 	if (begin->room->type == END || begin->room->type == START || begin->room->ant_id == 0)
 		return ;
-	else
+	else if (begin->next != NULL)
 	{
 		begin->next->room->ant_id = begin->room->ant_id;
 		ft_putchar('L');
@@ -46,9 +46,9 @@ static void	push_ants(t_data **data, t_path *begin)
 	push_ants(data, begin->next);
 	if (begin->room->type == END || begin->room->ant_id == 0)
 		return ;
-	else
+	else if (begin->next != NULL)
 	{
-		begin->next->room->ant_id = begin->room->ant_id;
+		begin->next->room->ant_id = begin->room->ant_id;/*segfault!*/
 		ft_putchar('L');
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 17:29:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/20 18:15:36 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			compare_with_rooms(char **a_b, t_input **input)
 
 	s = 0;
 	find_room = *input;
-	while (find_room)
+	while (find_room != NULL)
 	{
 		if (ft_strequ(a_b[A], find_room->name) == TRUE)
 			s++;
@@ -80,11 +80,11 @@ char		**lem_split(char *line, t_input **input)
 	{
 		if (line[i] == '-' && i != 0)
 		{
+			if (a_b != NULL)
+				ft_free_stringarray(a_b);
 			a_b = ft_split(line, i, (c - i - 1));
 			if (compare_with_rooms(a_b, input) == TRUE)
 				break ;
-			else
-				ft_free_stringarray(a_b);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/08 20:24:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 11:34:59 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_links		*new_link(t_rooms *pointer)
 
 	link = (t_links*)ft_memalloc(sizeof(t_links));
 	link->room = pointer;
+	link->next = NULL;
 	return (link);
 }
 

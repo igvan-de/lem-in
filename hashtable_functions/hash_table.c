@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 14:17:02 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 11:38:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_rooms	*new_room(t_input *room)
 	else
 		new_room->type = FREE;
 	new_room->name = room->name;
+	new_room->next = NULL;
 	return (new_room);
 }
 

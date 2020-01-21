@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 16:47:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 11:44:29 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int		main(int argc, char **argv) // make back to void
 	hash_table(rooms, input, &data, size);
 	get_links(&input, rooms, line, size);
 	// remove_useless_rooms(rooms, size); /*doens't really work*/
-	// create_paths_and_send_ants(rooms, data, size);
-	while(TRUE)
-		;
+	create_paths_and_send_ants(rooms, data, size);
+	// while(TRUE)
+	// 	;
 	return (0);
 }

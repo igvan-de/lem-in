@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 16:13:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 11:50:00 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void				follow_bfs(t_rooms **room)
 		return ;
 	while (connected != NULL)
 	{
+		/*check to see if connected->room != NULL*/
 		if (connected->room->distance == (current_distance - 1) && connected->room->from != *room)
 		{
 			set_link_shift(room, &connected->room);

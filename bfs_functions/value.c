@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/13 16:19:32 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/21 11:53:03 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_queue	*create_start(t_data *data)
 
 	start = (t_queue*)ft_memalloc(sizeof(t_queue));
 	start->room = data->start_room;
+	start->next = NULL;
 	return (start);
 }
 
@@ -33,6 +34,7 @@ t_queue	*create_end(t_data *data)
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
 	queue->room = data->end_room;
 	queue->room->visited = TRUE;
+	queue->next = NULL;
 	return (queue);
 }
 
@@ -43,5 +45,6 @@ t_queue	*new_element(t_rooms *room)
 
 	queue = (t_queue*)ft_memalloc(sizeof(t_queue));
 	queue->room = room;
+	queue->next = NULL;
 	return (queue);
 }

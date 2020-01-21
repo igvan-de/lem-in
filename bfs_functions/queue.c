@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 19:12:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:47:21 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void		create_queue(t_queue **queue)
 	{
 		while (connected != NULL)
 		{
-			/*check to see if connected->room != NULL*/
 			if (connected->room->visited == FALSE && connected_to_end(current_room, connected->room) == FALSE
 			&& start_end_connection(current_room, connected->room)== FALSE)
 			{

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/17 16:34:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:37:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void		remove_useless_rooms(t_rooms **table, size_t size)
 {
 	size_t	i;
 	t_rooms *tmp;
-	t_rooms *prev;
 
 	i = 0;
 	while (i < size)
@@ -86,7 +85,6 @@ void		remove_useless_rooms(t_rooms **table, size_t size)
 		while (tmp)
 		{
 			delete_node(tmp);
-			prev = tmp;
 			tmp = tmp->next;
 		}
 		i++;

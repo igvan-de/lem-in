@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 10:33:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 18:05:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int				check_format_room(char *line, t_data **data)
 	{
 		if (line[i] == ' ')
 			space_count++;
-		else if (ft_isdigit(line[i]) == FALSE)
-		{
-			ft_putendl("Error! Room coordinates must be numbers"); /*Error message to be determined*/
-			exit(-1);
-		}
+		// else if (ft_isdigit(line[i]) == FALSE)
+		// {
+		// 	ft_putendl("Error! Room coordinates must be numbers"); /*Error message to be determined*/
+		// 	exit(-1);
+		// }
 		i++;
 	}
 	if (space_count == 2)

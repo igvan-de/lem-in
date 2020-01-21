@@ -1,13 +1,7 @@
-#comment
-#comment
-#comment
-#comment
-#comment
-#comment
 15
-#comment
+#Here is the number of lines required: 33
 ##start
-start 1 0
+qw_4 1 0
 ##end
 #comment
 end 2 0
@@ -24,9 +18,9 @@ i 2 2
 j 2 3
 k 2 4
 l 2 5
-start-a
-start-c
-start-d
+qw_4-a
+qw_4-c
+qw_4-d
 a-b
 a-f
 b-e
@@ -41,3 +35,4 @@ i-end
 j-end
 k-l
 k-end
+#Here is the number of lines required: 33

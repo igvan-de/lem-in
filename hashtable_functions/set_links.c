@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 11:34:59 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 16:32:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ size_t size, char *name_a, char *name_b)
 
 	a = get_room(rooms, size, name_a);
 	b = get_room(rooms, size, name_b);
-	add_link(&a->links, new_link(b));
+	add_link(&(a->links), new_link(b));
 }

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 18:15:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:09:21 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_rooms **table, char *line, size_t size, char **a_b)
 			ft_putendl("Error! A room can't link to itself"); /*Error message to be determined*/
 			exit(-1);
 		}
-		if (a_b != NULL)
-			ft_free_stringarray(a_b);
+		// if (a_b != NULL)
+		// 	ft_free_stringarray(a_b);
 		a_b = lem_split(line, rooms);
 		set_links(table, size, a_b[A], a_b[B]); /*sets link A-B*/
 		set_links(table, size, a_b[B], a_b[A]); /*sets link B-A*/
@@ -48,8 +48,8 @@ char *line, size_t size)
 	if (check_format_link(line, rooms) == TRUE &&
 	ft_strequ(a_b[A], a_b[B]) == FALSE)
 	{
-		if (a_b != NULL)
-			ft_free_stringarray(a_b);
+		// if (a_b != NULL)
+		// 	ft_free_stringarray(a_b);
 		a_b = lem_split(line, rooms);
 		set_links(table, size, a_b[A], a_b[B]); /*sets link A-B*/
 		set_links(table, size, a_b[B], a_b[A]); /*sets link B-A*/
@@ -60,6 +60,6 @@ char *line, size_t size)
 		exit(-1);
 	}
 	get_rest_of_links(rooms, table, line, size, a_b);
-	ft_free_stringarray(a_b);
+	// ft_free_stringarray(a_b);
 	free(line);
 }

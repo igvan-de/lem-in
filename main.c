@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 21:23:29 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 17:09:09 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int		main(int argc, char **argv) // make back to void
 	get_links(&input, rooms, line, size);
 	// remove_useless_rooms(rooms, size); /*doens't really work*/
 	create_paths_and_send_ants(rooms, data, size);
+	free_input(&input);
+	free(data);
+	free(rooms);
 	// while(TRUE)
 	// 	;
 	return (0);

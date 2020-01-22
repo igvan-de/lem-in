@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 19:36:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 16:07:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int				check_format_room(char *line, t_data **data)
 /*making sure links are formatted correctly*/
 int				check_format_link(char *line, t_input **input)
 { //check for duplicate links (or do we not care there's duplicates?) //we don't care
+	char **a_b;
 	int i;
 	int dash_count;
 
@@ -93,11 +94,13 @@ int				check_format_link(char *line, t_input **input)
 	no_whitespaces(line);
 	if (line && line[0] == '#') /*skip commands*/
 		return (TRUE);
-	if (compare_with_rooms(lem_split(line, input), input) == FALSE)
+	a_b = lem_split(line, input);
+	if (compare_with_rooms(a_b, input) == FALSE)
 	{
 		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
 		exit(-1);
 	}
+	ft_strarrdel(&a_b);
 	while (line[i])
 	{
 		if (line[i] == '-')

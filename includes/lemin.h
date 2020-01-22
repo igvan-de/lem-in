@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 17:26:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 17:42:04 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,13 @@ void					reset_path_ids(t_path_set **path);
 void					reset_link_value(t_path **start);
 void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);
+
+/*
+**===============================PATH FUNCTIONS=================================
+*/
+void 					free_queue(t_queue **queue);
+void 					free_input(t_input **input);
+void					free_set(t_path_set **path);
 
 /*
 **==============================TEMPORARY PRINT FUNCTIONS=======================

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 16:23:44 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 16:07:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char		**lem_split(char *line, t_input **input)
 		if (line[i] == '-' && i != 0)
 		{
 			if (a_b != NULL)
-				ft_free_stringarray(a_b);
+				ft_strarrdel(&a_b);
 			a_b = ft_split(line, i, (c - i - 1));
 			if (compare_with_rooms(a_b, input) == TRUE)
 				break ;

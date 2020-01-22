@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 19:47:21 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 17:46:09 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,6 @@ void	pop_out_queue(t_queue **queue)
 
 	first_node = *queue;
 	(*queue) = (*queue)->next;
-	first_node = NULL;
 	free(first_node);
+	first_node = NULL;
 }

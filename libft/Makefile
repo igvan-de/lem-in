@@ -6,7 +6,7 @@
 #    By: igvan-de <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/17 12:10:38 by igvan-de       #+#    #+#                 #
-#    Updated: 2020/01/20 17:27:18 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/01/22 16:06:41 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,6 @@ SRCS =	ft_atoi.c \
 		ft_arraylen.c \
 		ft_swap.c \
 		ft_strarrdel.c \
-		ft_free_stringarray.c \
 		get_next_line.c
 
 OBJ := $(SRCS:%.c=%.o)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 17:42:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 20:50:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,11 +184,15 @@ void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);
 
 /*
-**===============================PATH FUNCTIONS=================================
+**===============================FREE FUNCTIONS=================================
 */
 void 					free_queue(t_queue **queue);
 void 					free_input(t_input **input);
 void					free_set(t_path_set **path);
+void 					free_path(t_path **path);
+void 					free_path_set(t_path_set **set);
+void					free_links(t_links **links);
+void					free_rooms(t_rooms **rooms);
 
 /*
 **==============================TEMPORARY PRINT FUNCTIONS=======================

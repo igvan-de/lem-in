@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 16:01:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 20:17:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 		else if (current_turn <= (*data)->turns)
 			ft_putchar(' ');
 	}
+	free_path_set(begin);
 }
 
 /*

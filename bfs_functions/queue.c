@@ -6,63 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/30 15:03:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 17:46:09 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static int	check_direction(t_links *probe, t_queue *node)
-{
-	printf("node = %s\n", node->to->name);
-	printf("probe = %s\n", probe->to->name);
-	if (probe->to == node->to->from)
-	{
-		if (node->to->from != NULL)
-		{
-			printf("node = %s\n", node->to->from->name);
-			if (node->to->from->towards != NULL)
-				printf("towards = %s\n", node->to->from->towards->name);
-			if (node->to->from->towards == node->to || node->to->towards->type == END)
-				return (TRUE);
-		}
-	}
-	if (probe->to->towards != NULL)// && probe->to->towards->type == END)
-		return (TRUE);
-	return (FALSE);
-}
-
-void		create_queue(t_queue **queue)
-{
-	t_links		*probe;
-
-	probe = (*queue)->to->links;
-	printf("tmp = %s\n", (*queue)->to->name); //remove
-	if (probe->to->type == END)
-		probe->to->visited = TRUE;
-	while (probe != NULL)
-	{
-		if (probe->to->visited == FALSE && probe->to->path == FALSE && check_direction(probe, *queue) == FALSE)
-		{
-			printf("probe name  = %s\tvisited = %d\n", probe->to->name, probe->to->visited);
-			add_to_queue(queue, new_element(probe->to));
-			probe->to->visited = TRUE; // CHeck why if this is the right place in code for this!!
-			if (probe->to->type != END) // CHeck why if this is the right place in code for this!!
-				probe->to->distance = (*queue)->to->distance + 1; // CHeck why if this is the right place in code for this!!
-		}
-		else if (probe->to->visited == FALSE && probe->to->path == TRUE && check_direction(probe, *queue) == FALSE)
-		{
-			probe->to->visited = TRUE;
-			probe->to->distance = (*queue)->to->distance + 1;
-			printf("name = %s\ttmp->distance = %d\n", probe->to->name, probe->to->distance);
-			add_to_queue(queue, new_element(probe->to));
-		}
-		printf("type = %s\t type->visited = %d\n", probe->to->name, probe->to->visited);
-		probe = probe->next;
-	}
-}
-
-void	add_to_queue(t_queue **queue, t_queue *new)
+/*This functions adds a new room to the existing queue*/
+static void	add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
 
@@ -79,12 +30,113 @@ void	add_to_queue(t_queue **queue, t_queue *new)
 	probe->next = new;
 }
 
-void		pop_out_queue(t_queue **queue)
+/*this function checks if the node is pointing to end when node is end*/
+static int	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
+{
+	if (connected_room->towards == NULL)
+		return (FALSE);
+	if (current_room->type == END && connected_room->towards->type == END)
+		return (TRUE);
+	return (FALSE);
+}
+
+static int	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
+{
+	if (current_room->type == END && connected_room->type == START && current_room->path_id != FALSE)
+		return (TRUE);
+	return (FALSE);
+}
+
+/*this function return the node of the connected room which is also part of exiting path,
+to follow the path aat least one time. It also check if connected room arent part of a path
+and adds them to queue with right diastance value and branch pointer to room*/
+static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms)
+{
+	t_links	*connected;
+	t_links	*path_connected;
+
+	connected = connected_rooms;
+	path_connected = NULL;
+	while (connected != NULL)
+	{
+		if (connected->room->visited == FALSE)
+		{
+			if (connected->room->path_id == room->path_id && room->towards == connected->room)
+			{
+				room = connected->room;
+				room->visited = TRUE;
+				room->distance = -2;
+				path_connected = connected->room->links;
+			}
+			if (connected->room->path_id != room->path_id)
+			{
+				connected->room->visited = TRUE;
+				connected->room->branch = (*queue)->room;
+				connected->room->distance = (*queue)->room->distance + 1;
+				add_to_queue(queue, new_element(connected->room));
+			}
+		}
+		if (connected->next == NULL && path_connected != NULL)
+			return (follow_path(queue, room, path_connected));
+		connected = connected->next;
+	}
+}
+
+/*this function stays on path an go in the right direction*/
+static void	on_path(t_queue **queue, t_rooms *room)
+{
+	t_links	*connected;
+
+	connected = room->links;
+	while (connected != NULL)
+	{
+		if (connected->room->path_id == room->path_id && room->towards == connected->room
+		&& connected->room->type != END)
+		{
+			connected->room->visited = TRUE;
+			connected->room->branch = room;
+			follow_path(queue, connected->room, connected->room->links);
+		}
+		connected = connected->next;
+	}
+}
+
+/*This functions create the queue by adding the connecting rooms of current room to queue,
+this only happens if the connected rooms meet the rules we made before we want to add them*/
+void		create_queue(t_queue **queue)
+{
+	t_links	*connected;
+	t_rooms	*current_room;
+
+	if ((*queue)->room->type == START)
+		return ;
+	current_room = (*queue)->room;
+	connected = current_room->links;
+	if (current_room->path_id == FALSE || current_room->type == END)
+	{
+		while (connected != NULL)
+		{
+			if (connected->room->visited == FALSE && connected_to_end(current_room, connected->room) == FALSE
+			&& start_end_connection(current_room, connected->room)== FALSE)
+			{
+				connected->room->visited = TRUE;
+				connected->room->distance = current_room->distance + 1;
+				add_to_queue(queue, new_element(connected->room));
+			}
+			connected = connected->next;
+		}
+	}
+	else if (current_room->path_id != FALSE)
+		on_path(queue, current_room);
+}
+
+/*This functions pops the first room of the queue*/
+void	pop_out_queue(t_queue **queue)
 {
 	t_queue	*first_node;
 
 	first_node = *queue;
 	(*queue) = (*queue)->next;
-	first_node = NULL;
 	free(first_node);
+	first_node = NULL;
 }

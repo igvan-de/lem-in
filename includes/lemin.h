@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/12/29 15:33:17 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/22 20:50:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,32 @@
 
 # include <stdio.h> //REMOVE!!!!!!!!
 
+//NEED TO CHECK DEFINES IF WE USE THEM AND/OR ARE THEY REALLY USEFULL
+# define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
+# define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
+# define ROOM_CONNECTIONS (*queue)->room->links
+# define CURRENT_QUEUE_ROOM (*queue)->room
+# define CURRENT_QUEUE_ROOM_DISTANCE (*queue)->room->distance
+# define CURRENT_PATH_ROOM (*path)->room
+# define CURRENT_PATH_ROOM_LINKS get_last_room->room->links
+# define PATH_ID (*path)->room->path_id
+# define CONNECTED_ROOM_PATH_ID connected->room->path_id
+# define CONNECTED_ROOM_SHIFT connected->room->links->shift
+# define CONNECTED_SHIFT connected->shift
 
 typedef enum			e_return
 {
 	FALSE = 0,
 	TRUE = 1,
-	OFF = 0,
-	ON = 1
 }						t_return;
-
-typedef enum			e_found_existing
-{
-	FOUND = 1,
-	EXISTING = 2
-}						t_found_existing;
 
 typedef enum			e_object_type
 {
 	FREE = 0,
 	START = 1,
 	END = 2,
-	ANT = 3
+	ANT = 3,
+	USELESS = 4
 }						t_object_type;
 
 typedef enum			e_node_value
@@ -47,152 +52,155 @@ typedef enum			e_node_value
 	X = 1,
 	Y = 2,
 	A = 0,
-	B = 1
+	B = 1,
+	NOT_FOUND = 0,
+	FOUND = 1,
+	EXISTING = 2 ,
+	OFF = 0,
+	ON = 1
 }						t_node_value;
 
 typedef struct 			s_path_set
 {
-	struct s_path_data	*path;
+	int					path_size;
+	struct s_path		*path;
 	struct s_path_set	*next;
-	int					path_id;
 }						t_path_set;
 
-typedef struct 			s_path_data
+typedef struct 			s_path
 {
-	struct s_table		*room;
-	struct s_table		*towards;
-	size_t				steps_needed;
-	struct s_path_data	*next;
-	// short				existing; //might be needed, working on it
-}						t_path_data;
+	struct s_rooms		*room;
+	struct s_path		*next;
+}						t_path;
 
 typedef struct			s_queue
 {
-	struct s_table		*to;
+	struct s_rooms		*room;
 	struct s_queue		*next;
 }						t_queue;
 
-typedef struct			s_ants //change name!
+typedef struct			s_data
 {
-	int					start;
-	int					finish;
+	int					amount_ants_start;
 	short				found_start;
 	short				found_end;
-	struct s_table		*end;
-	struct s_table		*begin;
-}						t_ants;
+	int					turns;
+	struct s_rooms		*end_room;
+	struct s_rooms		*start_room;
+}						t_data;
 
-typedef struct			s_amount
-{
-	int					path_amount;
-	int					max_path_amount;
-}						t_amount;
-
-typedef	struct			s_rooms
+typedef	struct			s_input
 {
 	char				*name;
 	int					x;
 	int					y;
 	short				start;
 	short				end;
-	struct s_rooms		*next;
-}						t_rooms;
+	struct s_input		*next;
+}						t_input;
 
 typedef struct			s_links
 {
+	short				end;
 	short				shift; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
-	struct s_table		*to;
+	struct s_rooms		*room;
 	struct s_links		*next;
 }						t_links;
 
-typedef struct			s_table
+typedef struct			s_rooms
 {
 	char				*name;
 	int					distance;
+	int					path_id;
+	int					ant_id;
 	short				visited;
-	short				path;
 	t_object_type		type;
 	struct s_links		*links;
-	struct s_table		*from;
-	struct s_table		*towards;
-	struct s_table		*next;
-}						t_table;
-
-/*
-**===============================READ FUNCTIONS=================================
-*/
-void					read_input(t_rooms **rooms, t_ants **ants);
-void					init(size_t size, t_table ***table,
-						t_path_set **data_set, t_path_data **path);
+	struct s_rooms		*from;
+	struct s_rooms		*towards;
+	struct s_rooms		*branch;
+	struct s_rooms		*next;
+}						t_rooms;
 
 /*
 **===============================ANTS FUNCTIONS=================================
 */
-void					get_ants(t_ants **ants);
-void					move_ants(t_ants **ants, t_path_set *data_set);
+int						calc_turn_amount(t_data *data, t_path_set *paths);
+void					send_ants(t_data **data, t_path_set **paths, int turns);
+void					get_ants(t_data **ants);
 
 /*
 **===============================FORMAT FUNCTIONS===============================
 */
-int						check_if_command(char *line, t_ants **ants);
-int						check_format_room(char *line, t_ants **ants);
-int						check_format_link(char *line, t_rooms **rooms);
-void					is_start_or_end(char *line, t_ants **ants);
+int						check_if_command(char *line, t_data **ants);
+int						check_format_room(char *line, t_data **ants);
+int						check_format_link(char *line, t_input **rooms);
+void					is_start_or_end(char *line, t_data **ants);
 void					no_whitespaces(char *line);
 
 /*
 **===============================LIST FUNCTIONS=================================
 */
-void					add_to_list(char *line, t_rooms **head, t_ants **ants);
+void					add_to_list(char *line, t_input **head, t_data **data);
 
 /*
 **===============================HASHTABLE FUNCTIONS============================
 */
 size_t					hash_function(unsigned char *str, size_t size);
-void					hash_table(t_table **table, t_rooms *room,
-						t_ants **ants, size_t size);
+void					hash_table(t_rooms **table, t_input *input,
+						t_data **data, size_t size);
+void					remove_useless_rooms(t_rooms **table, size_t size);
+
 
 /*
 **===============================LINK FUNCTIONS=================================
 */
-int						compare_with_rooms(char **a_b, t_rooms **rooms);
-char					**lem_split(char *line, t_rooms **rooms);
+int						compare_with_rooms(char **a_b, t_input **input);
+char					**lem_split(char *line, t_input **input);
 char					**ft_split(char *line, int n, int c);
-void					set_links(t_table **table,
+void					get_links(t_input **input, t_rooms **rooms,
+						char *line, size_t size);
+void					set_links(t_rooms **rooms,
 						size_t size, char *name_a, char *name_b);
 
 /*
 **===============================BFS FUNCTIONS==================================
 */
-t_queue					*create_end(t_ants *ants);
-t_queue					*create_start(t_ants *ants);
-t_queue					*new_element(t_table *pointer);
-t_path_data				*get_end(t_path_data *path);
-int						bfs(t_ants **ants, t_table **table, size_t size);
-void					add_to_queue(t_queue **queue, t_queue *new);
-void					pop_out_queue(t_queue **queue);
+int						bfs(t_rooms **rooms, t_data *data, size_t size);
 void					create_queue(t_queue **queue);
-
-
-/*
-**===============================DINICS FUNCTIONS===============================
-*/
-void					find_path(t_path_data **path, t_path_set **data_set,
-						t_ants **ants, t_amount **amount);
-void					path_set(t_path_set **data_set, t_path_data *path);
-// void					path_set(t_path_data *path);
+void					pop_out_queue(t_queue **queue);
+t_queue					*create_start(t_data *data);
+t_queue					*create_end(t_data *data);
+t_queue					*new_element(t_rooms *room);
 
 /*
-**==============================TEMPERARY PRINT FUNCTIONS=======================
+**===============================PATH FUNCTIONS=================================
 */
-void					print_hash(t_table **table, size_t size);
-void					print_rooms(t_rooms *rooms, t_ants **ants);
+void					create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size);
+void					save_paths(t_path_set **path_set, t_path_set *path);
+void					reset_path_ids(t_path_set **path);
+void					reset_link_value(t_path **start);
+void					follow_shifts(t_path **path, t_path_set *set);
+void					follow_bfs(t_rooms **room);
+
+/*
+**===============================FREE FUNCTIONS=================================
+*/
+void 					free_queue(t_queue **queue);
+void 					free_input(t_input **input);
+void					free_set(t_path_set **path);
+void 					free_path(t_path **path);
+void 					free_path_set(t_path_set **set);
+void					free_links(t_links **links);
+void					free_rooms(t_rooms **rooms);
+
+/*
+**==============================TEMPORARY PRINT FUNCTIONS=======================
+*/
+void					print_hash(t_rooms **table, size_t size);
+void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
-void					print_path_set(t_path_set *data_set);
-
-
-
-void		remove_link(t_table **table, size_t size);
+void					print_path_set(t_path_set *path_set);
 
 
 #endif

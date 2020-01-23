@@ -1,10 +1,15 @@
-3
+50
 ##start
-piet 3 0
+START 0 0
 ##end
-hoii 2 0
-pizza 3 1
-yonne 2 1
-hoii-yonne
-piet-hoii
-yonne-piet
+END 0 1
+a 1 1
+b 1 2
+c 1 3
+START-END
+START-a
+a-b
+b-c
+c-b
+a-END
+c-END

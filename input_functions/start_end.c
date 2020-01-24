@@ -6,14 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/19 15:11:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 16:43:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /*This function checks the format of how start and end are given as input*/
-static int		strict_start_end_checker(char *line) /*check all start and end variables*/
+static int	strict_start_end_checker(char *line) /*check all start and end variables*/
 {
 	int i;
 
@@ -34,7 +34,7 @@ static int		strict_start_end_checker(char *line) /*check all start and end varia
 }
 
 /*This function check if given line (input) is start or end and sets data->found_end ro data->found_start on*/
-void			is_start_or_end(char *line, t_data **data) /*check if command is start or end*/
+void		is_start_or_end(char *line, t_data **data) /*check if command is start or end*/
 {
 	while (*line == '#')
 		line++;

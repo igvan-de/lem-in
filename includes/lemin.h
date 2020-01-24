@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 20:50:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 17:05:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,14 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+# include <stdbool.h>
 
 # include <stdio.h> //REMOVE!!!!!!!!
 
-//NEED TO CHECK DEFINES IF WE USE THEM AND/OR ARE THEY REALLY USEFULL
-# define ROOM_START (*data)->start_room	/*check if this makes it quicker to get to the correct data*/
-# define ROOM_END (*data)->end_room		/*check if this makes it quicker to get to the correct data*/
-# define ROOM_CONNECTIONS (*queue)->room->links
-# define CURRENT_QUEUE_ROOM (*queue)->room
-# define CURRENT_QUEUE_ROOM_DISTANCE (*queue)->room->distance
-# define CURRENT_PATH_ROOM (*path)->room
 # define CURRENT_PATH_ROOM_LINKS get_last_room->room->links
 # define PATH_ID (*path)->room->path_id
 # define CONNECTED_ROOM_PATH_ID connected->room->path_id
-# define CONNECTED_ROOM_SHIFT connected->room->links->shift
 # define CONNECTED_SHIFT connected->shift
-
-typedef enum			e_return
-{
-	FALSE = 0,
-	TRUE = 1,
-}						t_return;
 
 typedef enum			e_object_type
 {
@@ -102,7 +89,7 @@ typedef	struct			s_input
 typedef struct			s_links
 {
 	short				end;
-	short				shift; //0 als het geen link is tussen rooms uit 1 als aan het een link is tussen rooms
+	short				shift; /*swift for turning link on or off*/
 	struct s_rooms		*room;
 	struct s_links		*next;
 }						t_links;
@@ -132,9 +119,11 @@ void					get_ants(t_data **ants);
 /*
 **===============================FORMAT FUNCTIONS===============================
 */
-int						check_if_command(char *line, t_data **ants);
-int						check_format_room(char *line, t_data **ants);
-int						check_format_link(char *line, t_input **rooms);
+bool					check_if_command(char *line, t_data **ants);
+bool					check_format_room(char *line, t_data **ants);
+bool					check_format_link(char *line, t_input **rooms);
+bool					space_counter(char *line, int i, int space_count);
+bool					dash_counter(char *line, int i, int dash_count);
 void					is_start_or_end(char *line, t_data **ants);
 void					no_whitespaces(char *line);
 
@@ -166,8 +155,9 @@ void					set_links(t_rooms **rooms,
 /*
 **===============================BFS FUNCTIONS==================================
 */
-int						bfs(t_rooms **rooms, t_data *data, size_t size);
+bool					bfs(t_rooms **rooms, t_data *data, size_t size);
 void					create_queue(t_queue **queue);
+void					add_to_queue(t_queue **queue, t_queue *new);
 void					pop_out_queue(t_queue **queue);
 t_queue					*create_start(t_data *data);
 t_queue					*create_end(t_data *data);

@@ -46,7 +46,7 @@ static void		set_value(t_rooms **rooms, size_t size)
 
 /*This function calculates the distance values for every room,
 it also checks for all possible paths*/
-int			bfs(t_rooms **rooms, t_data *data, size_t size)
+bool		bfs(t_rooms **rooms, t_data *data, size_t size)
 {
 	t_queue	*queue;
 	t_queue	*start;
@@ -60,16 +60,15 @@ int			bfs(t_rooms **rooms, t_data *data, size_t size)
 		{
 			free_queue(&queue);
 			free_queue(&start);
-			queue = NULL;
-			return (TRUE);
+			return (true);
 		}
 		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
-	if (start->room->visited == FALSE)
+	if (start->room->visited == false)
 	{
 		free_queue(&start);
-		return (FALSE);
+		return (false);
 	}
-	return (TRUE);
+	return (true);
 }

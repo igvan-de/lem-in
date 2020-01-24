@@ -32,12 +32,12 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && connected->end == FALSE &&
-		(CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
-			return (TRUE);
+		if (CONNECTED_SHIFT == ON && connected->end == false &&
+		(CONNECTED_ROOM_PATH_ID == false || connected->room->type == END))
+			return (true);
 		connected = connected->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 /*This function mallocs path struct and sets it first node to room with type START*/
@@ -49,14 +49,14 @@ static t_path	*set_start(t_data *data)
 	start = (t_path*)ft_memalloc(sizeof(t_path));
 	start->room = data->start_room;
 	probe_links = start->room->links;
-	if (start->room->towards != NULL && start->room->path_id != FALSE)
+	if (start->room->towards != NULL && start->room->path_id != false)
 	{
-		if (start->room->towards->type == END && start->room->towards->path_id != FALSE)
+		if (start->room->towards->type == END && start->room->towards->path_id != false)
 		{
 			while (probe_links != NULL)
 			{
 				if (probe_links->room->type == END)
-					probe_links->end = TRUE;
+					probe_links->end = true;
 				probe_links = probe_links->next;
 			}
 		}
@@ -80,7 +80,7 @@ static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
 	reset_link_value(&path);
 	start = data->start_room;
 	follow_bfs(&start);
-	while (check_start_connections(path) == TRUE)
+	while (check_start_connections(path) == true)
 	{
 		set = new_path(path);
 		follow_shifts(&path, set);
@@ -108,7 +108,7 @@ void			create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 
 	i = 0;
 	old_path_set = NULL;
-	while (bfs(rooms, data, size) == TRUE)
+	while (bfs(rooms, data, size) == true)
 	{
 		data->turns = search_path(&old_path_set, data, data->turns);
 		if (data->amount_ants_start == 1)

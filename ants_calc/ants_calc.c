@@ -63,6 +63,25 @@ static void	push_ants(t_data **data, t_path *begin)
 }
 
 /*
+** calculates and returns how many ants we can get through in turns
+*/
+static int	how_many_ants(t_path_set *paths, int turns)
+{
+	int		ants;
+	int		calc;
+
+	ants = 0;
+	while (paths != NULL)
+	{
+		calc = turns - paths->path_size + 1;
+		if (calc > 0)
+			ants = ants + calc;
+		paths = paths->next;
+	}
+	return (ants);
+}
+
+/*
 ** sends ants through the rooms
 */
 void		send_ants(t_data **data, t_path_set **begin, int current_turn)
@@ -88,26 +107,6 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 	}
 	free_path_set(begin);
 }
-
-/*
-** calculates and returns how many ants we can get through in turns
-*/
-static int	how_many_ants(t_path_set *paths, int turns)
-{
-	int		ants;
-	int		calc;
-
-	ants = 0;
-	while (paths != NULL)
-	{
-		calc = turns - paths->path_size + 1;
-		if (calc > 0)
-			ants = ants + calc;
-		paths = paths->next;
-	}
-	return (ants);
-}
-
 /*
 ** predicts and returns amount of turns needed to send ants through with current paths
 */

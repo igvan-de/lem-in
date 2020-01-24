@@ -20,9 +20,9 @@ static t_rooms	*new_room(t_input *room)
 	t_rooms *new_room;
 
 	new_room = (t_rooms*)ft_memalloc(sizeof(t_rooms));
-	if (room->start == TRUE)
+	if (room->start == true)
 		new_room->type = START;
-	else if (room->end == TRUE)
+	else if (room->end == true)
 		new_room->type = END;
 	else
 		new_room->type = FREE;

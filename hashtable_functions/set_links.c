@@ -19,7 +19,7 @@ void		double_link(t_rooms *room_a, t_rooms *room_b)
 	links = room_a->links;
 	while (links != NULL)
 	{
-		if (ft_strequ(links->room->name, room_b->name) == TRUE)
+		if (ft_strequ(links->room->name, room_b->name) == true)
 		{
 			ft_putendl("Error! Rooms already linked!");
 			exit(-1);
@@ -36,7 +36,7 @@ static t_rooms		*get_room(t_rooms **rooms, size_t size, char *name)
 
 	index = hash_function((unsigned char*)name, size);
 	room = rooms[index];
-	while (ft_strequ(room->name, name) == FALSE)
+	while (ft_strequ(room->name, name) == false)
 		room = room->next;
 	return (room);
 }

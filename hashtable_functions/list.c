@@ -64,7 +64,7 @@ static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 {
 	while (head != NULL)
 	{
-		if (ft_strequ(name, head->name) == TRUE)
+		if (ft_strequ(name, head->name) == true)
 		{
 			ft_putendl("Error! Duplicate room names"); /*Error message to be determined*/
 			exit(-1);

@@ -6,50 +6,33 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 17:46:09 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 16:14:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This functions adds a new room to the existing queue*/
-static void	add_to_queue(t_queue **queue, t_queue *new)
-{
-	t_queue	*probe;
-
-	if (new == NULL)
-		return ;
-	if ((*queue) == NULL)
-	{
-		(*queue) = new;
-		return ;
-	}
-	probe = *queue;
-	while (probe->next != NULL)
-		probe = probe->next;
-	probe->next = new;
-}
-
 /*this function checks if the node is pointing to end when node is end*/
-static int	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
+static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (connected_room->towards == NULL)
-		return (FALSE);
+		return (false);
 	if (current_room->type == END && connected_room->towards->type == END)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
-static int	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
+static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 {
-	if (current_room->type == END && connected_room->type == START && current_room->path_id != FALSE)
-		return (TRUE);
-	return (FALSE);
+	if (current_room->type == END && connected_room->type == START
+	&& current_room->path_id != false)
+		return (true);
+	return (false);
 }
 
 /*this function return the node of the connected room which is also part of exiting path,
-to follow the path aat least one time. It also check if connected room arent part of a path
-and adds them to queue with right diastance value and branch pointer to room*/
+to follow the path aat least one time. It also check if connected room arrent part of a path
+and adds them to queue with right distance value and branch pointer to room*/
 static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms)
 {
 	t_links	*connected;
@@ -59,18 +42,18 @@ static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms
 	path_connected = NULL;
 	while (connected != NULL)
 	{
-		if (connected->room->visited == FALSE)
+		if (connected->room->visited == false)
 		{
 			if (connected->room->path_id == room->path_id && room->towards == connected->room)
 			{
 				room = connected->room;
-				room->visited = TRUE;
+				room->visited = true;
 				room->distance = -2;
 				path_connected = connected->room->links;
 			}
 			if (connected->room->path_id != room->path_id)
 			{
-				connected->room->visited = TRUE;
+				connected->room->visited = true;
 				connected->room->branch = (*queue)->room;
 				connected->room->distance = (*queue)->room->distance + 1;
 				add_to_queue(queue, new_element(connected->room));
@@ -90,10 +73,10 @@ static void	on_path(t_queue **queue, t_rooms *room)
 	connected = room->links;
 	while (connected != NULL)
 	{
-		if (connected->room->path_id == room->path_id && room->towards == connected->room
-		&& connected->room->type != END)
+		if (connected->room->path_id == room->path_id &&
+		room->towards == connected->room && connected->room->type != END)
 		{
-			connected->room->visited = TRUE;
+			connected->room->visited = true;
 			connected->room->branch = room;
 			follow_path(queue, connected->room, connected->room->links);
 		}
@@ -112,31 +95,20 @@ void		create_queue(t_queue **queue)
 		return ;
 	current_room = (*queue)->room;
 	connected = current_room->links;
-	if (current_room->path_id == FALSE || current_room->type == END)
+	if (current_room->path_id == false || current_room->type == END)
 	{
 		while (connected != NULL)
 		{
-			if (connected->room->visited == FALSE && connected_to_end(current_room, connected->room) == FALSE
-			&& start_end_connection(current_room, connected->room)== FALSE)
+			if (connected->room->visited == false && connected_to_end(current_room, connected->room) == false
+			&& start_end_connection(current_room, connected->room)== false)
 			{
-				connected->room->visited = TRUE;
+				connected->room->visited = true;
 				connected->room->distance = current_room->distance + 1;
 				add_to_queue(queue, new_element(connected->room));
 			}
 			connected = connected->next;
 		}
 	}
-	else if (current_room->path_id != FALSE)
+	else if (current_room->path_id != false)
 		on_path(queue, current_room);
-}
-
-/*This functions pops the first room of the queue*/
-void	pop_out_queue(t_queue **queue)
-{
-	t_queue	*first_node;
-
-	first_node = *queue;
-	(*queue) = (*queue)->next;
-	free(first_node);
-	first_node = NULL;
 }

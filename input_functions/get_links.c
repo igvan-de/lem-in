@@ -17,14 +17,14 @@ static void		get_rest_of_links(t_input **rooms,
 t_rooms **table, char *line, size_t size, char **a_b)
 {
 	while (get_next_line(STDIN_FILENO, &line) > 0 &&
-	check_format_link(line, rooms) == TRUE)
+	check_format_link(line, rooms) == true)
 	{
 		if (line && line[0] == '#')
 		{
 			free(line);
 			continue ;
 		}
-		if (ft_strequ(a_b[A], a_b[B]) == TRUE)
+		if (ft_strequ(a_b[A], a_b[B]) == true)
 		{
 			ft_putendl("Error! A room can't link to itself"); /*Error message to be determined*/
 			exit(-1);
@@ -48,8 +48,8 @@ char *line, size_t size)
 	char	**a_b;
 
 	a_b = lem_split(line, rooms);
-	if (check_format_link(line, rooms) == TRUE &&
-	ft_strequ(a_b[A], a_b[B]) == FALSE)
+	if (check_format_link(line, rooms) == true &&
+	ft_strequ(a_b[A], a_b[B]) == false)
 	{
 		if (a_b != NULL)
 			ft_strarrdel(&a_b);

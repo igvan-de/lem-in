@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 16:07:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 16:43:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*This functions set a_b[A] to  the first given room(name)
 and a_b[B] to second given room(name)*/
-char		**ft_split(char *line, int n, int c)
+char	**ft_split(char *line, int n, int c)
 {
 	char	**a_b;
 	int		i;
@@ -43,7 +43,7 @@ char		**ft_split(char *line, int n, int c)
 }
 
 /*This functions check the if the links of rooms to exist*/
-int			compare_with_rooms(char **a_b, t_input **input)
+int		compare_with_rooms(char **a_b, t_input **input)
 {
 	t_input	*find_room;
 	int		s;
@@ -52,20 +52,20 @@ int			compare_with_rooms(char **a_b, t_input **input)
 	find_room = *input;
 	while (find_room != NULL)
 	{
-		if (ft_strequ(a_b[A], find_room->name) == TRUE)
+		if (ft_strequ(a_b[A], find_room->name) == true)
 			s++;
-		if (ft_strequ(a_b[B], find_room->name) == TRUE)
+		if (ft_strequ(a_b[B], find_room->name) == true)
 			s++;
 		if (s == 2)
-			return (TRUE);
+			return (true);
 		find_room = find_room->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 /*This function splits the given line so that we can seperate the first given room
 and the second given room*/
-char		**lem_split(char *line, t_input **input)
+char	**lem_split(char *line, t_input **input)
 {
 	char	**a_b;
 	int		i;
@@ -83,12 +83,12 @@ char		**lem_split(char *line, t_input **input)
 			if (a_b != NULL)
 				ft_strarrdel(&a_b);
 			a_b = ft_split(line, i, (c - i - 1));
-			if (compare_with_rooms(a_b, input) == TRUE)
+			if (compare_with_rooms(a_b, input) == true)
 				break ;
 		}
 		i++;
 	}
-	if (a_b == NULL || compare_with_rooms(a_b, input) == FALSE)
+	if (a_b == NULL || compare_with_rooms(a_b, input) == false)
 	{
 		ft_putendl("Error! Linking to an unexisting room"); /*Error message to be determined*/
 		exit(-1);

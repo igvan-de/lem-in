@@ -24,15 +24,15 @@ void	reset_path_ids(t_path_set **path_set)
 		probe_paths = probe_set->path;
 		while (probe_paths != NULL)
 		{
-			if (probe_paths->room->path_id != FALSE)
-				probe_paths->room->path_id = FALSE;
+			if (probe_paths->room->path_id != false)
+				probe_paths->room->path_id = false;
 			probe_paths = probe_paths->next;
 		}
 		probe_set = probe_set->next;
 	}
 }
 
-/*this function resets the link->end type back to FALSE if the value is TRUE,
+/*this function resets the link->end type back to false if the value is true,
 this for the reason the dont go back in start-end later in follow_shifts function*/
 void	reset_link_value(t_path **start)
 {
@@ -41,8 +41,8 @@ void	reset_link_value(t_path **start)
 	connected = (*start)->room->links;
 	while (connected != NULL)
 	{
-		if (connected->end == TRUE)
-			connected->end = FALSE;
+		if (connected->end == true)
+			connected->end = false;
 		connected = connected->next;
 	}
 }

@@ -72,8 +72,8 @@ void				follow_shifts(t_path **path, t_path_set *set)
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && (CONNECTED_ROOM_PATH_ID == FALSE ||
-		(connected->room->type == END && connected->end == FALSE)))
+		if (CONNECTED_SHIFT == ON && (CONNECTED_ROOM_PATH_ID == false ||
+		(connected->room->type == END && connected->end == false)))
 		{
 			connected->room->path_id = PATH_ID;
 			add_to_path(path, new_room_to_path(connected->room), set);
@@ -94,12 +94,12 @@ static int			check_start_to_end(t_rooms **room, t_links *connected)
 			{
 				set_link_shift(room, &connected->room);
 				set_link_shift(&connected->room, room);
-				return (TRUE);
+				return (true);
 			}
 			connected = connected->next;
 		}
 	}
-	return (FALSE);
+	return (false);
 }
 
 /*This function follows the bfs values in decreasing order by a value of 1,
@@ -113,7 +113,7 @@ void				follow_bfs(t_rooms **room)
 		return ;
 	connected = (*room)->links;
 	current_distance = (*room)->distance;
-	if (check_start_to_end(room, connected) == TRUE)
+	if (check_start_to_end(room, connected) == true)
 		return ;
 	while (connected != NULL)
 	{

@@ -72,30 +72,30 @@ void    print_hash(t_rooms **table, size_t size)
     }
 }
 
-// void	print_queue(t_queue *queue)
-// {
-// 	t_queue *test;
+void	print_queue(t_queue *queue)
+{
+	t_queue *test;
 
-// 	test = queue;
-// 	printf("============================\n");
-// 	while (test != NULL)
-// 	{
-// 		printf("•••test = %s\t", test->to->name);
-// 		printf("•••test->visisted = %d\t", test->to->visited);
-// 		printf("•••test->distence = %d\n\n", test->to->distance);
-// 		test = test->next;
-// 	}
-// 	/*place pop_out_queu function here*/
-// 	printf("========AFTER POP=========\n");
-// 	test = queue;
-// 	while (test != NULL)
-// 	{
-// 		printf("test = %s\t", test->to->name);
-// 		printf("test->visisted = %d\t", test->to->visited);
-// 		printf("test->distence = %d\n\n", test->to->distance);
-// 		test = test->next;
-// 	}
-// }
+	test = queue;
+	printf("============================\n");
+	while (test != NULL)
+	{
+		printf("•••test = %s\t", test->room->name);
+		printf("•••test->visisted = %d\t", test->room->visited);
+		printf("•••test->distence = %d\n\n", test->room->distance);
+		test = test->next;
+	}
+	/*place pop_out_queu function here*/
+	printf("========AFTER POP=========\n");
+	test = queue;
+	while (test != NULL)
+	{
+		printf("test = %s\t", test->room->name);
+		printf("test->visited = %d\t", test->room->visited);
+		printf("test->distence = %d\n\n", test->room->distance);
+		test = test->next;
+	}
+}
 
 void				print_path_set(t_path_set *path_set)
 {

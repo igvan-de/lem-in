@@ -29,9 +29,10 @@ static void	push_leftovers(t_data **data, t_path *begin)
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
-		if (begin->room->from->type != START &&
-		begin->room->ant_id != 0 && begin->room->from->ant_id != 0)
-			ft_putchar(' ');
+		/*ask Yonne why he used this?!*/
+		// if (begin->room->from->type != START &&
+		// begin->room->ant_id != 0 && begin->room->from->ant_id != 0)
+		ft_putchar(' ');
 		begin->room->ant_id = 0;
 	}
 }
@@ -56,10 +57,8 @@ static void	push_ants(t_data **data, t_path *begin)
 		if (begin->room->type == START && (begin->room->ant_id < (*data)->amount_ants_start))
 			begin->room->ant_id++;
 		else
-		{
 			begin->room->ant_id = 0;
-			ft_putchar(' ');
-		}
+		ft_putchar(' ');
 	}
 }
 
@@ -76,17 +75,16 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
 			push_ants(data, paths->path);
 		else
-		{
 			push_leftovers(data, paths->path);
-		}
 		paths = paths->next;
 		if (paths == NULL && current_turn <= (*data)->turns)
 		{
 			ft_putchar('\n');
 			send_ants(data, begin, (current_turn + 1));
 		}
-		else if (current_turn <= (*data)->turns)
-			ft_putchar(' ');
+		/*ask Yonne why he used?!*/
+		// else if (current_turn <= (*data)->turns)
+		// 	ft_putchar(' ');
 	}
 	free_path_set(begin);
 }

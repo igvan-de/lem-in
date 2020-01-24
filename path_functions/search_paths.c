@@ -32,7 +32,8 @@ static int		check_start_connections(t_path *path)
 	connected = path->room->links;
 	while (connected != NULL)
 	{
-		if (CONNECTED_SHIFT == ON && connected->end == FALSE && (CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
+		if (CONNECTED_SHIFT == ON && connected->end == FALSE &&
+		(CONNECTED_ROOM_PATH_ID == FALSE || connected->room->type == END))
 			return (TRUE);
 		connected = connected->next;
 	}
@@ -65,7 +66,7 @@ static t_path	*set_start(t_data *data)
 
 /*This function the hart of our path searching algorithm
 from here we start fallowing the bfs values and the shift values,
-also we save the paths and caluculate if the new finded paths are quicker to use then older paths*/
+also we save the paths and calculate if the new finded paths are quicker to use then older paths*/
 static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
 {
 	t_path_set	*new_path_set;

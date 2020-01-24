@@ -6,42 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 21:13:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 17:14:17 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*this function creates new space for */
-static t_path_set	*new_path(t_path *path)
-{
-	t_path_set	*new_path;
-
-	new_path = (t_path_set*)ft_memalloc(sizeof(t_path_set));
-	new_path->path = path;
-	new_path->path_size = 0;
-	return (new_path);
-}
-
-/*this functions probes through connections of start to check if there's a connection
-where the link->shift is ON*/
-static int		check_start_connections(t_path *path)
-{
-	t_links	*connected;
-
-	connected = path->room->links;
-	while (connected != NULL)
-	{
-		if (CONNECTED_SHIFT == ON && connected->end == false &&
-		(CONNECTED_ROOM_PATH_ID == false || connected->room->type == END))
-			return (true);
-		connected = connected->next;
-	}
-	return (false);
-}
-
 /*This function mallocs path struct and sets it first node to room with type START*/
-static t_path	*set_start(t_data *data)
+static t_path		*set_start(t_data *data)
 {
 	t_path	*start;
 	t_links	*probe_links;
@@ -64,10 +36,38 @@ static t_path	*set_start(t_data *data)
 	return (start);
 }
 
+/*this function creates new space for */
+static t_path_set	*new_path(t_path *path)
+{
+	t_path_set	*new_path;
+
+	new_path = (t_path_set*)ft_memalloc(sizeof(t_path_set));
+	new_path->path = path;
+	new_path->path_size = 0;
+	return (new_path);
+}
+
+/*this functions probes through connections of start to check if there's a connection
+where the link->shift is ON*/
+static int			check_start_connections(t_path *path)
+{
+	t_links	*connected;
+
+	connected = path->room->links;
+	while (connected != NULL)
+	{
+		if (CONNECTED_SHIFT == ON && connected->end == false &&
+		(CONNECTED_ROOM_PATH_ID == false || connected->room->type == END))
+			return (true);
+		connected = connected->next;
+	}
+	return (false);
+}
+
 /*This function the hart of our path searching algorithm
 from here we start fallowing the bfs values and the shift values,
 also we save the paths and calculate if the new finded paths are quicker to use then older paths*/
-static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
+static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 {
 	t_path_set	*new_path_set;
 	t_path_set	*set;

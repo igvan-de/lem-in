@@ -6,14 +6,14 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 19:20:23 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 17:12:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /*This function creates a t_path pointer of the new room which need to be added to path*/
-static t_path		*new_room_to_path(t_rooms *room)
+static t_path	*new_room_to_path(t_rooms *room)
 {
 	t_path	*new_room;
 
@@ -23,7 +23,7 @@ static t_path		*new_room_to_path(t_rooms *room)
 }
 
 /*This function adds a new room at the end of linked list of existing path*/
-static void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
+static void		add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 {
 	t_path	*path_rooms;
 
@@ -57,7 +57,7 @@ void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
 to path linked list. This to create a path, it gives also the path_id values*/
-void				follow_shifts(t_path **path, t_path_set *set)
+void			follow_shifts(t_path **path, t_path_set *set)
 {
 	t_links	*connected;
 	t_path	*get_last_room;

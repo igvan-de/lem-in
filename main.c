@@ -6,12 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 16:48:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/24 17:10:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <fcntl.h> // remove!!
 
 /*In this function we read from the standard input to collect the given data*/
 size_t	get_input(t_input **input, char **line, t_data **data)
@@ -57,6 +56,7 @@ int	main(void)
 }
 
 /* add this in main to use lldb debugger!
+#include <fcntl.h> // remove!!
 int	main(int argc, char **argv)
 {
 	int fd;

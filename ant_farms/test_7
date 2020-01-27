@@ -22,6 +22,7 @@ a-c
 a-j
 j-i
 i-d
+i-c
 i-h
 h-g
 c-d
@@ -32,6 +33,7 @@ e-f
 d-g
 end-g
 end-f
+l-end
 start-b
 start-a
 start-l

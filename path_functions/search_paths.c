@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/15 20:47:44 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 19:32:30 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ static int		search_path(t_path_set **old_path_set, t_data *data, int turns)
 		*old_path_set = new_path_set;
 		turns = calc_turn_amount(data, new_path_set);
 	}
-	/*funtion to calculate if new founded paths are better to use*/
-	print_path_set(*old_path_set);
-	// printf("turns = %d\n", turns);
+	// print_path_set(*old_path_set);
 	return (turns);
 }
 
@@ -112,5 +110,6 @@ void			create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 		data->turns = search_path(&old_path_set, data, data->turns);
 	if (old_path_set->path->room->type == START)
 		old_path_set->path->room->ant_id = 1;
+	// printf("turns = %d\n", data->turns);
 	send_ants(&data, &old_path_set, 1);
 }

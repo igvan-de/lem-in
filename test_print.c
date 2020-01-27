@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/15 15:25:54 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 14:23:14 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,11 @@ void				print_path_set(t_path_set *path_set)
 		{
 			if (probe_paths->room->towards != NULL)
 			{
-				printf("data->set->path = %s\n", probe_paths->room->name);
+				printf("data->set->path = %s\ttowards = %s\tpath_id = %d\n",
+				probe_paths->room->name, probe_paths->room->towards->name, probe_paths->room->path_id);
 			}
 			else
-				printf("data->set->path = %s\n", probe_paths->room->name);
+				printf("data->set->path = %s\tpath_id = %d\n", probe_paths->room->name, probe_paths->room->path_id);
 			probe_paths = probe_paths->next;
 		}
 		printf("-----------------\n");

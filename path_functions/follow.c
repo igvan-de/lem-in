@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/14 13:24:00 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 14:22:14 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,25 @@ static void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 	new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
+}
+
+/*this function shift links on or off in both direction for connected rooms*/
+static void			set_link_shift(t_rooms **room, t_rooms **connected_room)
+{
+	t_links	*probe_rooms;
+
+	probe_rooms = (*room)->links;
+	while (probe_rooms != NULL)
+	{
+		if (probe_rooms->room == (*connected_room))
+		{
+			if (probe_rooms->shift == OFF)
+				probe_rooms->shift = ON;
+			else
+				probe_rooms->shift = OFF;
+		}
+		probe_rooms = probe_rooms->next;
+	}
 }
 
 /*This function fallows shifts and add connecting->rooms with shift value ON
@@ -64,6 +83,25 @@ void				follow_shifts(t_path **path, t_path_set *set)
 	}
 }
 
+/*this function check if start is connected to end and turn on the shift values in both directions*/
+static int			check_start_to_end(t_rooms **room, t_links *connected)
+{
+	if ((*room)->type == START && (*room)->distance == 1)
+	{
+		while (connected != NULL)
+		{
+			if (connected->room->type == END)
+			{
+				set_link_shift(room, &connected->room);
+				set_link_shift(&connected->room, room);
+				return (TRUE);
+			}
+			connected = connected->next;
+		}
+	}
+	return (FALSE);
+}
+
 /*This function follows the bfs values in decreasing order by a value of 1,
 it also turn all shift values on or off in the oppiste value then current state*/
 void				follow_bfs(t_rooms **room)
@@ -75,21 +113,22 @@ void				follow_bfs(t_rooms **room)
 		return ;
 	connected = (*room)->links;
 	current_distance = (*room)->distance;
+	if (check_start_to_end(room, connected) == TRUE)
+		return ;
 	while (connected != NULL)
 	{
-		if (connected->room->distance == (current_distance - 1) && CONNECTED_SHIFT == FALSE)
+		if (connected->room->distance == (current_distance - 1) && connected->room->from != *room)
 		{
-			if (CONNECTED_SHIFT == ON && connected->room->type != END)
-				CONNECTED_SHIFT = OFF;
-			else
-				CONNECTED_SHIFT = ON;
+			set_link_shift(room, &connected->room);
+			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
-		else if (connected->room->distance == current_distance && connected->room->links->shift == ON
-		&& connected->room->towards == *room)
+		else if (connected->room->branch != NULL && connected->room != (*room)->towards
+		&& connected->room->distance != (*room)->distance)
 		{
-			if (connected->room->links->shift == ON && connected->room->towards == *room)
-				connected->room->links->shift = OFF;
+			connected->room->distance = (*room)->distance;
+			set_link_shift(room, &connected->room);
+			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;

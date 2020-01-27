@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2020/01/13 16:25:19 by ygroenev      ########   odam.nl          #
+#    Updated: 2020/01/16 14:22:57 by ygroenev      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,9 @@ fclean: clean
 	@make -C ./libft fclean
 	@echo "$(PRINT_CLEAN) Cleaning all completed"
 
-re: fclean all
+re:
+	@make fclean
+	@make all
 
 norm:
 	@echo "===================NORMINETTE==================="

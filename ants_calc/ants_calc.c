@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/16 14:19:15 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/16 18:16:59 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static void	push_leftovers(t_data **data, t_path *begin)
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
-		if (begin->room->from->type != START &&
-		begin->room->ant_id != 0 && begin->room->from->ant_id != 0)
-			ft_putchar(' ');
+		ft_putchar(' ');
 		begin->room->ant_id = 0;
 	}
 }
@@ -53,13 +51,11 @@ static void	push_ants(t_data **data, t_path *begin)
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
-		if (begin->room->type == START && (begin->room->ant_id <= (*data)->amount_ants_start))
+		ft_putchar(' ');
+		if (begin->room->type == START && (begin->room->ant_id < (*data)->amount_ants_start))
 			begin->room->ant_id++;
 		else
-		{
 			begin->room->ant_id = 0;
-			ft_putchar(' ');
-		}
 	}
 }
 
@@ -76,17 +72,13 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
 			push_ants(data, paths->path);
 		else
-		{
 			push_leftovers(data, paths->path);
-		}
-		if (!paths->next && current_turn <= (*data)->turns)
+		paths = paths->next;
+		if (!paths && current_turn <= (*data)->turns)
 		{
 			ft_putchar('\n');
 			send_ants(data, begin, (current_turn + 1));
 		}
-		else
-			ft_putchar(' ');
-		paths = paths->next;
 	}
 }
 

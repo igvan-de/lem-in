@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 20:17:10 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 13:00:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ static void	push_leftovers(t_data **data, t_path *begin)
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
 		ft_putstr(begin->next->room->name);
-		/*ask Yonne why he used this?!*/
-		// if (begin->room->from->type != START &&
-		// begin->room->ant_id != 0 && begin->room->from->ant_id != 0)
 		ft_putchar(' ');
 		begin->room->ant_id = 0;
 	}
@@ -49,7 +46,7 @@ static void	push_ants(t_data **data, t_path *begin)
 		return ;
 	else if (begin->next != NULL)
 	{
-		begin->next->room->ant_id = begin->room->ant_id;/*segfault!*/
+		begin->next->room->ant_id = begin->room->ant_id;
 		ft_putchar('L');
 		ft_putnbr(begin->next->room->ant_id);
 		ft_putchar('-');
@@ -101,12 +98,10 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 			ft_putchar('\n');
 			send_ants(data, begin, (current_turn + 1));
 		}
-		/*ask Yonne why he used?!*/
-		// else if (current_turn <= (*data)->turns)
-		// 	ft_putchar(' ');
 	}
 	free_path_set(begin);
 }
+
 /*
 ** predicts and returns amount of turns needed to send ants through with current paths
 */

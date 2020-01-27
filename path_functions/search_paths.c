@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 17:14:17 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 12:44:19 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_path_set	*new_path(t_path *path)
 
 /*this functions probes through connections of start to check if there's a connection
 where the link->shift is ON*/
-static int			check_start_connections(t_path *path)
+static bool			check_start_connections(t_path *path)
 {
 	t_links	*connected;
 

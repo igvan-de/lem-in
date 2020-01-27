@@ -6,11 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 17:10:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 13:24:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+#include <fcntl.h>
 
 /*In this function we read from the standard input to collect the given data*/
 size_t	get_input(t_input **input, char **line, t_data **data)
@@ -34,8 +36,22 @@ size_t	get_input(t_input **input, char **line, t_data **data)
 
 /*This function is the brain of our program. It reads, saves, and processes all the data.
 From here we continue to all our other functions.*/
-int	main(void)
+int	main(int argc, char **argv)
 {
+	int fd;
+
+	if (argc != 2)
+	{
+		printf("Please provide a test file!\n");
+		return (false);
+	}
+	close(STDIN_FILENO);
+	fd = open(argv[1], O_RDONLY);
+	if (fd != STDIN_FILENO)
+	{
+		printf("fileno went wrong! Just run again.\n");
+		return (false);
+	}
 	t_rooms			**rooms;
 	t_input			*input;
 	t_data			*data;
@@ -56,22 +72,7 @@ int	main(void)
 }
 
 /* add this in main to use lldb debugger!
-#include <fcntl.h> // remove!!
-int	main(int argc, char **argv)
-{
-	int fd;
-
-	if (argc != 2)
-	{
-		printf("Please provide a test file!\n");
-		return (false);
-	}
-	close(STDIN_FILENO);
-	fd = open(argv[1], O_RDONLY);
-	if (fd != STDIN_FILENO)
-	{
-		printf("fileno went wrong! Just run again.\n");
-		return (false);
-	}
+int	main(void)
 }
+{
 */

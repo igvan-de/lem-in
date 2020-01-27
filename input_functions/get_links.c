@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/22 16:27:58 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 13:06:02 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ char *line, size_t size)
 	}
 	else
 	{
-		ft_putendl("Error! The imput is formatted incorrectly"); /*Error message to be determined*/
+		ft_putendl("Error! The input is formatted incorrectly"); /*Error message to be determined*/
 		exit(-1);
 	}
+	ft_putendl(line);
 	get_rest_of_links(rooms, table, line, size, a_b);
 	ft_putendl("");
 	free(line);

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 12:16:54 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 14:06:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,6 @@ void					add_to_list(char *line, t_input **head, t_data **data);
 size_t					hash_function(unsigned char *str, size_t size);
 void					hash_table(t_rooms **table, t_input *input,
 						t_data **data, size_t size);
-void					remove_useless_rooms(t_rooms **table, size_t size);
-
 
 /*
 **===============================LINK FUNCTIONS=================================
@@ -191,6 +189,7 @@ void					free_rooms(t_rooms **rooms);
 void					print_hash(t_rooms **table, size_t size);
 void					print_input(t_input *rooms, t_data **ants);
 void					print_queue(t_queue *queue);
+void					print_path(t_path *path);
 void					print_path_set(t_path_set *path_set);
 
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 17:04:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 13:05:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ bool	check_format_link(char *line, t_input **input)
 	a_b = lem_split(line, input);
 	if (compare_with_rooms(a_b, input) == false)
 	{
-		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
+		ft_putendl("Error! One or more of the links points to an non existing room"); /*Error message to be determined*/
 		exit(-1);
 	}
 	ft_strarrdel(&a_b);

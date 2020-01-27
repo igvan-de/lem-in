@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 16:14:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/27 17:16:39 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms
 				room = connected->room;
 				room->visited = true;
 				room->distance = -2;
+				connected->room->branch = (*queue)->room;
 				path_connected = connected->room->links;
 			}
 			if (connected->room->path_id != room->path_id)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/20 12:21:57 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/28 19:57:30 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	reset_path_ids(t_path_set **path_set)
 this for the reason the dont go back in start-end later in follow_shifts function*/
 void	reset_link_value(t_path **start)
 {
-	t_links	*connected;
+	t_links		*connected;
 
 	connected = (*start)->room->links;
 	while (connected != NULL)
@@ -46,3 +46,30 @@ void	reset_link_value(t_path **start)
 		connected = connected->next;
 	}
 }
+
+// void	undo_path(t_path **path, t_path_set *set)
+// {
+// 	t_path		*probe_path;
+// 	t_links		*connected;
+
+// 	probe_path = *path;
+// 	while (probe_path->previous->room->type != START)
+// 	{
+// 		if (probe_path->previous->room != NULL &&
+// 		probe_path->previous->room->path_id == probe_path->room->path_id)
+// 		{
+// 			// probe_path->room->path_id = 0;
+// 			// probe_path->room->towards = NULL;
+// 			// probe_path->room->next = NULL;
+// 			connected = probe_path->room->links;
+// 			while (connected != NULL)
+// 			{
+// 				if (connected->room->path_id == probe_path->room->path_id)
+// 					probe_path->room->links->shift = OFF;
+// 				connected = connected->next;
+// 			}
+// 			set->path_size -= 1;
+// 		}
+// 		probe_path = probe_path->previous;
+// 	}
+// }

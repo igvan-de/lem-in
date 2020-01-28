@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 13:00:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/28 20:08:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,22 @@ static int	how_many_ants(t_path_set *paths, int turns)
 /*
 ** sends ants through the rooms
 */
-void		send_ants(t_data **data, t_path_set **begin, int current_turn)
+void		send_ants(t_data **data, t_path_set **begin, int current_turn, int turns)
 {
 	t_path_set	*paths;
 
 	paths = *begin;
 	while (paths)
 	{
-		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
+		if (paths->path_size <= turns - current_turn + 1)
 			push_ants(data, paths->path);
 		else
 			push_leftovers(data, paths->path);
 		paths = paths->next;
-		if (paths == NULL && current_turn <= (*data)->turns)
+		if (paths == NULL && current_turn <= turns)
 		{
 			ft_putchar('\n');
-			send_ants(data, begin, (current_turn + 1));
+			send_ants(data, begin, (current_turn + 1), turns);
 		}
 	}
 	free_path_set(begin);

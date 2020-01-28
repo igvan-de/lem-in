@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 19:18:24 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/28 22:48:27 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void		add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 	new_room->room->from = path_rooms->room;
 	path_rooms->room->towards = new_room->room;
 	path_rooms->next = new_room;
+	// printf("room->name = %s\tnext->room = %s\troom->distance = %d\tpath_id = %d\n",
+	// path_rooms->room->name, path_rooms->next->room->name, path_rooms->room->distance, path_rooms->room->path_id);
 }
 
 /*this function shift links on or off in both direction for connected rooms*/
@@ -68,7 +70,10 @@ void			follow_shifts(t_path **path, t_path_set *set)
 	if (get_last_room->room->type == START)
 		PATH_ID += 1;
 	if (get_last_room->room->type == END)
+	{
+		// ft_putendl("");
 		return ;
+	}
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{

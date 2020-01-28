@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 20:07:56 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/28 22:42:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct 			s_path
 {
 	struct s_rooms		*room;
 	struct s_path		*next;
+	struct s_path		*previous;
 }						t_path;
 
 typedef struct			s_queue
@@ -113,7 +114,7 @@ typedef struct			s_rooms
 **===============================ANTS FUNCTIONS=================================
 */
 int						calc_turn_amount(t_data *data, t_path_set *paths);
-void					send_ants(t_data **data, t_path_set **paths, int current_turns, int turns);
+void					send_ants(t_data **data, t_path_set **paths, int turns);
 void					get_ants(t_data **ants);
 
 /*
@@ -171,7 +172,7 @@ void					reset_path_ids(t_path_set **path);
 void					reset_link_value(t_path **start);
 void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);
-void					undo_path(t_path **path, t_path_set *set);//not needed?
+void					undo_path(t_path_set **set);//not sure if needed!
 
 
 /*

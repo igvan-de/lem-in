@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 13:51:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/28 11:30:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	print_queue(t_queue *queue)
 	while (test != NULL)
 	{
 		printf("•••test = %s\t", test->room->name);
-		printf("•••test->visisted = %d\t", test->room->visited);
-		printf("•••test->distence = %d\n\n", test->room->distance);
+		printf("•••test->visited = %d\t", test->room->visited);
+		printf("•••test->distance = %d\n\n", test->room->distance);
 		test = test->next;
 	}
 	/*place pop_out_queu function here*/
@@ -92,7 +92,7 @@ void	print_queue(t_queue *queue)
 	{
 		printf("test = %s\t", test->room->name);
 		printf("test->visited = %d\t", test->room->visited);
-		printf("test->distence = %d\n\n", test->room->distance);
+		printf("test->distance = %d\n\n", test->room->distance);
 		test = test->next;
 	}
 }

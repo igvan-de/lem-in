@@ -1,4 +1,3 @@
 SRCS += hashtable_functions/hash_table.c \
 hashtable_functions/list.c \
-hashtable_functions/set_links.c \
-hashtable_functions/remove_useless_rooms.c
+hashtable_functions/set_links.c

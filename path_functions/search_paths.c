@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 22:50:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/29 14:11:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 		// undo_path(&new_path_set);
 		// printf("|========didn't save new_set=============|\n");
 		// print_path_set(new_path_set);
-		free_path_set(&new_path_set);
+			free_path_set(&new_path_set);
 		// printf("|========================================|\n");
 	}
 	return (turns);

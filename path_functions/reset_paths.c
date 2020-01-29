@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 22:47:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/29 14:43:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	reset_path_ids(t_path_set **path_set)
 		probe_paths = probe_set->path;
 		while (probe_paths != NULL)
 		{
+			printf("room->name = %s\tnext->room = %s\troom->distance = %d\tpath_id = %d\n",
+			probe_paths->room->name, probe_paths->next->room->name, probe_paths->room->distance, probe_paths->room->path_id);
 			if (probe_paths->room->path_id != false)
 				probe_paths->room->path_id = false;
 			probe_paths = probe_paths->next;

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 12:17:07 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/29 16:25:27 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static bool			check_start_connections(t_path *path)
 /*This function the hart of our path searching algorithm
 from here we start fallowing the bfs values and the shift values,
 also we save the paths and calculate if the new finded paths are quicker to use then older paths*/
-static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
+static int			search_path(t_path_set **old_path_set, t_data *data, t_rooms **rooms, int turns, size_t size)
 {
 	t_path_set	*new_path_set;
 	t_path_set	*set;
@@ -75,7 +75,8 @@ static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 	t_rooms		*start;
 
 	new_path_set = NULL;
-	reset_path_ids(old_path_set);
+	reset_path_ids(rooms, size);
+	// reset_path_ids(old_path_set);
 	path = set_start(data);
 	reset_link_value(&path);
 	start = data->start_room;
@@ -88,15 +89,15 @@ static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 		path = set_start(data);
 	}
 	free_path(&path);
-	if (turns == 0 || turns > calc_turn_amount(data, new_path_set))
-	{
-		free_path_set(old_path_set);
+	// if (turns == 0 || turns > calc_turn_amount(data, new_path_set))
+	// {
+	// 	free_path_set(old_path_set);
 		*old_path_set = new_path_set;
-		turns = calc_turn_amount(data, new_path_set);
-	}
-	else
-		free_path_set(&new_path_set);
-	print_path_set(*old_path_set);
+	// 	turns = calc_turn_amount(data, new_path_set);
+	// }
+	// else
+	// 	free_path_set(&new_path_set);
+	// print_path_set(*old_path_set);
 	return (turns);
 }
 
@@ -111,12 +112,15 @@ void			create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 	old_path_set = NULL;
 	while (bfs(rooms, data, size) == true)
 	{
-		data->turns = search_path(&old_path_set, data, data->turns);
+		data->turns = search_path(&old_path_set, data, rooms, data->turns, size);
 		if (data->amount_ants_start == 1)
 			break ;
 	}
 	if (old_path_set->path->room->type == START)
 		old_path_set->path->room->ant_id = 1;
+	print_path_set(old_path_set);
+	// exit(0);
+	// printf("turns = %d", data->turns);
 	send_ants(&data, &old_path_set, 1);
 	free_path_set(&old_path_set);
 	while (i < size)

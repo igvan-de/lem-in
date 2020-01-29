@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 14:06:08 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/29 16:20:21 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,8 @@ t_queue					*new_element(t_rooms *room);
 void					create_paths_and_send_ants(t_rooms **rooms,
 						t_data *data, size_t size);
 void					save_paths(t_path_set **path_set, t_path_set *path);
-void					reset_path_ids(t_path_set **path);
+// void					reset_path_ids(t_path_set **path);
+void					reset_path_ids(t_rooms **rooms, size_t size);
 void					reset_link_value(t_path **start);
 void					follow_shifts(t_path **path, t_path_set *set);
 void					follow_bfs(t_rooms **room);

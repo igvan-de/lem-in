@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/29 16:25:27 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/29 16:26:58 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int			search_path(t_path_set **old_path_set, t_data *data, t_rooms **room
 	// if (turns == 0 || turns > calc_turn_amount(data, new_path_set))
 	// {
 	// 	free_path_set(old_path_set);
-		*old_path_set = new_path_set;
+	*old_path_set = new_path_set;
 	// 	turns = calc_turn_amount(data, new_path_set);
 	// }
 	// else
@@ -103,7 +103,7 @@ static int			search_path(t_path_set **old_path_set, t_data *data, t_rooms **room
 
 /*this function is the main for searching the path,
 from here we will start calculating bfs and search all possible paths*/
-void			create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
+void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 {
 	t_path_set	*old_path_set;
 	size_t		i;
@@ -122,7 +122,6 @@ void			create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 	// exit(0);
 	// printf("turns = %d", data->turns);
 	send_ants(&data, &old_path_set, 1);
-	free_path_set(&old_path_set);
 	while (i < size)
 	{
 		free_rooms(&rooms[i]);

@@ -6,7 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
+<<<<<<< HEAD
 /*   Updated: 2020/01/28 16:26:27 by ygroenev      ########   odam.nl         */
+=======
+/*   Updated: 2020/01/29 14:38:47 by igvan-de      ########   odam.nl         */
+>>>>>>> 01c277c70f3226f37a7065fc5776f0dfb56c6fbb
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +74,14 @@ void			follow_shifts(t_path **path, t_path_set *set)
 	if (get_last_room->room->type == START)
 		PATH_ID += 1;
 	if (get_last_room->room->type == END)
+<<<<<<< HEAD
 		return ;
+=======
+	{
+		printf("\n\n");
+		return ;
+	}
+>>>>>>> 01c277c70f3226f37a7065fc5776f0dfb56c6fbb
 	connected = CURRENT_PATH_ROOM_LINKS;
 	while (connected != NULL)
 	{
@@ -128,7 +139,6 @@ void				follow_bfs(t_rooms **room)
 		else if (connected->room->branch != NULL && connected->room != (*room)->towards
 		&& connected->room->distance != (*room)->distance && ((*room)->distance- 1) == connected->room->branch->distance)
 		{
-			// printf("branch->name = %s\tbranche->distance =%d\n", connected->room->branch->name, connected->room->branch->distance);
 			connected->room->distance = (*room)->distance;
 			set_link_shift(room, &connected->room);
 			set_link_shift(&connected->room, room);

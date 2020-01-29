@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/29 16:26:27 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/01/29 16:28:01 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	reset_path_ids(t_rooms **table, size_t size)
         }
         i++;
     }
-	printf("hoi\n");
 }
 
 /*this function resets all path_id values to 0*/

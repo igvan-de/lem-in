@@ -6,11 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-<<<<<<< HEAD
-/*   Updated: 2020/01/28 16:30:30 by ygroenev      ########   odam.nl         */
-=======
-/*   Updated: 2020/01/28 20:23:30 by igvan-de      ########   odam.nl         */
->>>>>>> 01c277c70f3226f37a7065fc5776f0dfb56c6fbb
+/*   Updated: 2020/01/29 16:29:01 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

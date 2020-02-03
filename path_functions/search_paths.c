@@ -6,11 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-<<<<<<< HEAD
-/*   Updated: 2020/02/03 16:52:01 by igvan-de      ########   odam.nl         */
-=======
-/*   Updated: 2020/01/29 16:26:58 by ygroenev      ########   odam.nl         */
->>>>>>> a7786f85649d2e1324171cd38d6b2e8ddf4caccb
+/*   Updated: 2020/02/03 17:01:21 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +124,6 @@ void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 	best_path_set = NULL;
 	while (bfs(rooms, data, size) == true)
 	{
-<<<<<<< HEAD
 		reset_path_ids(rooms, size);
 		old_path_set = search_path(data);
 		if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
@@ -138,9 +133,6 @@ void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 			data->turns = calc_turn_amount(data, best_path_set);
 			// print_path_set(best_path_set);
 		}
-=======
-		data->turns = search_path(&old_path_set, data, rooms, data->turns, size);
->>>>>>> a7786f85649d2e1324171cd38d6b2e8ddf4caccb
 		if (data->amount_ants_start == 1)
 			break ;
 		follow_path(&old_path_set);

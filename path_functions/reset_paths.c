@@ -6,17 +6,12 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-<<<<<<< HEAD
-/*   Updated: 2020/02/03 16:50:48 by igvan-de      ########   odam.nl         */
-=======
-/*   Updated: 2020/01/29 16:28:01 by ygroenev      ########   odam.nl         */
->>>>>>> a7786f85649d2e1324171cd38d6b2e8ddf4caccb
+/*   Updated: 2020/02/03 17:00:59 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-<<<<<<< HEAD
 /*this function resets all path_id values to 0*/
 // void	reset_path_ids(t_path_set **path_set)
 // {
@@ -46,24 +41,12 @@ void	reset_path_ids(t_rooms **table, size_t size)
 	while (i < size)
     {
 		tmp = table[i];
-=======
-void	reset_path_ids(t_rooms **table, size_t size)
-{
-	size_t i;
-
-	i = 0;
-	while (i < size)
-    {
->>>>>>> a7786f85649d2e1324171cd38d6b2e8ddf4caccb
         while (table[i] != NULL)
         {
 			table[i]->path_id = 0;
             table[i] = table[i]->next;
         }
-<<<<<<< HEAD
 		table[i] = tmp;
-=======
->>>>>>> a7786f85649d2e1324171cd38d6b2e8ddf4caccb
         i++;
     }
 }

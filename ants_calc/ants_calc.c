@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 20:23:30 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/01/29 16:29:01 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,17 @@ static int	how_many_ants(t_path_set *paths, int turns)
 void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 {
 	t_path_set	*paths;
+	int i = 0;
 
 	paths = *begin;
 	while (paths)
 	{
+		// printf("\n\npath size: %d, turns: %d, current turn: %d, sum: %d\n\n", paths->path_size, (*data)->turns, current_turn, (((*data)->turns - current_turn) + 1));
 		if (paths->path_size <= ((*data)->turns - current_turn) + 1)
+		{
 			push_ants(data, paths->path);
+			i++;
+		}
 		else
 			push_leftovers(data, paths->path);
 		paths = paths->next;
@@ -99,6 +104,7 @@ void		send_ants(t_data **data, t_path_set **begin, int current_turn)
 			send_ants(data, begin, (current_turn + 1));
 		}
 	}
+	// printf("i = %d\n", i);
 	free_path_set(begin);
 }
 

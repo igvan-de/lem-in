@@ -6,32 +6,49 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 12:35:05 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/29 14:43:42 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 16:50:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /*this function resets all path_id values to 0*/
-void	reset_path_ids(t_path_set **path_set)
-{
-	t_path_set	*probe_set;
-	t_path		*probe_paths;
+// void	reset_path_ids(t_path_set **path_set)
+// {
+// 	t_path_set	*probe_set;
+// 	t_path		*probe_paths;
 
-	probe_set = *path_set;
-	while (probe_set != NULL)
-	{
-		probe_paths = probe_set->path;
-		while (probe_paths != NULL)
-		{
-			printf("room->name = %s\tnext->room = %s\troom->distance = %d\tpath_id = %d\n",
-			probe_paths->room->name, probe_paths->next->room->name, probe_paths->room->distance, probe_paths->room->path_id);
-			if (probe_paths->room->path_id != false)
-				probe_paths->room->path_id = false;
-			probe_paths = probe_paths->next;
-		}
-		probe_set = probe_set->next;
-	}
+// 	probe_set = *path_set;
+// 	while (probe_set != NULL)
+// 	{
+// 		probe_paths = probe_set->path;
+// 		while (probe_paths != NULL)
+// 		{
+// 			if (probe_paths->room->path_id != false)
+// 				probe_paths->room->path_id = false;
+// 			probe_paths = probe_paths->next;
+// 		}
+// 		probe_set = probe_set->next;
+// 	}
+// }
+
+void	reset_path_ids(t_rooms **table, size_t size)
+{
+	size_t i;
+	t_rooms *tmp;
+	i = 0;
+	tmp = NULL;
+	while (i < size)
+    {
+		tmp = table[i];
+        while (table[i] != NULL)
+        {
+			table[i]->path_id = 0;
+            table[i] = table[i]->next;
+        }
+		table[i] = tmp;
+        i++;
+    }
 }
 
 /*this function resets the link->end type back to false if the value is true,

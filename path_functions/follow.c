@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/29 14:38:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 16:54:20 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			follow_shifts(t_path **path, t_path_set *set)
 		PATH_ID += 1;
 	if (get_last_room->room->type == END)
 	{
-		printf("\n\n");
+		// printf("\n\n");
 		return ;
 	}
 	connected = CURRENT_PATH_ROOM_LINKS;

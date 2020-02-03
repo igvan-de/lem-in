@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/29 14:11:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 16:52:01 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,31 @@ static bool			check_start_connections(t_path *path)
 	return (false);
 }
 
+void	follow_path(t_path_set **path_set)
+{
+	t_path_set	*probe_set;
+	t_path		*probe_paths;
+
+	probe_set = *path_set;
+	while (probe_set != NULL)
+	{
+		probe_paths = probe_set->path;
+		while (probe_paths != NULL)
+		{
+			if (probe_paths->next != NULL)
+				printf("room->name = %s\tnext->room = %s\troom->distance = %d\tpath_id = %d\n",
+				probe_paths->room->name, probe_paths->next->room->name, probe_paths->room->distance, probe_paths->room->path_id);
+			probe_paths = probe_paths->next;
+		}
+		probe_set = probe_set->next;
+		ft_putendl("");
+	}
+}
+
 /*This function the hart of our path searching algorithm
 from here we start fallowing the bfs values and the shift values,
 also we save the paths and calculate if the new finded paths are quicker to use then older paths*/
-static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
+static t_path_set	*search_path(t_data *data)
 {
 	t_path_set	*new_path_set;
 	t_path_set	*set;
@@ -75,10 +96,6 @@ static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 	t_rooms		*start;
 
 	new_path_set = NULL;
-	// printf("||-----------------before searching new path----------------||\n");
-	// print_path_set(*old_path_set);
-	// printf("||----------------------------------------------------------||\n");
-	reset_path_ids(old_path_set);
 	path = set_start(data);
 	reset_link_value(&path);
 	start = data->start_room;
@@ -91,22 +108,7 @@ static int			search_path(t_path_set **old_path_set, t_data *data, int turns)
 		path = set_start(data);
 	}
 	free_path(&path);
-	if (turns == 0 || turns > calc_turn_amount(data, new_path_set))
-	{
-		free_path_set(old_path_set);
-		*old_path_set = new_path_set;
-		turns = calc_turn_amount(data, *old_path_set);
-		// print_path_set(*old_path_set);
-	}
-	else
-	{
-		// undo_path(&new_path_set);
-		// printf("|========didn't save new_set=============|\n");
-		// print_path_set(new_path_set);
-			free_path_set(&new_path_set);
-		// printf("|========================================|\n");
-	}
-	return (turns);
+	return (new_path_set);
 }
 
 /*this function is the main for searching the path,
@@ -114,15 +116,27 @@ from here we will start calculating bfs and search all possible paths*/
 void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 {
 	t_path_set	*old_path_set;
+	t_path_set	*best_path_set;
 	size_t		i;
 
 	i = 0;
 	old_path_set = NULL;
+	best_path_set = NULL;
 	while (bfs(rooms, data, size) == true)
 	{
-		data->turns = search_path(&old_path_set, data, data->turns);
+		reset_path_ids(rooms, size);
+		old_path_set = search_path(data);
+		if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
+		{
+			free_path_set(&best_path_set);
+			best_path_set = old_path_set;
+			data->turns = calc_turn_amount(data, best_path_set);
+			// print_path_set(best_path_set);
+		}
 		if (data->amount_ants_start == 1)
 			break ;
+		follow_path(&old_path_set);
+		ft_putendl("");
 	}
 	if (old_path_set->path->room->type == START)
 		old_path_set->path->room->ant_id = 1;

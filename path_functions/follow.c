@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/03 17:00:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 18:58:13 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static bool			check_start_to_end(t_rooms **room, t_links *connected)
 }
 
 /*This function follows the bfs values in decreasing order by a value of 1,
-it also turn all shift values on or off in the oppiste value then current state*/
+it also turn all shift values on or off in the opposite value then current state*/
 void				follow_bfs(t_rooms **room)
 {
 	t_links	*connected;
@@ -119,14 +119,14 @@ void				follow_bfs(t_rooms **room)
 		return ;
 	while (connected != NULL)
 	{
-		if (connected->room->distance == (current_distance - 1) && connected->room->from != *room)
+		if (connected->room->distance == (current_distance - 1))// && connected->room->from != *room)
 		{
 			set_link_shift(room, &connected->room);
 			set_link_shift(&connected->room, room);
 			return (follow_bfs(&connected->room));
 		}
 		else if (connected->room->branch != NULL && connected->room != (*room)->towards
-		&& connected->room->distance != (*room)->distance && ((*room)->distance- 1) == connected->room->branch->distance)
+		&& connected->room->distance != (*room)->distance && ((*room)->distance - 1) == connected->room->branch->distance)
 		{
 			connected->room->distance = (*room)->distance;
 			set_link_shift(room, &connected->room);

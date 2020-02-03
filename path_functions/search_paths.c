@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/03 17:01:21 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 18:57:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static t_path_set	*search_path(t_data *data)
 		set = new_path(path);
 		follow_shifts(&path, set);
 		save_paths(&new_path_set, set);
+		// print_path_set(new_path_set);
 		path = set_start(data);
 	}
 	free_path(&path);
@@ -128,22 +129,20 @@ void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 		old_path_set = search_path(data);
 		if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 		{
-			free_path_set(&best_path_set);
+			// free_path_set(&best_path_set);
 			best_path_set = old_path_set;
 			data->turns = calc_turn_amount(data, best_path_set);
-			// print_path_set(best_path_set);
 		}
 		if (data->amount_ants_start == 1)
 			break ;
-		follow_path(&old_path_set);
-		ft_putendl("");
+		// follow_path(&old_path_set);
 	}
-	if (old_path_set->path->room->type == START)
-		old_path_set->path->room->ant_id = 1;
-	print_path_set(old_path_set);
+	if (best_path_set->path->room->type == START)
+		best_path_set->path->room->ant_id = 1;
+	// print_path_set(best_path_set);
 	// exit(0);
 	// printf("turns = %d", data->turns);
-	send_ants(&data, &old_path_set, 1);
+	send_ants(&data, &best_path_set, 1);
 	while (i < size)
 	{
 		free_rooms(&rooms[i]);

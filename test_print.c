@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/04 14:54:30 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/28 18:12:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/03 18:53:56 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,24 @@ void	print_path_set(t_path_set *path_set)
 		{
 			if (probe_paths->room->towards != NULL)
 			{
-				if (probe_paths->room->from != NULL)
-					printf("data->set->path = %s\ttowards = %s\tfrom = %s\tpath_id = %d\n",
-					probe_paths->room->name, probe_paths->room->towards->name,
-					probe_paths->room->from->name, probe_paths->room->path_id);
-				else
-					printf("data->set->path = %s\ttowards = %s\tpath_id = %d\n",
-					probe_paths->room->name, probe_paths->room->towards->name, probe_paths->room->path_id);
+				// if (probe_paths->room->type != START && ft_strcmp(probe_paths->room->towards->name, probe_paths->next->room->name) != 0)
+				// {
+				// 	if (probe_paths->next != NULL)
+				// 		printf("next = %s\n", probe_paths->next->room->name);
+					if (probe_paths->room->towards != NULL)
+					{
+						if (probe_paths->room->from != NULL)
+							printf("data->set->path = %s\ttowards = %s\tfrom = %s\tpath_id = %d\n",
+							probe_paths->room->name, probe_paths->room->towards->name,
+							probe_paths->room->from->name, probe_paths->room->path_id);
+						else
+							printf("data->set->path = %s\ttowards = %s\tpath_id = %d\n",
+							probe_paths->room->name, probe_paths->room->towards->name, probe_paths->room->path_id);
+					}
+					else
+						printf("data->set->path = %s\tpath_id = %d\n", probe_paths->room->name, probe_paths->room->path_id);
+				// }
 			}
-			else
-				printf("data->set->path = %s\tpath_id = %d\n", probe_paths->room->name, probe_paths->room->path_id);
 			probe_paths = probe_paths->next;
 		}
 		printf("-----------------------\n");

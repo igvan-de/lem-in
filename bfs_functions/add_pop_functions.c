@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/24 16:12:04 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 16:14:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 17:38:33 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	add_to_queue(t_queue **queue, t_queue *new)
 
 	if (new == NULL)
 		return ;
-	if ((*queue) == NULL)
+	if (*queue == NULL)
 	{
-		(*queue) = new;
+		*queue = new;
 		return ;
 	}
 	probe = *queue;
@@ -36,7 +36,7 @@ void	pop_out_queue(t_queue **queue)
 	t_queue	*first_node;
 
 	first_node = *queue;
-	(*queue) = (*queue)->next;
+	*queue = (*queue)->next;
 	free(first_node);
 	first_node = NULL;
 }

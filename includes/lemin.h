@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 13:52:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 20:06:10 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef enum			e_node_value
 	OFF = 0,
 	ON = 1
 }						t_node_value;
+
+typedef struct 			s_save_map
+{
+	char				*line;
+	struct s_save_map	*next;
+}						t_save_map;
 
 typedef struct 			s_path_set
 {
@@ -115,7 +121,7 @@ typedef struct			s_rooms
 */
 int						calc_turn_amount(t_data *data, t_path_set *paths);
 void					send_ants(t_data **data, t_path_set **paths, int turns);
-void					get_ants(t_data **ants);
+void					get_ants(t_data **ants, t_save_map *map);
 
 /*
 **===============================FORMAT FUNCTIONS===============================
@@ -147,7 +153,7 @@ int						compare_with_rooms(char **a_b, t_input **input);
 char					**lem_split(char *line, t_input **input);
 char					**ft_split(char *line, int n, int c);
 void					get_links(t_input **input, t_rooms **rooms,
-						char *line, size_t size);
+						t_save_map *map, size_t size, t_data *data);
 void					set_links(t_rooms **rooms,
 						size_t size, char *name_a, char *name_b);
 
@@ -194,5 +200,8 @@ void					print_queue(t_queue *queue);
 void					print_path(t_path *path);
 void					print_path_set(t_path_set *path_set);
 
+void	error_check(int ret);
+int			check_if_ants(char *line);
+void		print_map(t_save_map *map);
 
 #endif

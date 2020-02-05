@@ -1,2 +1,3 @@
 SRCS = main.c \
 test_print.c \
+print_map.c

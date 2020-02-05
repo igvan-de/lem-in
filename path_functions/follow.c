@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/03 18:58:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 12:14:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void				follow_bfs(t_rooms **room)
 		{
 			set_link_shift(room, &connected->room);
 			set_link_shift(&connected->room, room);
+			// printf("room = %s\tconnect = %s\tshift = %d\n", (*room)->name, connected->room->name, connected->shift);
 			return (follow_bfs(&connected->room));
 		}
 		else if (connected->room->branch != NULL && connected->room != (*room)->towards
@@ -131,6 +132,7 @@ void				follow_bfs(t_rooms **room)
 			connected->room->distance = (*room)->distance;
 			set_link_shift(room, &connected->room);
 			set_link_shift(&connected->room, room);
+			// printf("room = %s\tconnect = %s\tshift = %d\n", (*room)->name, connected->room->name, connected->shift);
 			return (follow_bfs(&connected->room));
 		}
 		connected = connected->next;

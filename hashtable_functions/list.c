@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 19:05:50 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:11:04 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 	{
 		if (ft_strequ(name, head->name) == true)
 		{
-			ft_putendl("Error! Duplicate room names"); /*Error message to be determined*/
+			ft_putendl("Error! Duplicate room names");
 			exit(-1);
 		}
 		if (head->x == x && head->y == y)
 		{
-			ft_putendl("Error! Duplicate coordinates"); /*Error message to be determined*/
+			ft_putendl("Error! Duplicate coordinates");
 			exit(-1);
 		}
 		head = head->next;

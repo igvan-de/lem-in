@@ -6,12 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/21 16:32:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:16:07 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*double_link function checks if there a double link is given*/
 void		double_link(t_rooms *room_a, t_rooms *room_b)
 {
 	t_links	*links;

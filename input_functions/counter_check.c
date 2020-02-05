@@ -6,12 +6,13 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/24 17:02:59 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 17:06:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:10:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*space_counter, counts the amount of spaces and return true if it's equal to two else it returns false*/
 bool	space_counter(char *line, int i, int space_count)
 {
 	while (line[i] && space_count < 3)
@@ -22,10 +23,11 @@ bool	space_counter(char *line, int i, int space_count)
 	}
 	if (space_count == 2)
 		return (true);
-	else /*No error if room is not formatted correctly. We don't want to exit because this function is supposed to return false if it reaches the links*/
+	else
 		return (false);
 }
 
+/*dash_counter returns true if there are more then one dashes on the given line, else it returns false*/
 bool	dash_counter(char *line, int i, int dash_count)
 {
 	while (line[i])

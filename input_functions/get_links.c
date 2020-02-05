@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 13:44:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:10:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_rooms **table, char *line, size_t size, char **a_b)
 		}
 		if (ft_strequ(a_b[A], a_b[B]) == true)
 		{
-			ft_putendl("Error! A room can't link to itself"); /*Error message to be determined*/
+			ft_putendl("Error! A room can't link to itself");
 			exit(-1);
 		}
 		if (a_b != NULL)

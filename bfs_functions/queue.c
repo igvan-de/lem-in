@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 17:16:39 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:45:18 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 	return (false);
 }
 
+/*start_end_connection check if start and end rooms are linked with eachother and return true if they are
+and end room doenst have a path_id*/
 static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (current_room->type == END && connected_room->type == START

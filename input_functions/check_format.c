@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 13:05:08 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 14:07:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		no_whitespaces(char *line)
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
 		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
-		ft_putendl("Error! Whitespaces where there shouldn't be any"); /*Error message to be determined*/
+		ft_putendl("Error! Whitespaces where there shouldn't be any");
 		exit(-1);
 	}
 }
@@ -54,14 +54,14 @@ bool	check_format_room(char *line, t_data **data)
 		return (true);
 	if (!line[i])
 	{
-		ft_putendl("Error! Empty line"); /*Error message to be determined*/
+		ft_putendl("Error! Empty line");
 		exit(-1);
 	}
 	while (line[i] && line[i] != ' ')
 		i++;
 	if (line[0] == 'L')
 	{
-		ft_putendl("Error! Room name can't start with 'L'"); /*Error message to be determined*/
+		ft_putendl("Error! Room name can't start with 'L'");
 		exit(-1);
 	}
 	i++;
@@ -73,7 +73,7 @@ bool	check_format_room(char *line, t_data **data)
 
 /*making sure links are formatted correctly*/
 bool	check_format_link(char *line, t_input **input)
-{ //check for duplicate links (or do we not care there's duplicates?) //we don't care
+{
 	char **a_b;
 	int i;
 	int dash_count;
@@ -86,7 +86,7 @@ bool	check_format_link(char *line, t_input **input)
 	a_b = lem_split(line, input);
 	if (compare_with_rooms(a_b, input) == false)
 	{
-		ft_putendl("Error! One or more of the links points to an non existing room"); /*Error message to be determined*/
+		ft_putendl("Error! One or more of the links points to an non existing room");
 		exit(-1);
 	}
 	ft_strarrdel(&a_b);
@@ -94,7 +94,7 @@ bool	check_format_link(char *line, t_input **input)
 		return (true);
 	else
 	{
-		ft_putendl("Error! One or more of the links are not formatted correctly"); /*Error message to be determined*/
+		ft_putendl("Error! One or more of the links are not formatted correctly");
 		exit(-1);
 	}
 }

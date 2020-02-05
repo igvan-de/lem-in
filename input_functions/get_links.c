@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/27 13:06:02 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 13:44:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_rooms **table, char *line, size_t size, char **a_b)
 continues to check the format and give the links to room*/
 void			get_links(t_input **rooms, t_rooms **table,
 char *line, size_t size)
-{ //Right now a room isn't allowed to link to itself, not sure if that's what we want
+{
 	char	**a_b;
 
 	a_b = lem_split(line, rooms);
@@ -59,7 +59,7 @@ char *line, size_t size)
 	}
 	else
 	{
-		ft_putendl("Error! The input is formatted incorrectly"); /*Error message to be determined*/
+		ft_putendl("Error! The input is formatted incorrectly");
 		exit(-1);
 	}
 	ft_putendl(line);

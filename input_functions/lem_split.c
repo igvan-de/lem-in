@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 16:43:20 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 13:45:06 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**lem_split(char *line, t_input **input)
 	}
 	if (a_b == NULL || compare_with_rooms(a_b, input) == false)
 	{
-		ft_putendl("Error! Linking to an unexisting room"); /*Error message to be determined*/
+		ft_putendl("Error! Linking to an nonexisting room");
 		exit(-1);
 	}
 	return (a_b);

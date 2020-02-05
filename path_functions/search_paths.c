@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 12:51:00 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/05 13:51:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,13 @@ void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 			best_path_set = old_path_set;
 			data->turns = calc_turn_amount(data, best_path_set);
 		}
-		// follow_path(&best_path_set);
+		else
+			free_path_set(&old_path_set);
 		if (data->amount_ants_start == 1)
 			break ;
 	}
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
-	// print_path_set(best_path_set);
-	// ft_putendl("");
-	// exit(0);
-	// printf("turns = %d", data->turns);
 	send_ants(&data, &best_path_set, 1);
 	while (i < size)
 	{

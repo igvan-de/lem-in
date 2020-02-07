@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/07 15:47:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/07 17:56:43 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 #include <fcntl.h>//remove!
 
+/*in this function we malloc t_save_map struct and add line in struct->line variable*/
 static t_save_map	*new_line(char *line)
 {
 	t_save_map	*new;
 
-	if (line == NULL)
-		return (NULL);
 	new = (t_save_map*)ft_memalloc(sizeof(t_save_map));
-	new->line = ft_strdup(line);
+	new->line = line;
 	return (new);
 }
 
+/*in this function we add a new line to the map struct*/
 static void			add_new_line(t_save_map **map, t_save_map *new_line)
 {
 	t_save_map	*probe;
@@ -48,14 +48,15 @@ static void			save_map(t_save_map **map)
 	char		*line;
 	int			ret;
 
+	line = NULL;
 	ret = get_next_line(STDIN_FILENO, &line);
 	error_check(ret);
 	add_new_line(map, new_line(line));
-	free(line);
+	line = NULL;
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
 		add_new_line(map, new_line(line));
-		free(line);
+		line = NULL;
 	}
 }
 

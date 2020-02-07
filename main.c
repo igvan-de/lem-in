@@ -6,17 +6,17 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 20:55:36 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/07 15:47:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-#include <fcntl.h>
+#include <fcntl.h>//remove!
 
 static t_save_map	*new_line(char *line)
 {
-	t_save_map *new;
+	t_save_map	*new;
 
 	if (line == NULL)
 		return (NULL);
@@ -45,12 +45,13 @@ static void			add_new_line(t_save_map **map, t_save_map *new_line)
 /*In this function we read from the standard input to collect the given data*/
 static void			save_map(t_save_map **map)
 {
-	char			*line;
-	int				ret;
+	char		*line;
+	int			ret;
 
 	ret = get_next_line(STDIN_FILENO, &line);
 	error_check(ret);
 	add_new_line(map, new_line(line));
+	free(line);
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
 		add_new_line(map, new_line(line));
@@ -60,7 +61,7 @@ static void			save_map(t_save_map **map)
 
 static int			read_input(t_save_map *map, t_input **input, t_data **data)
 {
-	size_t size;
+	size_t		size;
 
 	size = 0;
 	while (map && (map->line[0] == '#' ||
@@ -90,7 +91,6 @@ From here we continue to all our other functions.*/
 // int	main(void)
 int					main(int argc, char **argv)
 {
-	// }
 	int fd;
 
 	if (argc != 2)
@@ -105,16 +105,16 @@ int					main(int argc, char **argv)
 		printf("fileno went wrong! Just run again.\n");
 		return (false);
 	}
-	t_rooms			**rooms;
-	t_input			*input;
-	t_data			*data;
-	size_t			size;
-	t_save_map		*map;
+	t_rooms		**rooms;
+	t_input		*input;
+	t_data		*data;
+	size_t		size;
+	t_save_map	*map;
 
-	data = (t_data*)ft_memalloc(sizeof(t_data));
 	input = NULL;
 	map = NULL;
 	save_map(&map);
+	data = (t_data*)ft_memalloc(sizeof(t_data));
 	get_ants(&data, map);
 	size = read_input(map, &input, &data);
 	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);

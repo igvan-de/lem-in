@@ -6,13 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/24 16:12:04 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 17:38:33 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:33:58 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This functions adds a new room at the end of the existing queue*/
+/*
+** Adds a new room at the end of the existing queue
+*/
 void	add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
@@ -30,7 +32,9 @@ void	add_to_queue(t_queue **queue, t_queue *new)
 	probe->next = new;
 }
 
-/*This functions pops the first room of the queue*/
+/*
+** Pops the first room of the queue
+*/
 void	pop_out_queue(t_queue **queue)
 {
 	t_queue	*first_node;

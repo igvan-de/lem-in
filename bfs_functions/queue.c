@@ -6,13 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 14:45:18 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:37:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*this function checks if the node is pointing to end when node is end*/
+/*
+** Checks if the node is pointing to end when node is end
+*/
 static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (connected_room->towards == NULL)
@@ -22,8 +24,10 @@ static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 	return (false);
 }
 
-/*start_end_connection check if start and end rooms are linked with eachother and return true if they are
-and end room doenst have a path_id*/
+/*
+** Checks if start and end rooms are linked with eachother
+** returns true if they are and end room doenst have a path_id
+*/
 static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (current_room->type == END && connected_room->type == START
@@ -32,9 +36,11 @@ static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 	return (false);
 }
 
-/*this function return the node of the connected room which is also part of exiting path,
-to follow the path aat least one time. It also check if connected room arrent part of a path
-and adds them to queue with right distance value and branch pointer to room*/
+/*
+** Returns the connected room which is also part of an exiting path
+** Also checks if connected rooms aren't part of a path and adds
+** them to the queue with the right distance value and branch pointer
+*/
 static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms)
 {
 	t_links	*connected;
@@ -68,7 +74,9 @@ static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms
 	}
 }
 
-/*this function stays on path an go in the right direction*/
+/*
+** Follows path in the right direction
+*/
 static void	on_path(t_queue **queue, t_rooms *room)
 {
 	t_links	*connected;
@@ -87,8 +95,10 @@ static void	on_path(t_queue **queue, t_rooms *room)
 	}
 }
 
-/*This functions create the queue by adding the connecting rooms of current room to queue,
-this only happens if the connected rooms meet the rules we made before we want to add them*/
+/*
+** Creates the queue by adding the linked rooms of current room to queue,
+** if linked room inst visited or when linked room is visited it will go to on_path function
+*/
 void		create_queue(t_queue **queue)
 {
 	t_links	*connected;

@@ -6,16 +6,21 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 20:55:25 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:43:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This function reads the rest of a given file and sets all linking room in a linked list*/
-static void		get_rest_of_links(t_input **rooms,
-t_rooms **table, t_save_map *map, size_t size, char **a_b)
+/*
+** Reads the rest of a given file and sets all linking rooms in a linked list
+*/
+static void	get_rest_of_links(t_input **rooms,
+t_rooms **table, t_save_map *map, size_t size)
 {
+	char	**a_b;
+
+	a_b = lem_split(map->line, rooms);
 	while (map && check_format_link(map->line, rooms) == true)
 	{
 		if (map->line && map->line[0] == '#')
@@ -31,14 +36,17 @@ t_rooms **table, t_save_map *map, size_t size, char **a_b)
 		if (a_b != NULL)
 			ft_strarrdel(&a_b);
 		a_b = lem_split(map->line, rooms);
-		set_links(table, size, a_b[A], a_b[B]); /*sets link A-B*/
-		set_links(table, size, a_b[B], a_b[A]); /*sets link B-A*/
+		set_links(table, size, a_b[A], a_b[B]);
+		set_links(table, size, a_b[B], a_b[A]);
 		map = map->next;
 	}
 	ft_strarrdel(&a_b);
 }
 
-int			check_if_ants(char *line)
+/*
+** Checks if line contains only digits
+*/
+bool		check_if_ants(char *line)
 {
 	int	i;
 
@@ -52,6 +60,9 @@ int			check_if_ants(char *line)
 	return (true);
 }
 
+/*
+** Iterates through the map to get to the links
+*/
 t_save_map	*get_to_links(t_save_map *map, t_data *data)
 {
 	while (map && (map->line[0] == '#' ||
@@ -62,10 +73,12 @@ t_save_map	*get_to_links(t_save_map *map, t_data *data)
 		map = map->next;
 	return (map);
 }
-/*This function searches and give links to rooms
-continues to check the format and give the links to room*/
-void			get_links(t_input **rooms, t_rooms **table,
-t_save_map *map, size_t size, t_data *data)
+
+/*
+** Searches and adds links to rooms
+*/
+void		get_links(t_input **rooms, t_rooms **table,
+t_save_map *map, t_data *data)
 {
 	char	**a_b;
 
@@ -77,14 +90,15 @@ t_save_map *map, size_t size, t_data *data)
 		if (a_b != NULL)
 			ft_strarrdel(&a_b);
 		a_b = lem_split(map->line, rooms);
-		set_links(table, size, a_b[A], a_b[B]); /*sets link A-B*/
-		set_links(table, size, a_b[B], a_b[A]); /*sets link B-A*/
+		set_links(table, data->size, a_b[A], a_b[B]);
+		set_links(table, data->size, a_b[B], a_b[A]);
 	}
 	else
 	{
 		ft_putendl("Error! The input is formatted incorrectly");
 		exit(-1);
 	}
+	ft_strarrdel(&a_b);
 	if (map->next)
-		get_rest_of_links(rooms, table, map->next, size, a_b);
+		get_rest_of_links(rooms, table, map->next, data->size);
 }

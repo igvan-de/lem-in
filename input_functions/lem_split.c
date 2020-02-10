@@ -6,14 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 13:45:06 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:44:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This functions set a_b[A] to  the first given room(name)
-and a_b[B] to second given room(name)*/
+/*
+** Splits the room names of a link
+*/
 char	**ft_split(char *line, int n, int c)
 {
 	char	**a_b;
@@ -42,7 +43,9 @@ char	**ft_split(char *line, int n, int c)
 	return (a_b);
 }
 
-/*This functions check the if the links of rooms to exist*/
+/*
+** Checks if the rooms in a link exist
+*/
 int		compare_with_rooms(char **a_b, t_input **input)
 {
 	t_input	*find_room;
@@ -63,8 +66,15 @@ int		compare_with_rooms(char **a_b, t_input **input)
 	return (false);
 }
 
-/*This function splits the given line so that we can seperate the first given room
-and the second given room*/
+void	print_error(void)
+{
+	ft_putendl("Error! Linking to an unexisting room");
+	exit(-1);
+}
+
+/*
+** Splits the room names in a link and checks if they exist
+*/
 char	**lem_split(char *line, t_input **input)
 {
 	char	**a_b;
@@ -89,9 +99,6 @@ char	**lem_split(char *line, t_input **input)
 		i++;
 	}
 	if (a_b == NULL || compare_with_rooms(a_b, input) == false)
-	{
-		ft_putendl("Error! Linking to an nonexisting room");
-		exit(-1);
-	}
+		print_error();
 	return (a_b);
 }

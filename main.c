@@ -6,15 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/07 17:56:43 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:58:03 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-#include <fcntl.h>//remove!
-
-/*in this function we malloc t_save_map struct and add line in struct->line variable*/
+/*
+** Allocates and sets new line
+*/
 static t_save_map	*new_line(char *line)
 {
 	t_save_map	*new;
@@ -24,7 +24,9 @@ static t_save_map	*new_line(char *line)
 	return (new);
 }
 
-/*in this function we add a new line to the map struct*/
+/*
+** Adds new line to the end of linked list
+*/
 static void			add_new_line(t_save_map **map, t_save_map *new_line)
 {
 	t_save_map	*probe;
@@ -42,7 +44,9 @@ static void			add_new_line(t_save_map **map, t_save_map *new_line)
 	probe->next = new_line;
 }
 
-/*In this function we read from the standard input to collect the given data*/
+/*
+** Reads standard input to collect the given data
+*/
 static void			save_map(t_save_map **map)
 {
 	char		*line;
@@ -60,11 +64,11 @@ static void			save_map(t_save_map **map)
 	}
 }
 
-static int			read_input(t_save_map *map, t_input **input, t_data **data)
+/*
+** Saves input to data struct
+*/
+static void			save_input(t_save_map *map, t_input **input, t_data **data)
 {
-	size_t		size;
-
-	size = 0;
 	while (map && (map->line[0] == '#' ||
 	check_if_ants(map->line) == true))
 	{
@@ -80,54 +84,47 @@ static int			read_input(t_save_map *map, t_input **input, t_data **data)
 		if (check_if_command(map->line, data) == false)
 		{
 			add_to_list(map->line, input, data);
-			size++;
+			(*data)->size++;
 		}
 		map = map->next;
 	}
-	return (size);
 }
 
-/*This function is the brain of our program. It reads, saves, and processes all the data.
-From here we continue to all our other functions.*/
-// int	main(void)
-int					main(int argc, char **argv)
+/*
+** Checks if the three most important values in data are given in map
+*/
+static void			input_check(t_data *data)
 {
-	int fd;
-
-	if (argc != 2)
+	if (data->found_start == 0 || data->found_end == 0 || data->amount_ants_start == 0)
 	{
-		printf("Please provide a test file!\n");
-		return (false);
+		ft_putendl("Error! There's no start and/or end room");
+		exit(-1);
 	}
-	close(STDIN_FILENO);
-	fd = open(argv[1], O_RDONLY);
-	if (fd != STDIN_FILENO)
-	{
-		printf("fileno went wrong! Just run again.\n");
-		return (false);
-	}
-	t_rooms		**rooms;
-	t_input		*input;
-	t_data		*data;
-	size_t		size;
-	t_save_map	*map;
+}
 
+/*
+** The brain of our program. It reads, saves, and processes all the data
+*/
+int					main(void)
+{
+	t_rooms			**rooms;
+	t_input			*input;
+	t_data			*data;
+	t_save_map		*map;
+
+	data = (t_data*)ft_memalloc(sizeof(t_data));
 	input = NULL;
 	map = NULL;
 	save_map(&map);
-	data = (t_data*)ft_memalloc(sizeof(t_data));
 	get_ants(&data, map);
-	size = read_input(map, &input, &data);
-	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * size);
-	hash_table(rooms, input, &data, size);
-	get_links(&input, rooms, map, size, data);
+	save_input(map, &input, &data);
+	input_check(data);
+	rooms = (t_rooms**)ft_memalloc(sizeof(t_rooms*) * (data->size));
+	hash_table(rooms, input, &data);
+	get_links(&input, rooms, map, data);
 	print_map(map);
-	create_paths_and_send_ants(rooms, data, size);
+	create_paths_and_send_ants(rooms, data);
 	free(data);
 	free_input(&input);
 	return (0);
 }
-
-/* add this in main to use lldb debugger!
-// {
-*/

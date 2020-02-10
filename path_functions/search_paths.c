@@ -6,13 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 13:51:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:49:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This function mallocs path struct and sets it first node to room with type START*/
+/*
+** Allocates path struct and sets it first node to room with type START
+*/
 static t_path		*set_start(t_data *data)
 {
 	t_path	*start;
@@ -23,7 +25,8 @@ static t_path		*set_start(t_data *data)
 	probe_links = start->room->links;
 	if (start->room->towards != NULL && start->room->path_id != false)
 	{
-		if (start->room->towards->type == END && start->room->towards->path_id != false)
+		if (start->room->towards->type == END &&
+		start->room->towards->path_id != false)
 		{
 			while (probe_links != NULL)
 			{
@@ -36,7 +39,9 @@ static t_path		*set_start(t_data *data)
 	return (start);
 }
 
-/*this function creates new space for */
+/*
+** Allocates new path
+*/
 static t_path_set	*new_path(t_path *path)
 {
 	t_path_set	*new_path;
@@ -47,8 +52,10 @@ static t_path_set	*new_path(t_path *path)
 	return (new_path);
 }
 
-/*this functions probes through connections of start to check if there's a connection
-where the link->shift is ON*/
+/*
+** Iterates through start links to check if there's a connection
+** where the link->shift is ON
+*/
 static bool			check_start_connections(t_path *path)
 {
 	t_links	*connected;
@@ -64,9 +71,10 @@ static bool			check_start_connections(t_path *path)
 	return (false);
 }
 
-/*This function the hart of our path searching algorithm
-from here we start fallowing the bfs values and the shift values,
-also we save the paths and calculate if the new finded paths are quicker to use then older paths*/
+/*
+** The hart of our path searching algorithm, starts following
+** the bfs and shift values and saves the found paths
+*/
 static t_path_set	*search_path(t_data *data)
 {
 	t_path_set	*new_path_set;
@@ -90,9 +98,33 @@ static t_path_set	*search_path(t_data *data)
 	return (new_path_set);
 }
 
-/*this function is the main for searching the path,
-from here we will start calculating bfs and search all possible paths*/
-void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
+/*
+** Calculates if new found paths are faster than previous ones
+*/
+bool	calculate_path(t_path_set *old_path_set,
+t_path_set **best_path_set, t_data *data)
+{
+	if (old_path_set->path->room->path_id > 14)
+	{
+		free_path_set(&old_path_set);
+		return (false);
+	}
+	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
+	{
+		free_path_set(best_path_set);
+		*best_path_set = old_path_set;
+		data->turns = calc_turn_amount(data, *best_path_set);
+	}
+	else
+		free_path_set(&old_path_set);
+	return (true);
+}
+
+/*
+** Runs bfs and searches all possible new paths
+*/
+void				create_paths_and_send_ants(t_rooms **rooms,
+t_data *data)
 {
 	t_path_set	*old_path_set;
 	t_path_set	*best_path_set;
@@ -101,30 +133,19 @@ void				create_paths_and_send_ants(t_rooms **rooms, t_data *data, size_t size)
 	i = 0;
 	old_path_set = NULL;
 	best_path_set = NULL;
-	while (bfs(rooms, data, size) == true)
+	while (bfs(rooms, data) == true)
 	{
-		reset_path_ids(rooms, size);
+		reset_path_ids(rooms, data->size);
 		old_path_set = search_path(data);
-		if (old_path_set->path->room->path_id > 14)
-		{
-			free_path_set(&old_path_set);
-			break;
-		}
-		if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
-		{
-			free_path_set(&best_path_set);
-			best_path_set = old_path_set;
-			data->turns = calc_turn_amount(data, best_path_set);
-		}
-		else
-			free_path_set(&old_path_set);
+		if (calculate_path(old_path_set, &best_path_set, data) == false)
+			break ;
 		if (data->amount_ants_start == 1)
 			break ;
 	}
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set, 1);
-	while (i < size)
+	while (i < data->size)
 	{
 		free_rooms(&rooms[i]);
 		i++;

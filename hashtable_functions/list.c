@@ -6,13 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 14:11:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:40:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*this functions add a new node at the back of the linked list*/
+/*
+** Adds a new node at the back of the linked list
+*/
 static void		add_node(t_input **node, t_input *new)
 {
 	t_input *probe;
@@ -30,7 +32,9 @@ static void		add_node(t_input **node, t_input *new)
 	probe->next = new;
 }
 
-/*this function creates a new node and set all its values*/
+/*
+** Creates a new node and sets all its values
+*/
 static t_input	*new_node(char *line, t_data **data)
 {
 	t_input	*new_node;
@@ -59,7 +63,9 @@ static t_input	*new_node(char *line, t_data **data)
 	return (new_node);
 }
 
-/*this function checks if there are any duplicates and returns error message if there's a duplicate founded*/
+/*
+** Checks if there are any duplicates and returns an error message if so
+*/
 static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 {
 	while (head != NULL)
@@ -78,7 +84,9 @@ static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 	}
 }
 
-/*this function adds a new node to the list*/
+/*
+** Adds a new node to the list
+*/
 void			add_to_list(char *line, t_input **head, t_data **data)
 {
 	t_input	*new;

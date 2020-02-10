@@ -6,13 +6,15 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 13:43:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 20:05:00 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:42:55 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*this function checks for while opening and reading given file*/
+/*
+** Checks for errors while reading given file
+*/
 void		error_check(int ret)
 {
 	if (ret < 0)
@@ -27,7 +29,9 @@ void		error_check(int ret)
 	}
 }
 
-/*this function iterates through line to check if given values are digits*/
+/*
+** Iterates through line to check if given value for amount of ants is a digit
+*/
 static void	ants_value_check(char *line, int i)
 {
 	while (line[i])
@@ -41,7 +45,9 @@ static void	ants_value_check(char *line, int i)
 	}
 }
 
-/*This function finds amount of ants and saves it in data struct*/
+/*
+** Finds amount of ants
+*/
 void		get_ants(t_data **ants, t_save_map *map)
 {
 	int				i;

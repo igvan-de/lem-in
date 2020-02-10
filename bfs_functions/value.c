@@ -6,14 +6,16 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/01/24 16:19:14 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:38:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This function find the room with type START,
-so we can later check if start if found in BFS*/
+/*
+** Finds the room with type START
+** so we can check if start is found in BFS
+*/
 t_queue	*create_start(t_data *data)
 {
 	t_queue *start;
@@ -24,9 +26,10 @@ t_queue	*create_start(t_data *data)
 	return (start);
 }
 
-/*This function is to get the room with type END for queue,
-we need to function to start our BFS algorithm from end
-and then calculate our way back to start*/
+/*
+** Finds the room with type END to start the queue so our BFS algorithm can
+** work its way back from end to start
+*/
 t_queue	*create_end(t_data *data)
 {
 	t_queue *queue;
@@ -38,7 +41,9 @@ t_queue	*create_end(t_data *data)
 	return (queue);
 }
 
-/*This function creates a new element for the queue*/
+/*
+** Creates a new element for the queue
+*/
 t_queue	*new_element(t_rooms *room)
 {
 	t_queue	*queue;

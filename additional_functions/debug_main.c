@@ -1,47 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   counter_check.c                                    :+:    :+:            */
+/*   debug_main.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/24 17:02:59 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:43:31 by igvan-de      ########   odam.nl         */
+/*   Created: 2020/02/10 11:04:18 by igvan-de       #+#    #+#                */
+/*   Updated: 2020/02/10 11:12:40 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+#include <fcntl.h>
 
 /*
-** Counts spaces
+** This main is needed if you want to use LLD debugger for this program
+** Need to close STDIN_FILENO so we create space to place given file to read from STDIN_FILENO
 */
-bool	space_counter(char *line, int i, int space_count)
+int	debug_main(int argc, char **argv)
 {
-	while (line[i] && space_count < 3)
-	{
-		if (line[i] == ' ')
-			space_count++;
-		i++;
-	}
-	if (space_count == 2)
-		return (true);
-	else
-		return (false);
-}
+	int fd;
 
-/*
-** Counts dashes
-*/
-bool	dash_counter(char *line, int i, int dash_count)
-{
-	while (line[i])
+	if (argc != 2)
 	{
-		if (line[i] == '-')
-			dash_count++;
-		i++;
-	}
-	if (dash_count >= 1)
-		return (true);
-	else
+		ft_putendl("Please provide a test file!");
 		return (false);
+	}
+	close(STDIN_FILENO);
+	fd = open(argv[1], O_RDONLY);
+	if (fd != STDIN_FILENO)
+	{
+		ft_putendl("fileno went wrong! Just run again.");
+		return (false);
+	}
+	return (0);
 }

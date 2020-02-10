@@ -6,15 +6,16 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/05 19:17:48 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:40:02 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/*This function create a new space for the new room needed to be added in hash_table
-It also sets the type to, START, END or FREE.
-Depends of the room the start or end is of given grid*/
+/*
+** Allocates memory for the new room needed to be added in hash table
+** It also sets the type to, START, END or FREE depending on the room
+*/
 static t_rooms	*new_room(t_input *room)
 {
 	t_rooms *new_room;
@@ -27,10 +28,13 @@ static t_rooms	*new_room(t_input *room)
 	else
 		new_room->type = FREE;
 	new_room->name = room->name;
+	new_room->next = NULL;
 	return (new_room);
 }
 
-/*This function adds a new room to the table*/
+/*
+** Adds a new room to the table
+*/
 static void		add_to_table(t_rooms **head, t_rooms *new)
 {
 	if (head == NULL)
@@ -39,7 +43,9 @@ static void		add_to_table(t_rooms **head, t_rooms *new)
 	*head = new;
 }
 
-/*This function calculates were to place a room in our hash_table*/
+/*
+** Calculates where to place a room in our hash table
+*/
 size_t			hash_function(unsigned char *str, size_t size)
 {
 	size_t			hash;
@@ -57,16 +63,17 @@ size_t			hash_function(unsigned char *str, size_t size)
 	return (hash % size);
 }
 
-/*This function creates a hash_table from all the given data,
-the hash_table contains all our rooms*/
+/*
+** Creates a hash table containing all our rooms using input data
+*/
 void			hash_table(t_rooms **table_rooms, t_input *input,
-t_data **data, size_t size)
+t_data **data)
 {
 	size_t			index;
 
 	while (input != NULL)
 	{
-		index = hash_function((unsigned char*)input->name, size);
+		index = hash_function((unsigned char*)input->name, (*data)->size);
 		if (table_rooms[index] == NULL)
 			table_rooms[index] = new_room(input);
 		else

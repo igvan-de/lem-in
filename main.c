@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:58:03 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 15:24:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,6 @@ static void			save_input(t_save_map *map, t_input **input, t_data **data)
 			(*data)->size++;
 		}
 		map = map->next;
-	}
-}
-
-/*
-** Checks if the three most important values in data are given in map
-*/
-static void			input_check(t_data *data)
-{
-	if (data->found_start == 0 || data->found_end == 0 || data->amount_ants_start == 0)
-	{
-		ft_putendl("Error! There's no start and/or end room");
-		exit(-1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 11:11:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 15:15:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,13 @@ void					free_path(t_path **path);
 void					free_path_set(t_path_set **set);
 void					free_links(t_links **links);
 void					free_rooms(t_rooms **rooms);
+void					free_table(t_rooms **rooms, t_data *data);
+
+
+/*
+**==============================PRINT FUNCTIONS=================================
+*/
+void					no_path(t_data *data);
 
 /*
 **==============================PRINT FUNCTIONS=================================

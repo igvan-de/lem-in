@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:49:57 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 15:17:24 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Allocates path struct and sets it first node to room with type START
 */
-static t_path		*set_start(t_data *data)
+static	t_path		*set_start(t_data *data)
 {
 	t_path	*start;
 	t_links	*probe_links;
@@ -42,7 +42,7 @@ static t_path		*set_start(t_data *data)
 /*
 ** Allocates new path
 */
-static t_path_set	*new_path(t_path *path)
+static	t_path_set	*new_path(t_path *path)
 {
 	t_path_set	*new_path;
 
@@ -56,7 +56,7 @@ static t_path_set	*new_path(t_path *path)
 ** Iterates through start links to check if there's a connection
 ** where the link->shift is ON
 */
-static bool			check_start_connections(t_path *path)
+static	bool			check_start_connections(t_path *path)
 {
 	t_links	*connected;
 
@@ -75,7 +75,7 @@ static bool			check_start_connections(t_path *path)
 ** The hart of our path searching algorithm, starts following
 ** the bfs and shift values and saves the found paths
 */
-static t_path_set	*search_path(t_data *data)
+static	t_path_set	*search_path(t_data *data)
 {
 	t_path_set	*new_path_set;
 	t_path_set	*set;
@@ -142,13 +142,10 @@ t_data *data)
 		if (data->amount_ants_start == 1)
 			break ;
 	}
+	no_path(data);
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set, 1);
-	while (i < data->size)
-	{
-		free_rooms(&rooms[i]);
-		i++;
-	}
+	free_table(rooms, data);
 	free(rooms);
 }

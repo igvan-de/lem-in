@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:43:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 15:27:13 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,12 @@ void		get_links(t_input **rooms, t_rooms **table,
 t_save_map *map, t_data *data)
 {
 	char	**a_b;
-
 	map = get_to_links(map, data);
-	a_b = lem_split(map->line, rooms);
-	if (check_format_link(map->line, rooms) == true &&
+	if (map && map->line && check_format_link(map->line, rooms) == false)
+		bad_input();
+	else if (map && map->line)
+		a_b = lem_split(map->line, rooms);
+	if (map && map->line && check_format_link(map->line, rooms) == true &&
 	ft_strequ(a_b[A], a_b[B]) == false)
 	{
 		if (a_b != NULL)
@@ -94,11 +96,7 @@ t_save_map *map, t_data *data)
 		set_links(table, data->size, a_b[B], a_b[A]);
 	}
 	else
-	{
-		ft_putendl("Error! The input is formatted incorrectly");
-		exit(-1);
-	}
-	ft_strarrdel(&a_b);
+		bad_input();
 	if (map->next)
 		get_rest_of_links(rooms, table, map->next, data->size);
 }

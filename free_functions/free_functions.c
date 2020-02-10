@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 17:08:54 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:39:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 15:15:04 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,19 @@ void	free_rooms(t_rooms **rooms)
 	if ((*rooms)->next != NULL)
 		free_rooms(&(*rooms)->next);
 	ft_memdel((void**)rooms);
+}
+
+/*
+** Frees the hashtable
+*/
+void	free_table(t_rooms **rooms, t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < data->size)
+	{
+		free_rooms(&rooms[i]);
+		i++;
+	}
 }

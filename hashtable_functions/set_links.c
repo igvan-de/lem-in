@@ -6,22 +6,50 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:15:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:40:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_links		*new_link(t_table *pointer)
+/*
+** Checks for double links
+*/
+void			double_link(t_rooms *room_a, t_rooms *room_b)
 {
-	t_links	*link;
+	t_links	*links;
 
-	link = (t_links*)ft_memalloc(sizeof(t_links));
-	link->to = pointer;
-	return (link);
+	links = room_a->links;
+	while (links != NULL)
+	{
+		if (ft_strequ(links->room->name, room_b->name) == true)
+		{
+			ft_putendl("Error! Rooms already linked!");
+			exit(-1);
+		}
+		links = links->next;
+	}
 }
 
-static void			add_link(t_links **link, t_links *new)
+/*
+** Finds the right room pointer
+*/
+static t_rooms	*get_room(t_rooms **rooms, size_t size, char *name)
+{
+	t_rooms *room;
+	size_t	index;
+
+	index = hash_function((unsigned char*)name, size);
+	room = rooms[index];
+	while (ft_strequ(room->name, name) == false)
+		room = room->next;
+	return (room);
+}
+
+/*
+** Adds a new link in front of linked list of connections of a room
+*/
+static void		add_link(t_links **link, t_links *new)
 {
 	if (link == NULL || new == NULL)
 		return ;
@@ -29,26 +57,30 @@ static void			add_link(t_links **link, t_links *new)
 	*link = new;
 }
 
-static t_table		*get_table(t_table **table, size_t size, char *name)
+/*
+** Creates a new link for a room
+*/
+static t_links	*new_link(t_rooms *pointer)
 {
-	t_table *t;
-	size_t index;
+	t_links	*link;
 
-	// VIND M SWS
-	index = hash_function((unsigned char*)name, size);
-	t = table[index];
-	while (ft_strequ(t->name, name) == FALSE)
-		t = t->next;
-	return (t);
+	link = (t_links*)ft_memalloc(sizeof(t_links));
+	link->room = pointer;
+	link->next = NULL;
+	return (link);
 }
 
-void				set_links(t_table **table,
+/*
+** Sets the links to all rooms
+*/
+void			set_links(t_rooms **rooms,
 size_t size, char *name_a, char *name_b)
 {
-	t_table	*a;
-	t_table	*b;
+	t_rooms	*a;
+	t_rooms	*b;
 
-	a = get_table(table, size, name_a);
-	b = get_table(table, size, name_b);
-	add_link(&a->links, new_link(b));
+	a = get_room(rooms, size, name_a);
+	b = get_room(rooms, size, name_b);
+	double_link(a, b);
+	add_link(&(a->links), new_link(b));
 }

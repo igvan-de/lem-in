@@ -1,0 +1,2 @@
+SRCS += additional_functions/test_print.c \
+additional_functions/debug_main.c

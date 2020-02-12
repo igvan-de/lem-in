@@ -1,4 +1,6 @@
 SRCS += input_functions/check_format.c \
 input_functions/lem_split.c \
-input_functions/read_input.c \
-input_functions/start_end.c
+input_functions/get_links.c \
+input_functions/start_end.c \
+input_functions/counter_check.c \
+input_functions/ants.c

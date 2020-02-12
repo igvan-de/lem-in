@@ -6,14 +6,18 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/11/19 13:42:56 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/02/10 10:57:43 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include sources
 include input_functions/sources
 include hashtable_functions/sources
+include additional_functions/sources
 include bfs_functions/sources
+include path_functions/sources
+include free_functions/sources
+include ants_calc/sources
 
 COLOR_GREEN = $(shell printf "\e[38;5;10m")
 COLOR_RED = $(shell printf "\e[31;5;10m")
@@ -23,8 +27,8 @@ COLOR_DEFAULT = $(shell printf "\e[39m")
 NAME = lem-in
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
-CFLAGS = -Wall -Werror -Wextra
-NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
+CFLAGS =  -Wall -Werror -Wextra -g #remove -g!
+NORM = norminette $(SRCS) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')
 PRINT_DONE = $(shell printf '$(COLOR_YELLOW)[ › ]$(COLOR_DEFAULT)')
@@ -44,7 +48,7 @@ libft/libft.a:
 	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
-	@rm -rf $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
 	@make -C ./Libft clean
 	@echo "$(PRINT_CLEAN) Cleaning objectives completed"
 
@@ -53,7 +57,9 @@ fclean: clean
 	@make -C ./libft fclean
 	@echo "$(PRINT_CLEAN) Cleaning all completed"
 
-re: fclean all   
+re:
+	@make fclean
+	@make all
 
 norm:
 	@echo "===================NORMINETTE==================="

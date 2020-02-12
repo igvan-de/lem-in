@@ -5,39 +5,76 @@
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/14 12:23:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 14:57:44 by igvan-de      ########   odam.nl         */
+/*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
+/*   Updated: 2020/02/10 10:34:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void			bfs(t_ants *ants)
+/*
+** Set values distance and visited to 0 in all the rooms
+*/
+static t_rooms	*set_to_null(t_rooms *head)
 {
-	t_queue *queue;
-	t_queue *start;
-	t_links	*probe;
+	t_rooms	*probe;
 
-	queue = create_end(ants);
-	start = create_start(ants);
+	probe = head;
+	if (probe == NULL)
+		return (NULL);
+	while (probe != NULL)
+	{
+		probe->distance = 0;
+		probe->visited = 0;
+		probe = probe->next;
+	}
+	return (head);
+}
+
+/*
+** Probes through all rooms to sets values to 0
+*/
+static void		set_value(t_rooms **rooms, size_t size)
+{
+	size_t	i;
+	t_rooms	**probe;
+
+	i = 0;
+	probe = rooms;
+	while (i < size)
+	{
+		probe[i] = set_to_null(probe[i]);
+		i++;
+	}
+}
+
+/*
+** Calculates the distance value for every room
+** and checks for all possible paths
+*/
+bool			bfs(t_rooms **rooms, t_data *data)
+{
+	t_queue	*queue;
+	t_queue	*start;
+
+	set_value(rooms, data->size);
+	queue = create_end(data);
+	start = create_start(data);
 	while (queue != NULL)
 	{
-		probe = queue->to->links;
-		while (probe != NULL)
+		if (queue->room->type == START)
 		{
-			if (probe->to->visited == FALSE)
-			{
-				add_to_queue(&queue, new_element(probe->to));
-				probe->to->visited = TRUE;
-				probe->to->distance = queue->to->distance + 1;
-			}
-			probe = probe->next;
+			free_queue(&queue);
+			free_queue(&start);
+			return (true);
 		}
+		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
-	if (start->to->visited == FALSE)
+	if (start->room->visited == false)
 	{
-		ft_putendl("There is no path from start to end");
-		exit(0);
+		free_queue(&start);
+		return (false);
 	}
+	return (true);
 }

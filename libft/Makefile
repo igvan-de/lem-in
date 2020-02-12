@@ -6,7 +6,7 @@
 #    By: igvan-de <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/17 12:10:38 by igvan-de       #+#    #+#                 #
-#    Updated: 2019/10/08 13:38:28 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/01/22 16:06:41 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,11 +80,11 @@ SRCS =	ft_atoi.c \
 		ft_arraylen.c \
 		ft_swap.c \
 		ft_strarrdel.c \
-		get_next_line.c 
-		
+		get_next_line.c
+
 OBJ := $(SRCS:%.c=%.o)
 INCLUDE = -I .././Includes
-FLAGS = -Wall -Werror -Wextra $(INCLUDE)
+FLAGS = -Wall -Werror -Wextra $(INCLUDE) -g #remove -g!
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 
 all: $(NAME)
@@ -93,7 +93,7 @@ $(NAME):
 	@gcc $(FLAGS) -c $(SRCS)
 	@ar rcs $(NAME) $(OBJ)
 
-clean: 
+clean:
 	@/bin/rm -f $(OBJ)
 
 fclean: clean

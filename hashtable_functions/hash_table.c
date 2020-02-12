@@ -6,28 +6,36 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 11:45:51 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 16:49:02 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:40:02 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static t_table	*new_table(t_rooms *rooms)
+/*
+** Allocates memory for the new room needed to be added in hash table
+** It also sets the type to, START, END or FREE depending on the room
+*/
+static t_rooms	*new_room(t_input *room)
 {
-	t_table *table;
+	t_rooms *new_room;
 
-	table = (t_table*)ft_memalloc(sizeof(t_table));
-	if (rooms->start == TRUE)
-		table->type = START;
-	else if (rooms->end == TRUE)
-		table->type = END;
+	new_room = (t_rooms*)ft_memalloc(sizeof(t_rooms));
+	if (room->start == true)
+		new_room->type = START;
+	else if (room->end == true)
+		new_room->type = END;
 	else
-		table->type = FREE;
-	table->name = rooms->name;
-	return (table);
+		new_room->type = FREE;
+	new_room->name = room->name;
+	new_room->next = NULL;
+	return (new_room);
 }
 
-static void		add_to_table(t_table **head, t_table *new)
+/*
+** Adds a new room to the table
+*/
+static void		add_to_table(t_rooms **head, t_rooms *new)
 {
 	if (head == NULL)
 		return ;
@@ -35,6 +43,9 @@ static void		add_to_table(t_table **head, t_table *new)
 	*head = new;
 }
 
+/*
+** Calculates where to place a room in our hash table
+*/
 size_t			hash_function(unsigned char *str, size_t size)
 {
 	size_t			hash;
@@ -52,22 +63,25 @@ size_t			hash_function(unsigned char *str, size_t size)
 	return (hash % size);
 }
 
-void			hash_table(t_table **table, t_rooms *rooms,
-t_ants **ants, size_t size)
+/*
+** Creates a hash table containing all our rooms using input data
+*/
+void			hash_table(t_rooms **table_rooms, t_input *input,
+t_data **data)
 {
 	size_t			index;
 
-	while (rooms != NULL)
+	while (input != NULL)
 	{
-		index = hash_function((unsigned char*)rooms->name, size);
-		if (table[index] == NULL)
-			table[index] = new_table(rooms);
+		index = hash_function((unsigned char*)input->name, (*data)->size);
+		if (table_rooms[index] == NULL)
+			table_rooms[index] = new_room(input);
 		else
-			add_to_table(&table[index], new_table(rooms));
-		if (table[index]->type == START)
-			(*ants)->begin = table[index];
-		if (table[index]->type == END)
-			(*ants)->end = table[index];
-		rooms = rooms->next;
+			add_to_table(&table_rooms[index], new_room(input));
+		if (table_rooms[index]->type == START)
+			(*data)->start_room = table_rooms[index];
+		if (table_rooms[index]->type == END)
+			(*data)->end_room = table_rooms[index];
+		input = input->next;
 	}
 }

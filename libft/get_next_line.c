@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/13 18:09:56 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/09/25 16:00:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/07 17:59:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static void			create_node(char *buff, t_list *node,
 
 int					get_next_line(const int fd, char **line)
 {
+	static t_list	*lst;
 	ssize_t			ret;
 	char			*buff;
-	static t_list	*lst;
 	t_list			*node;
 
 	ret = 1;

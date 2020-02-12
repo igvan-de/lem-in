@@ -6,23 +6,30 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2019/11/19 13:39:39 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/02/10 10:43:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void			no_whitespaces(char *line) /*checking for whitespaces in front of line*/
+
+/*
+** Checks for whitespaces in front of line
+*/
+void	no_whitespaces(char *line)
 {
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
 		line[0] == '\v' || line[0] == '\f' || line[0] == '\r')
 	{
-		ft_putendl("Error! Whitespaces where there shouldn't be any"); /*Error message to be determined*/
-		exit(0);
+		ft_putendl("Error! Whitespaces where there shouldn't be any");
+		exit(-1);
 	}
 }
 
-int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#" and checking if they're start or end*/
+/*
+** Ignores all commands "#" and checks if they are start or end
+*/
+bool	check_if_command(char *line, t_data **data)
 {
 	int i;
 
@@ -32,78 +39,72 @@ int				check_if_command(char *line, t_ants **ants) /*ignoring all commands "#" a
 	if (i != 0 && line[0] == '#')
 	{
 		if (i >= 1 && line[1] == '#')
-			is_start_or_end(line, ants);
-		return (TRUE);
+			is_start_or_end(line, data);
+		return (true);
 	}
-	return (FALSE);
+	return (false);
 }
 
-int				check_format_room(char *line, t_ants **ants) /*making sure rooms are formatted correctly*/
+/*
+** Makes sure rooms are formatted correctly
+*/
+bool	check_format_room(char *line, t_data **data)
 {
 	int i;
 	int space_count;
 
 	i = 0;
-	space_count = 1; /*already counted first space because we skip it*/
+	space_count = 1;
 	no_whitespaces(line);
-	if (check_if_command(line, ants) == TRUE)
-		return (TRUE);
+	if (check_if_command(line, data) == true)
+		return (true);
 	if (!line[i])
 	{
-		ft_putendl("Error! Empty line"); /*Error message to be determined*/
-		exit(0);
+		ft_putendl("Error! Empty line");
+		exit(-1);
 	}
 	while (line[i] && line[i] != ' ')
 		i++;
 	if (line[0] == 'L')
 	{
-		ft_putendl("Error! Room name can't start with 'L'"); /*Error message to be determined*/
-		exit(0);
+		ft_putendl("Error! Room name can't start with 'L'");
+		exit(-1);
 	}
 	i++;
-	while (line[i] && space_count < 3)
-	{
-		if (line[i] == ' ')
-			space_count++;
-		else if (ft_isdigit(line[i]) == FALSE)
-		{
-			ft_putendl("Error! Room coordinates must be numbers"); /*Error message to be determined*/
-			exit(0);
-		}
-		i++;
-	}
-	if (space_count == 2)
-		return (TRUE);
-	else /*No error if room is not formatted correctly. We don't want to exit because this function is supposed to return FALSE if it reaches the links*/
-		return (FALSE);
+	if (space_counter(line, i, space_count) == true)
+		return (true);
+	else
+		return (false);
 }
 
-int				check_format_link(char *line, t_rooms **rooms) /*making sure links are formatted correctly*/
-{ //check for duplicate links (or do we not care there's duplicates?) //we don't care
-	int i;
-	int dash_count;
+/*
+** Makes sure links are formatted correctly
+*/
+bool	check_format_link(char *line, t_input **input)
+{
+	char	**a_b;
+	int		i;
+	int		dash_count;
 
 	i = 0;
 	dash_count = 0;
 	no_whitespaces(line);
-	if (line && line[0] == '#') /*skip commands*/
-		return (TRUE);
-	if (compare_with_rooms(lem_split(line, rooms), rooms) == FALSE)
+	if (line && line[0] == '#')
+		return (true);
+	a_b = lem_split(line, input);
+	if (compare_with_rooms(a_b, input) == false)
 	{
-		ft_putendl("Error! One or more of the links points to an unexisting room"); /*Error message to be determined*/
-		exit(0);
+		ft_putendl("Error! One or more of the links \
+		points to an unexisting room");
+		exit(-1);
 	}
-	while (line[i])
-	{
-		if (line[i] == '-')
-			dash_count++;
-		i++;
-	}
-	if (dash_count >= 1)
-		return (TRUE);
+	ft_strarrdel(&a_b);
+	if (dash_counter(line, i, dash_count) == true)
+		return (true);
 	else
 	{
-		ft_putendl("Error! One or more of the links are not formatted correctly"); /*Error message to be determined*/
-		exit(0);
+		ft_putendl("Error! One or more of the \
+		links are not formatted correctly");
+		exit(-1);
 	}
 }

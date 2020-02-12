@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 13:43:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:42:55 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/12 11:28:37 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		error_check(int ret)
 
 /*
 ** Iterates through line to check if given value for amount of ants is a digit
+** If given ant value is negative, then ft_isdigit doenst recognize it is a number
 */
 static void	ants_value_check(char *line, int i)
 {
@@ -38,7 +39,7 @@ static void	ants_value_check(char *line, int i)
 	{
 		if (ft_isdigit(line[i]) == false)
 		{
-			ft_putendl("Error! Number of ants must be a number");
+			ft_putendl("Error! Number of ants must be a (positive) number");
 			exit(-1);
 		}
 		i++;
@@ -62,4 +63,9 @@ void		get_ants(t_data **ants, t_save_map *map)
 	no_whitespaces(map->line);
 	ants_value_check(map->line, i);
 	(*ants)->amount_ants_start = ft_atoi(map->line);
+	if ((*ants)->amount_ants_start < 0)
+	{
+		ft_putendl("Integer is bigger then MAX_INT");
+		exit(-1);
+	}
 }

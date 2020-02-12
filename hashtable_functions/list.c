@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:40:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/12 10:48:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,39 @@ static void		add_node(t_input **node, t_input *new)
 }
 
 /*
+** Checks if start and end are found and gives them found value so they cant be found double
+*/
+static void		check_start_end(t_data **data, t_input *new_node)
+{
+	if ((*data)->found_start == FOUND && (*data)->found_end != FOUND)
+	{
+		new_node->start = FOUND;
+		(*data)->found_start = EXISTING;
+	}
+	else if ((*data)->found_end == FOUND && (*data)->found_start != FOUND)
+	{
+		new_node->end = FOUND;
+		(*data)->found_end = EXISTING;
+	}
+	else if ((*data)->found_end == FOUND && (*data)->found_start == FOUND)
+	{
+		ft_putendl("Error! Start and end room cannot be the same");
+		exit(-1);
+	}
+}
+
+/*
 ** Creates a new node and sets all its values
 */
 static t_input	*new_node(char *line, t_data **data)
 {
 	t_input	*new_node;
 	char	**name_x_y;
-
 	name_x_y = ft_strsplit(line, ' ');
 	new_node = (t_input*)ft_memalloc(sizeof(t_input));
 	if (new_node == NULL)
 		return (NULL);
-	if ((*data)->found_start == FOUND)
-	{
-		new_node->start = FOUND;
-		(*data)->found_start = EXISTING;
-	}
-	else if ((*data)->found_end == FOUND)
-	{
-		new_node->end = FOUND;
-		(*data)->found_end = EXISTING;
-	}
+	check_start_end(data, new_node);
 	new_node->name = name_x_y[NAME];
 	new_node->x = ft_atoi(name_x_y[X]);
 	new_node->y = ft_atoi(name_x_y[Y]);

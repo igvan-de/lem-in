@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 15:15:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/12 11:32:15 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "libft.h"
 # include <stdbool.h>
 
+# define MAX_INT 2147483647
+# define MIN_INT -2147483648
 # define CURRENT_PATH_ROOM_LINKS get_last_room->room->links
 # define PATH_ID (*path)->room->path_id
 # define CONNECTED_ROOM_PATH_ID connected->room->path_id
@@ -204,9 +206,12 @@ void					free_table(t_rooms **rooms, t_data *data);
 
 
 /*
-**==============================PRINT FUNCTIONS=================================
+**==============================ERROR FUNCTIONS=================================
 */
 void					no_path(t_data *data);
+void					input_check(t_data *data);
+void					bad_input(void);
+void					ants_amount_check(int	amount_ants);
 
 /*
 **==============================PRINT FUNCTIONS=================================

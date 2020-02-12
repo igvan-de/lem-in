@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/10 15:06:52 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 15:27:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/12 11:33:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void	input_check(t_data *data)
 	else if (data->amount_ants_start == 0)
 	{
 		ft_putendl("Error! There are no ants");
+		exit(-1);
+	}
+}
+
+/*
+** Checks if amount of ants isn't bigger then MAX_INT,
+** if amount is bigger then MAX_INT amount_ants will be a negative number
+*/
+void	ants_amount_check(int amount_ants)
+{
+	if (amount_ants < 0)
+	{
+		ft_putendl("Integer is bigger then MAX_INT");
 		exit(-1);
 	}
 }

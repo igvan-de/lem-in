@@ -6,7 +6,7 @@
 #    By: igvan-de <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/17 12:10:38 by igvan-de       #+#    #+#                 #
-#    Updated: 2020/02/13 14:03:03 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/02/13 14:04:39 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ COLOR_DEFAULT = $(shell printf "\e[39m")
 NAME = libft.a
 OBJ := $(SRCS:%.c=%.o)
 INCLUDE = -I .././includes
-FLAGS = -Wall -Werror -Wextra $(INCLUDE) -g #remove -g!
+FLAGS = -Wall -Werror -Wextra $(INCLUDE)
 NORM = norminette $(SRCS) $(HEADER) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 

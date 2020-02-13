@@ -6,7 +6,7 @@
 #    By: igvan-de <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/17 12:10:38 by igvan-de       #+#    #+#                 #
-#    Updated: 2020/02/13 13:49:47 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/02/13 14:03:03 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
-
 
 clean:
 	@/bin/rm -f $(OBJ)

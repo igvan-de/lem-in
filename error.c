@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/10 15:06:52 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/12 11:33:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 14:20:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Checks if end_room has an path_id to check if there is an path created
 */
+
 void	no_path(t_data *data)
 {
 	t_rooms	*end;
@@ -30,6 +31,7 @@ void	no_path(t_data *data)
 /*
 ** Checks if the three most important values in data are given in map
 */
+
 void	input_check(t_data *data)
 {
 	if (data->found_start == 0 || data->found_end == 0)
@@ -48,6 +50,7 @@ void	input_check(t_data *data)
 ** Checks if amount of ants isn't bigger then MAX_INT,
 ** if amount is bigger then MAX_INT amount_ants will be a negative number
 */
+
 void	ants_amount_check(int amount_ants)
 {
 	if (amount_ants < 0)
@@ -55,6 +58,12 @@ void	ants_amount_check(int amount_ants)
 		ft_putendl("Integer is bigger then MAX_INT");
 		exit(-1);
 	}
+}
+
+void	max_int_error(void)
+{
+	ft_putendl("Error! Number of ants cannot be larger than 2,147,483,647");
+	exit(-1);
 }
 
 void	bad_input(void)

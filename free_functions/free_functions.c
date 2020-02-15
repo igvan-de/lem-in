@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 17:08:54 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 15:15:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:48:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Frees the linked list of queue
 */
+
 void	free_queue(t_queue **queue)
 {
 	if ((*queue)->next != NULL)
@@ -25,6 +26,7 @@ void	free_queue(t_queue **queue)
 /*
 ** Frees the linked list of input
 */
+
 void	free_input(t_input **input)
 {
 	free((*input)->name);
@@ -36,6 +38,7 @@ void	free_input(t_input **input)
 /*
 ** Frees the linked list of path
 */
+
 void	free_path(t_path **path)
 {
 	if (*path == NULL)
@@ -48,6 +51,7 @@ void	free_path(t_path **path)
 /*
 ** Frees the linked list of path_set
 */
+
 void	free_path_set(t_path_set **set)
 {
 	if (*set == NULL)
@@ -62,6 +66,7 @@ void	free_path_set(t_path_set **set)
 /*
 ** Frees the linked list of links
 */
+
 void	free_links(t_links **links)
 {
 	if (*links == NULL)
@@ -74,6 +79,7 @@ void	free_links(t_links **links)
 /*
 ** Frees the linked list rooms
 */
+
 void	free_rooms(t_rooms **rooms)
 {
 	if (*rooms == NULL)
@@ -88,6 +94,7 @@ void	free_rooms(t_rooms **rooms)
 /*
 ** Frees the hashtable
 */
+
 void	free_table(t_rooms **rooms, t_data *data)
 {
 	size_t	i;

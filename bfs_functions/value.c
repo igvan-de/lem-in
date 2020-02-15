@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 16:55:41 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:38:10 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:48:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Finds the room with type START
 ** so we can check if start is found in BFS
 */
+
 t_queue	*create_start(t_data *data)
 {
 	t_queue *start;
@@ -30,6 +31,7 @@ t_queue	*create_start(t_data *data)
 ** Finds the room with type END to start the queue so our BFS algorithm can
 ** work its way back from end to start
 */
+
 t_queue	*create_end(t_data *data)
 {
 	t_queue *queue;
@@ -44,6 +46,7 @@ t_queue	*create_end(t_data *data)
 /*
 ** Creates a new element for the queue
 */
+
 t_queue	*new_element(t_rooms *room)
 {
 	t_queue	*queue;

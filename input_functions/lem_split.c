@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:44:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:52:48 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Splits the room names of a link
 */
+
 char	**ft_split(char *line, int n, int c)
 {
 	char	**a_b;
@@ -46,6 +47,7 @@ char	**ft_split(char *line, int n, int c)
 /*
 ** Checks if the rooms in a link exist
 */
+
 int		compare_with_rooms(char **a_b, t_input **input)
 {
 	t_input	*find_room;
@@ -75,6 +77,7 @@ void	print_error(void)
 /*
 ** Splits the room names in a link and checks if they exist
 */
+
 char	**lem_split(char *line, t_input **input)
 {
 	char	**a_b;

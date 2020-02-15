@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 15:27:13 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:54:38 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Reads the rest of a given file and sets all linking rooms in a linked list
 */
+
 static void	get_rest_of_links(t_input **rooms,
 t_rooms **table, t_save_map *map, size_t size)
 {
@@ -46,6 +47,7 @@ t_rooms **table, t_save_map *map, size_t size)
 /*
 ** Checks if line contains only digits
 */
+
 bool		check_if_ants(char *line)
 {
 	int	i;
@@ -63,6 +65,7 @@ bool		check_if_ants(char *line)
 /*
 ** Iterates through the map to get to the links
 */
+
 t_save_map	*get_to_links(t_save_map *map, t_data *data)
 {
 	while (map && (map->line[0] == '#' ||
@@ -77,6 +80,7 @@ t_save_map	*get_to_links(t_save_map *map, t_data *data)
 /*
 ** Searches and adds links to rooms
 */
+
 void		get_links(t_input **rooms, t_rooms **table,
 t_save_map *map, t_data *data)
 {

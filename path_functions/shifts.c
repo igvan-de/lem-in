@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shift.c                                            :+:    :+:            */
+/*   shifts.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:53:05 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:50:11 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Follows shifts and adds connected rooms with shift value ON
 ** to path linked list. This to create a path, it gives also the path_id values
 */
+
 void			follow_shifts(t_path **path, t_path_set *set)
 {
 	t_links	*connected;
@@ -45,6 +46,7 @@ void			follow_shifts(t_path **path, t_path_set *set)
 /*
 ** Shift links on or off in both directions for connected rooms
 */
+
 void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 {
 	t_links	*probe_rooms;
@@ -66,6 +68,7 @@ void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 /*
 ** Sets shifts of link
 */
+
 bool			set_link_shifts(t_links *connected,
 int current_distance, t_rooms **room)
 {
@@ -81,6 +84,7 @@ int current_distance, t_rooms **room)
 /*
 ** Sets shifts of branch
 */
+
 bool			set_branch_shifts(t_links *connected, t_rooms **room)
 {
 	if (connected->room->branch != NULL &&

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:40:53 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:49:14 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Checks for double links
 */
+
 void			double_link(t_rooms *room_a, t_rooms *room_b)
 {
 	t_links	*links;
@@ -34,6 +35,7 @@ void			double_link(t_rooms *room_a, t_rooms *room_b)
 /*
 ** Finds the right room pointer
 */
+
 static t_rooms	*get_room(t_rooms **rooms, size_t size, char *name)
 {
 	t_rooms *room;
@@ -49,6 +51,7 @@ static t_rooms	*get_room(t_rooms **rooms, size_t size, char *name)
 /*
 ** Adds a new link in front of linked list of connections of a room
 */
+
 static void		add_link(t_links **link, t_links *new)
 {
 	if (link == NULL || new == NULL)
@@ -60,6 +63,7 @@ static void		add_link(t_links **link, t_links *new)
 /*
 ** Creates a new link for a room
 */
+
 static t_links	*new_link(t_rooms *pointer)
 {
 	t_links	*link;
@@ -73,6 +77,7 @@ static t_links	*new_link(t_rooms *pointer)
 /*
 ** Sets the links to all rooms
 */
+
 void			set_links(t_rooms **rooms,
 size_t size, char *name_a, char *name_b)
 {

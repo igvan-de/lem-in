@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 15:17:24 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 14:28:42 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Allocates path struct and sets it first node to room with type START
 */
+
 static	t_path		*set_start(t_data *data)
 {
 	t_path	*start;
@@ -42,6 +43,7 @@ static	t_path		*set_start(t_data *data)
 /*
 ** Allocates new path
 */
+
 static	t_path_set	*new_path(t_path *path)
 {
 	t_path_set	*new_path;
@@ -56,6 +58,7 @@ static	t_path_set	*new_path(t_path *path)
 ** Iterates through start links to check if there's a connection
 ** where the link->shift is ON
 */
+
 static	bool			check_start_connections(t_path *path)
 {
 	t_links	*connected;
@@ -75,6 +78,7 @@ static	bool			check_start_connections(t_path *path)
 ** The hart of our path searching algorithm, starts following
 ** the bfs and shift values and saves the found paths
 */
+
 static	t_path_set	*search_path(t_data *data)
 {
 	t_path_set	*new_path_set;
@@ -101,7 +105,8 @@ static	t_path_set	*search_path(t_data *data)
 /*
 ** Calculates if new found paths are faster than previous ones
 */
-bool	calculate_path(t_path_set *old_path_set,
+
+bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
 	if (old_path_set->path->room->path_id > 14)
@@ -123,6 +128,7 @@ t_path_set **best_path_set, t_data *data)
 /*
 ** Runs bfs and searches all possible new paths
 */
+
 void				create_paths_and_send_ants(t_rooms **rooms,
 t_data *data)
 {
@@ -145,7 +151,7 @@ t_data *data)
 	no_path(data);
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
-	send_ants(&data, &best_path_set, 1);
+	send_ants(&data, &best_path_set);
 	free_table(rooms, data);
 	free(rooms);
 }

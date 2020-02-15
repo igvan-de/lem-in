@@ -6,16 +6,16 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:43:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:54:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-
 /*
 ** Checks for whitespaces in front of line
 */
+
 void	no_whitespaces(char *line)
 {
 	if (line[0] == ' ' || line[0] == '\t' || line[0] == '\n' ||
@@ -29,6 +29,7 @@ void	no_whitespaces(char *line)
 /*
 ** Ignores all commands "#" and checks if they are start or end
 */
+
 bool	check_if_command(char *line, t_data **data)
 {
 	int i;
@@ -48,6 +49,7 @@ bool	check_if_command(char *line, t_data **data)
 /*
 ** Makes sure rooms are formatted correctly
 */
+
 bool	check_format_room(char *line, t_data **data)
 {
 	int i;
@@ -80,6 +82,7 @@ bool	check_format_room(char *line, t_data **data)
 /*
 ** Makes sure links are formatted correctly
 */
+
 bool	check_format_link(char *line, t_input **input)
 {
 	char	**a_b;

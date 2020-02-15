@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:34:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:48:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Set values distance and visited to 0 in all the rooms
 */
+
 static t_rooms	*set_to_null(t_rooms *head)
 {
 	t_rooms	*probe;
@@ -34,6 +35,7 @@ static t_rooms	*set_to_null(t_rooms *head)
 /*
 ** Probes through all rooms to sets values to 0
 */
+
 static void		set_value(t_rooms **rooms, size_t size)
 {
 	size_t	i;
@@ -52,6 +54,7 @@ static void		set_value(t_rooms **rooms, size_t size)
 ** Calculates the distance value for every room
 ** and checks for all possible paths
 */
+
 bool			bfs(t_rooms **rooms, t_data *data)
 {
 	t_queue	*queue;

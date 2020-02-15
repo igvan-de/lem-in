@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:37:26 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:48:25 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Checks if the node is pointing to end when node is end
 */
+
 static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (connected_room->towards == NULL)
@@ -28,6 +29,7 @@ static bool	connected_to_end(t_rooms *current_room, t_rooms *connected_room)
 ** Checks if start and end rooms are linked with eachother
 ** returns true if they are and end room doenst have a path_id
 */
+
 static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 {
 	if (current_room->type == END && connected_room->type == START
@@ -41,6 +43,7 @@ static bool	start_end_connection(t_rooms *current_room, t_rooms *connected_room)
 ** Also checks if connected rooms aren't part of a path and adds
 ** them to the queue with the right distance value and branch pointer
 */
+
 static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms)
 {
 	t_links	*connected;
@@ -99,6 +102,7 @@ static void	on_path(t_queue **queue, t_rooms *room)
 ** Creates the queue by adding the linked rooms of current room to queue,
 ** if linked room inst visited or when linked room is visited it will go to on_path function
 */
+
 void		create_queue(t_queue **queue)
 {
 	t_links	*connected;

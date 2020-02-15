@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/12 10:48:32 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 14:01:41 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Adds a new node at the back of the linked list
 */
+
 static void		add_node(t_input **node, t_input *new)
 {
 	t_input *probe;
@@ -35,6 +36,7 @@ static void		add_node(t_input **node, t_input *new)
 /*
 ** Checks if start and end are found and gives them found value so they cant be found double
 */
+
 static void		check_start_end(t_data **data, t_input *new_node)
 {
 	if ((*data)->found_start == FOUND && (*data)->found_end != FOUND)
@@ -57,6 +59,7 @@ static void		check_start_end(t_data **data, t_input *new_node)
 /*
 ** Creates a new node and sets all its values
 */
+
 static t_input	*new_node(char *line, t_data **data)
 {
 	t_input	*new_node;
@@ -78,6 +81,7 @@ static t_input	*new_node(char *line, t_data **data)
 /*
 ** Checks if there are any duplicates and returns an error message if so
 */
+
 static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 {
 	while (head != NULL)
@@ -99,6 +103,7 @@ static void		check_for_duplicates(char *name, int x, int y, t_input *head)
 /*
 ** Adds a new node to the list
 */
+
 void			add_to_list(char *line, t_input **head, t_data **data)
 {
 	t_input	*new;

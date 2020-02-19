@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/19 16:56:46 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 17:04:28 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,6 @@ void				set_best_path(t_path_set **best_path_set, t_path_set *old_path_set)
 bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
-	if (old_path_set->path->room->path_id > 14)
-	{
-		free_path_set(&old_path_set);
-		return (false);
-	}
 	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 	{
 		free_path_set(best_path_set);

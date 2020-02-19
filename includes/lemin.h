@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:56:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 16:44:50 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct			s_rooms
 	struct s_links		*links;
 	struct s_rooms		*from;
 	struct s_rooms		*towards;
+	struct s_rooms		*tmp;
 	struct s_rooms		*branch;
 	struct s_rooms		*next;
 }						t_rooms;

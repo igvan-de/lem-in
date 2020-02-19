@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:49:41 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 16:45:22 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 		path_rooms = path_rooms->next;
 	set->path_size += 1;
 	new_room->room->from = path_rooms->room;
-	path_rooms->room->towards = new_room->room;
+	path_rooms->room->tmp = new_room->room;
 	path_rooms->next = new_room;
 }
 

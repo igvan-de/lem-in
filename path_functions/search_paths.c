@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:28:42 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 16:56:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,25 @@ static	t_path_set	*search_path(t_data *data)
 	return (new_path_set);
 }
 
+void				set_best_path(t_path_set **best_path_set, t_path_set *old_path_set)
+{
+	t_path_set	*probe_set;
+	t_path		*probe_paths;
+
+	*best_path_set = old_path_set;
+	probe_set = old_path_set;
+	while (probe_set != NULL)
+	{
+		probe_paths  = probe_set->path;
+		while (probe_paths != NULL)
+		{
+			(*best_path_set)->path->room->towards = old_path_set->path->room->tmp;
+			probe_paths = probe_paths->next;
+		}
+		probe_set = probe_set->next;
+	}
+}
+
 /*
 ** Calculates if new found paths are faster than previous ones
 */
@@ -117,7 +136,8 @@ t_path_set **best_path_set, t_data *data)
 	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 	{
 		free_path_set(best_path_set);
-		*best_path_set = old_path_set;
+		set_best_path(best_path_set, old_path_set);
+		// *best_path_set = old_path_set;
 		data->turns = calc_turn_amount(data, *best_path_set);
 	}
 	else

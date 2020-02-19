@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 12:40:26 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:48:25 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 16:11:32 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	follow_path(t_queue **queue, t_rooms *room, t_links *connected_rooms
 /*
 ** Follows path in the right direction
 */
+
 static void	on_path(t_queue **queue, t_rooms *room)
 {
 	t_links	*connected;

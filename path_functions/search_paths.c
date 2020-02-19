@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/19 17:04:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/19 18:34:54 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,6 @@ static	t_path_set	*search_path(t_data *data)
 	return (new_path_set);
 }
 
-void				set_best_path(t_path_set **best_path_set, t_path_set *old_path_set)
-{
-	t_path_set	*probe_set;
-	t_path		*probe_paths;
-
-	*best_path_set = old_path_set;
-	probe_set = old_path_set;
-	while (probe_set != NULL)
-	{
-		probe_paths  = probe_set->path;
-		while (probe_paths != NULL)
-		{
-			(*best_path_set)->path->room->towards = old_path_set->path->room->tmp;
-			probe_paths = probe_paths->next;
-		}
-		probe_set = probe_set->next;
-	}
-}
-
 /*
 ** Calculates if new found paths are faster than previous ones
 */
@@ -131,13 +112,45 @@ t_path_set **best_path_set, t_data *data)
 	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 	{
 		free_path_set(best_path_set);
-		set_best_path(best_path_set, old_path_set);
-		// *best_path_set = old_path_set;
+		*best_path_set = old_path_set;
 		data->turns = calc_turn_amount(data, *best_path_set);
 	}
 	else
 		free_path_set(&old_path_set);
 	return (true);
+}
+
+void	delete_path(t_path **path)
+{
+	t_path *previous;
+
+	while(path != NULL)
+	{
+		previous = (*path);
+		*path = (*path)->next;
+		free(previous);
+	}
+}
+
+void	wrong_path(t_path_set **path_set)
+{
+	t_path_set	*probe_set;
+	t_path		*probe_path;
+	t_path		*tmp;
+
+	probe_set = *path_set;
+	while (probe_set != NULL)
+	{
+		probe_path = probe_set->path;
+		tmp = probe_path;
+		while (probe_path != NULL)
+		{
+			if (probe_path->next == NULL && probe_path->room->type != END)
+				delete_path(&tmp);
+			probe_path = probe_path->next;
+		}
+		probe_set = probe_set->next;
+	}
 }
 
 /*
@@ -163,6 +176,7 @@ t_data *data)
 		if (data->amount_ants_start == 1)
 			break ;
 	}
+	wrong_path(&best_path_set);
 	no_path(data);
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;

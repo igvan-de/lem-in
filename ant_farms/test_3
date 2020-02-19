@@ -1,10 +1,8 @@
-2147483648
-#start
+2147483647
+##start
 0 23 5
-##End
+##end
 end 3 3
-##staRt
-start 22 0
 #######randomcomment
 3 13 2
 4 13 3
@@ -19,5 +17,6 @@ c 13 231241
 d 13 12312
 e 123 231
 f 1231 1231231
-start-a
+0-a
+a-b
 b-end

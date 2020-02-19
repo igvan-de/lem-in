@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/24 16:12:04 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:33:58 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:48:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Adds a new room at the end of the existing queue
 */
+
 void	add_to_queue(t_queue **queue, t_queue *new)
 {
 	t_queue	*probe;
@@ -35,6 +36,7 @@ void	add_to_queue(t_queue **queue, t_queue *new)
 /*
 ** Pops the first room of the queue
 */
+
 void	pop_out_queue(t_queue **queue)
 {
 	t_queue	*first_node;

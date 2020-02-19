@@ -6,7 +6,7 @@
 #    By: igvan-de <igvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/18 17:58:55 by igvan-de       #+#    #+#                 #
-#    Updated: 2020/02/10 10:57:43 by igvan-de      ########   odam.nl          #
+#    Updated: 2020/02/13 13:49:14 by igvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ COLOR_DEFAULT = $(shell printf "\e[39m")
 NAME = lem-in
 OBJ_FILES = $(SRCS:%.c=%.o)
 INCLUDES = -I ./includes
-CFLAGS =  -Wall -Werror -Wextra -g #remove -g!
+CFLAGS = -Wall -Werror -Wextra -g #-g is for debugger
 NORM = norminette $(SRCS) | grep -e "Error" -e "Warning" -B 1
 PRINT_PLUS = $(shell printf '$(COLOR_GREEN)[ + ]$(COLOR_DEFAULT)')
 PRINT_CLEAN = $(shell printf '$(COLOR_RED)[ - ]$(COLOR_DEFAULT)')
@@ -43,9 +43,8 @@ $(NAME): $(OBJ_FILES) libft/libft.a
 	@gcc $(CFLAGS) $(OBJ_FILES) libft/libft.a -o $(NAME)
 	@echo "$(PRINT_DONE) Compiling completed"
 
-libft/libft.a:
+libft/libft.a: FORCE
 	@make -C libft/
-	@echo "$(PRINT_PLUS) Compiling libft"
 
 clean:
 	@rm -f $(OBJ_FILES)
@@ -65,3 +64,5 @@ norm:
 	@echo "===================NORMINETTE==================="
 	@$(NORM) || echo "no norminette errors"
 	@echo "================================================"
+
+FORCE:

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/07 15:29:10 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:44:50 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:53:33 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Checks all possible valid combinations for a start or end comment
 */
+
 static int	strict_start_end_checker(char *line)
 {
 	int i;
@@ -38,6 +39,7 @@ static int	strict_start_end_checker(char *line)
 /*
 ** Checks if given line (input) is start or end
 */
+
 void		is_start_or_end(char *line, t_data **data)
 {
 	while (*line == '#')

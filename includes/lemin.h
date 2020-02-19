@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/12 11:32:15 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 14:56:45 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct			s_save_map
 
 typedef struct			s_path_set
 {
-	int					path_size;
+	long				path_size;
 	struct s_path		*path;
 	struct s_path_set	*next;
 }						t_path_set;
@@ -75,10 +75,10 @@ typedef struct			s_queue
 
 typedef struct			s_data
 {
-	int					amount_ants_start;
 	short				found_start;
 	short				found_end;
-	int					turns;
+	unsigned int		amount_ants_start;
+	unsigned int		turns;
 	size_t				size;
 	struct s_rooms		*end_room;
 	struct s_rooms		*start_room;
@@ -107,8 +107,8 @@ typedef struct			s_rooms
 	char				*name;
 	int					distance;
 	int					path_id;
-	int					ant_id;
 	short				visited;
+	unsigned int		ant_id;
 	t_object_type		type;
 	struct s_links		*links;
 	struct s_rooms		*from;
@@ -120,8 +120,8 @@ typedef struct			s_rooms
 /*
 **===============================ANTS FUNCTIONS=================================
 */
-int						calc_turn_amount(t_data *data, t_path_set *paths);
-void					send_ants(t_data **data, t_path_set **paths, int turns);
+unsigned int			calc_turn_amount(t_data *data, t_path_set *paths);
+void					send_ants(t_data **data, t_path_set **paths);
 void					get_ants(t_data **ants, t_save_map *map);
 
 /*
@@ -210,8 +210,9 @@ void					free_table(t_rooms **rooms, t_data *data);
 */
 void					no_path(t_data *data);
 void					input_check(t_data *data);
-void					bad_input(void);
 void					ants_amount_check(int	amount_ants);
+void					bad_input(void);
+void					max_int_error(void);
 
 /*
 **==============================PRINT FUNCTIONS=================================
@@ -227,6 +228,5 @@ void					print_hash(t_rooms **table, size_t size);
 void					print_queue(t_queue *queue);
 void					print_path_set(t_path_set *path_set);
 void					print_path(t_path *path);
-
 
 #endif

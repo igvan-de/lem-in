@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:45:22 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:49:41 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Checks if start and end are connected
 ** and turns on the shift values in both directions
 */
+
 static bool		check_start_to_end(t_rooms **room, t_links *connected)
 {
 	if ((*room)->type == START && (*room)->distance == 1)
@@ -37,6 +38,7 @@ static bool		check_start_to_end(t_rooms **room, t_links *connected)
 /*
 ** Creates a node for the new room
 */
+
 t_path			*new_room_to_path(t_rooms *room)
 {
 	t_path	*new_room;
@@ -49,6 +51,7 @@ t_path			*new_room_to_path(t_rooms *room)
 /*
 ** Adds the new room at the end of the path
 */
+
 void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 {
 	t_path	*path_rooms;
@@ -66,6 +69,7 @@ void			add_to_path(t_path **path, t_path *new_room, t_path_set *set)
 ** Follows the bfs values in decreasing order by a value of 1 and turns
 ** all on shifts off and all off shifts on
 */
+
 void			follow_bfs(t_rooms **room)
 {
 	t_links	*connected;

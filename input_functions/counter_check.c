@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/24 17:02:59 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/10 10:43:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/15 13:53:09 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Counts spaces
 */
+
 bool	space_counter(char *line, int i, int space_count)
 {
 	while (line[i] && space_count < 3)
@@ -32,6 +33,7 @@ bool	space_counter(char *line, int i, int space_count)
 /*
 ** Counts dashes
 */
+
 bool	dash_counter(char *line, int i, int dash_count)
 {
 	while (line[i])

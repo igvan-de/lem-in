@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/19 18:24:15 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/26 17:09:26 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ void			set_link_shift(t_rooms **room, t_rooms **connected_room)
 		probe_rooms = probe_rooms->next;
 	}
 }
+/*
+** have problem with branch shifts! because it isn't always the first linking room to connect with
+*/
+
+// void		set_branch_shift(t_rooms **room, t_rooms **branch)
+// {
+
+// }
 
 /*
 ** Sets shifts of link
@@ -89,12 +97,14 @@ bool			set_branch_shifts(t_links *connected, t_rooms **room)
 {
 	if (connected->room->branch != NULL &&
 	connected->room != (*room)->towards
-	&& connected->room->distance != (*room)->distance &&
-	((*room)->distance - 1) == connected->room->branch->distance)
+	&& ((*room)->distance - 1) == connected->room->branch->distance)
 	{
+		/*need to set link also to branch on*/
 		connected->room->distance = (*room)->distance;
 		set_link_shift(room, &connected->room);
 		set_link_shift(&connected->room, room);
+		set_link_shift(&connected->room, &connected->room->branch);
+		set_link_shift(&connected->room->branch, &connected->room);
 		return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/19 18:34:54 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/26 17:16:57 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static	t_path_set	*search_path(t_data *data)
 		path = set_start(data);
 	}
 	free_path(&path);
+	// print_path_set(new_path_set);
 	return (new_path_set);
 }
 
@@ -184,3 +185,14 @@ t_data *data)
 	free_table(rooms, data);
 	free(rooms);
 }
+
+/*
+** is for if we only want to find 8 paths
+	if (old_path_set->path->room->path_id > 8)
+	{
+		free_path_set(best_path_set);
+		*best_path_set = old_path_set;
+		data->turns = calc_turn_amount(data, *best_path_set);
+		return (false);
+	}
+*/

@@ -6,11 +6,16 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:30:48 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/27 14:48:48 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 15:10:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+/*
+** probe_paths probes through current path and returns false if current path
+** doenst go have as last node room->type END else it returns true
+*/
 
 static bool	probe_paths(t_path *current_path)
 {
@@ -25,6 +30,11 @@ static bool	probe_paths(t_path *current_path)
 	}
 	return (true);
 }
+
+/*
+** check_paths probes through all paths to in best_path_set
+** and removes current_path if that probe_paths return false
+*/
 
 void	check_paths(t_path_set *path_set)
 {

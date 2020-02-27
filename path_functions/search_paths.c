@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/27 14:53:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 15:06:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,15 +153,14 @@ t_data *data)
 			break ;
 	}
 	check_paths(best_path_set);
-	// print_path_set(best_path_set);
-	// exit (-1);
+	/*
+	** to check!
+	** print_path_set(best_path_set);
+	** exit (-1);
+	*/
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);
 	free_table(rooms, data);
 	free(rooms);
 }
-
-/*
-** is for if we only want to find 8 paths
-*/

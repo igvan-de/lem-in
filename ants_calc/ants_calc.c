@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:55:04 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 17:16:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void		send_ants(t_data **data, t_path_set **begin)
 
 	paths = *begin;
 	current_turn = 1;
+	print_path_set(*begin);
+	exit (-1);
 	while (paths)
 	{
 		if (paths->path_size <= ((*data)->turns - current_turn) + 1)

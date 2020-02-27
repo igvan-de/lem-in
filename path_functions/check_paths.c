@@ -6,11 +6,40 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:30:48 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/27 15:10:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 18:35:51 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+// #include <stdio.h>
+
+// static t_path_set	*begin_of_set(t_path_set *probe_set)
+// {
+// 	while (probe_set->previous != NULL)
+// 	{
+// 		printf("previous = %s\n", probe_set->previous->path->room->name);
+// 		probe_set = probe_set->previous;
+// 	}
+// 	return (probe_set);
+// }
+
+static void	update_path_ids(t_path_set *path_sets)
+{
+	t_path_set	*probe_set;
+	t_path		*probe_paths;
+	probe_set = path_sets;
+	while (probe_set != NULL)
+	{
+		probe_paths = probe_set->path;
+		while (probe_paths != NULL)
+		{
+			probe_paths->room->path_id -= 1;
+			probe_paths = probe_paths->next;
+		}
+		probe_set = probe_set->next;
+	}
+}
 
 /*
 ** probe_paths probes through current path and returns false if current path
@@ -36,17 +65,34 @@ static bool	probe_paths(t_path *current_path)
 ** and removes current_path if that probe_paths return false
 */
 
-void	check_paths(t_path_set *path_set)
+void	check_paths(t_path_set **path_set)
 {
 	t_path_set	*probe_set;
 	t_path		*current_path;
 
-	probe_set = path_set;
+	probe_set = *path_set;
 	while (probe_set != NULL)
 	{
 		current_path = probe_set->path;
 		if (probe_paths(current_path) == false)
-			free_path(&current_path);
+		{
+			if (current_path->next->room->path_id == 1)
+			{
+				*path_set = probe_set->next;
+				update_path_ids(*path_set);
+				free_path(&current_path);
+			}
+			else
+			{
+				if ((*path_set)->next->next != NULL)
+					(*path_set)->next = probe_set->next->next;
+				// print_path_set(probe_set);
+				// exit(-1);
+				update_path_ids(probe_set);
+				free_path(&current_path);
+				// probe_set = begin_of_set(probe_set);
+			}
+		}
 		probe_set = probe_set->next;
 	}
 }

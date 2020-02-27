@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/26 17:16:57 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 14:53:31 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,13 @@ static	t_path_set	*search_path(t_data *data)
 bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
+	if (old_path_set->path->room->path_id > 10)
+	{
+		free_path_set(best_path_set);
+		*best_path_set = old_path_set;
+		data->turns = calc_turn_amount(data, *best_path_set);
+		return (false);
+	}
 	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 	{
 		free_path_set(best_path_set);
@@ -121,38 +128,6 @@ t_path_set **best_path_set, t_data *data)
 	return (true);
 }
 
-void	delete_path(t_path **path)
-{
-	t_path *previous;
-
-	while(path != NULL)
-	{
-		previous = (*path);
-		*path = (*path)->next;
-		free(previous);
-	}
-}
-
-void	wrong_path(t_path_set **path_set)
-{
-	t_path_set	*probe_set;
-	t_path		*probe_path;
-	t_path		*tmp;
-
-	probe_set = *path_set;
-	while (probe_set != NULL)
-	{
-		probe_path = probe_set->path;
-		tmp = probe_path;
-		while (probe_path != NULL)
-		{
-			if (probe_path->next == NULL && probe_path->room->type != END)
-				delete_path(&tmp);
-			probe_path = probe_path->next;
-		}
-		probe_set = probe_set->next;
-	}
-}
 
 /*
 ** Runs bfs and searches all possible new paths
@@ -177,8 +152,9 @@ t_data *data)
 		if (data->amount_ants_start == 1)
 			break ;
 	}
-	wrong_path(&best_path_set);
-	no_path(data);
+	check_paths(best_path_set);
+	// print_path_set(best_path_set);
+	// exit (-1);
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);
@@ -188,11 +164,4 @@ t_data *data)
 
 /*
 ** is for if we only want to find 8 paths
-	if (old_path_set->path->room->path_id > 8)
-	{
-		free_path_set(best_path_set);
-		*best_path_set = old_path_set;
-		data->turns = calc_turn_amount(data, *best_path_set);
-		return (false);
-	}
 */

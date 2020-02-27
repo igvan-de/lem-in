@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/19 18:24:52 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/27 14:44:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void					add_to_path(t_path **path,
 						t_path *new_room, t_path_set *set);
 void					set_link_shift(t_rooms **room,
 						t_rooms **connected_room);
+void					check_paths(t_path_set *path_set);
 t_path					*new_room_to_path(t_rooms *room);
 
 /*

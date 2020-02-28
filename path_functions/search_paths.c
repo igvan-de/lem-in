@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 12:51:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 12:55:34 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,7 @@ t_data *data)
 {
 	t_path_set	*old_path_set;
 	t_path_set	*best_path_set;
-	// t_path_set	*legend_path_set;
-	size_t		i;
 
-	i = 0;
 	old_path_set = NULL;
 	best_path_set = NULL;
 	while (bfs(rooms, data) == true)
@@ -148,19 +145,7 @@ t_data *data)
 			break ;
 		if (data->amount_ants_start == 1)
 			break ;
-		i++;
 	}
-	// free_path_set(&best_path_set);
-	// legend_path_set = NULL;
-	// reset_values(rooms, data->size);
-	// while (i > 0 && bfs(rooms, data) == true)
-	// {
-	// 	reset_path_ids(rooms, data->size);
-	// 	legend_path_set = search_path(data);
-	// 	i--;
-	// }
-	// print_path_set(best_path_set);
-	// exit (-1);
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);

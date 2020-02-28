@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:30:48 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 12:50:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 13:00:47 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	check_paths(t_path_set **path_set)
 	t_path_set	*probe_set;
 	t_path		*current_path;
 
-probe_set = *path_set;
+	probe_set = *path_set;
 	while (probe_set != NULL)
 	{
 		current_path = probe_set->path;

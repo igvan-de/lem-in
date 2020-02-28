@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 12:55:34 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 13:05:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,30 +151,4 @@ t_data *data)
 	send_ants(&data, &best_path_set);
 	free_table(rooms, data);
 	free(rooms);
-}
-
-void	reset_values(t_rooms **table, size_t size)
-{
-	size_t	i;
-	t_rooms	*tmp;
-
-	i = 0;
-	tmp = NULL;
-	while (i < size)
-	{
-		tmp = table[i];
-		while (table[i] != NULL)
-		{
-			table[i]->path_id = 0;
-			table[i]->distance = 0;
-			table[i]->visited = 0;
-			table[i]->ant_id = 0;
-			table[i]->towards = NULL;
-			table[i]->from = NULL;
-			table[i]->branch = NULL;
-			table[i] = table[i]->next;
-		}
-		table[i] = tmp;
-		i++;
-	}
 }

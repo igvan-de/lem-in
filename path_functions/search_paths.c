@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 10:03:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 11:58:28 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,31 @@ t_path_set **best_path_set, t_data *data)
 	return (true);
 }
 
+void	reset_values(t_rooms **table, size_t size)
+{
+	size_t	i;
+	t_rooms	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	while (i < size)
+	{
+		tmp = table[i];
+		while (table[i] != NULL)
+		{
+			table[i]->path_id = 0;
+			table[i]->distance = 0;
+			table[i]->visited = 0;
+			table[i]->ant_id = 0;
+			table[i]->towards = NULL;
+			table[i]->from = NULL;
+			table[i]->branch = NULL;
+			table[i] = table[i]->next;
+		}
+		table[i] = tmp;
+		i++;
+	}
+}
 
 /*
 ** Runs bfs and searches all possible new paths
@@ -151,6 +176,16 @@ t_data *data)
 			break ;
 		if (data->amount_ants_start == 1)
 			break ;
+		i++;
+	}
+	free_path_set(best_path_set);
+	best_path_set = NULL;
+	reset_values(rooms, data->size);
+	while (i > 0 && bfs(rooms, data) == true)
+	{
+		reset_path_ids(rooms, data->size);
+		old_path_set = search_path(data);
+		i--;
 	}
 	check_paths(&best_path_set);
 	// print_path_set(best_path_set);

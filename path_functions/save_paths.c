@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/09 18:06:52 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/27 18:00:54 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 09:27:08 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	add_to_set(t_path_set **existing_path_set, t_path_set *new_path)
 	while (path_set->next != NULL)
 		path_set = path_set->next;
 	path_set->next = new_path;
-	new_path->previous = path_set;
 }
 
 /*

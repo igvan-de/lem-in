@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:30:48 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/27 18:35:51 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 10:02:10 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	update_path_ids(t_path_set *path_sets)
 {
 	t_path_set	*probe_set;
 	t_path		*probe_paths;
+
 	probe_set = path_sets;
 	while (probe_set != NULL)
 	{
@@ -67,32 +68,41 @@ static bool	probe_paths(t_path *current_path)
 
 void	check_paths(t_path_set **path_set)
 {
-	t_path_set	*probe_set;
+	t_path_set	*fast_probe_set;
+	t_path_set	*slow_probe_set;
 	t_path		*current_path;
 
-	probe_set = *path_set;
-	while (probe_set != NULL)
+	fast_probe_set = *path_set;
+	slow_probe_set = *path_set;
+	while (fast_probe_set->next != NULL && slow_probe_set != NULL)
 	{
-		current_path = probe_set->path;
+		current_path = slow_probe_set->path;
 		if (probe_paths(current_path) == false)
 		{
-			if (current_path->next->room->path_id == 1)
-			{
-				*path_set = probe_set->next;
-				update_path_ids(*path_set);
-				free_path(&current_path);
-			}
-			else
-			{
-				if ((*path_set)->next->next != NULL)
-					(*path_set)->next = probe_set->next->next;
-				// print_path_set(probe_set);
-				// exit(-1);
-				update_path_ids(probe_set);
-				free_path(&current_path);
-				// probe_set = begin_of_set(probe_set);
-			}
+			slow_probe_set->next = fast_probe_set;
+			update_path_ids(fast_probe_set);
+			free_path(&current_path);
 		}
-		probe_set = probe_set->next;
+		if (fast_probe_set->next->next != NULL)
+			fast_probe_set = fast_probe_set->next->next;
+		slow_probe_set = slow_probe_set->next;
 	}
 }
+
+		// 	if (current_path->next->room->path_id == 1)
+		// 	{
+		// 		*path_set = probe_set->next;
+		// 		update_path_ids(*path_set);
+		// 		free_path(&current_path);
+		// 	}
+		// 	else
+		// 	{
+		// 		if ((*path_set)->next->next != NULL)
+		// 			(*path_set)->next = probe_set->next->next;
+		// 		// print_path_set(probe_set);
+		// 		// exit(-1);
+		// 		update_path_ids(probe_set);
+		// 		free_path(&current_path);
+		// 		// probe_set = begin_of_set(probe_set);
+		// 	}
+		// }

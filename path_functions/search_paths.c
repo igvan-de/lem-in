@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 10:03:31 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 12:51:36 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static	t_path_set	*search_path(t_data *data)
 		path = set_start(data);
 	}
 	free_path(&path);
-	// print_path_set(new_path_set);
 	return (new_path_set);
 }
 
@@ -110,24 +109,21 @@ static	t_path_set	*search_path(t_data *data)
 bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
-	// if (old_path_set->path->room->path_id > 10)
-	// {
-	// 	free_path_set(best_path_set);
-	// 	*best_path_set = old_path_set;
-	// 	data->turns = calc_turn_amount(data, *best_path_set);
-	// 	return (false);
-	// }
+	if (check_paths(&old_path_set) == false)
+	{
+		free_path_set(&old_path_set);
+		return (false);
+	}
 	if (data->turns == 0 || data->turns > calc_turn_amount(data, old_path_set))
 	{
 		free_path_set(best_path_set);
 		*best_path_set = old_path_set;
 		data->turns = calc_turn_amount(data, *best_path_set);
+		return (true);
 	}
-	else
-		free_path_set(&old_path_set);
-	return (true);
+	free_path_set(&old_path_set);
+	return (false);
 }
-
 
 /*
 ** Runs bfs and searches all possible new paths
@@ -138,6 +134,7 @@ t_data *data)
 {
 	t_path_set	*old_path_set;
 	t_path_set	*best_path_set;
+	// t_path_set	*legend_path_set;
 	size_t		i;
 
 	i = 0;
@@ -151,16 +148,48 @@ t_data *data)
 			break ;
 		if (data->amount_ants_start == 1)
 			break ;
+		i++;
 	}
-	check_paths(&best_path_set);
+	// free_path_set(&best_path_set);
+	// legend_path_set = NULL;
+	// reset_values(rooms, data->size);
+	// while (i > 0 && bfs(rooms, data) == true)
+	// {
+	// 	reset_path_ids(rooms, data->size);
+	// 	legend_path_set = search_path(data);
+	// 	i--;
+	// }
 	// print_path_set(best_path_set);
 	// exit (-1);
-	/*
-	** to check!
-	*/
 	if (best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);
 	free_table(rooms, data);
 	free(rooms);
+}
+
+void	reset_values(t_rooms **table, size_t size)
+{
+	size_t	i;
+	t_rooms	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	while (i < size)
+	{
+		tmp = table[i];
+		while (table[i] != NULL)
+		{
+			table[i]->path_id = 0;
+			table[i]->distance = 0;
+			table[i]->visited = 0;
+			table[i]->ant_id = 0;
+			table[i]->towards = NULL;
+			table[i]->from = NULL;
+			table[i]->branch = NULL;
+			table[i] = table[i]->next;
+		}
+		table[i] = tmp;
+		i++;
+	}
 }

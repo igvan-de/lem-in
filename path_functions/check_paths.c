@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:30:48 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 10:02:10 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 12:50:16 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@
 // 	return (probe_set);
 // }
 
-static void	update_path_ids(t_path_set *path_sets)
-{
-	t_path_set	*probe_set;
-	t_path		*probe_paths;
+// static void	update_path_ids(t_path_set *path_sets)
+// {
+// 	t_path_set	*probe_set;
+// 	t_path		*probe_paths;
 
-	probe_set = path_sets;
-	while (probe_set != NULL)
-	{
-		probe_paths = probe_set->path;
-		while (probe_paths != NULL)
-		{
-			probe_paths->room->path_id -= 1;
-			probe_paths = probe_paths->next;
-		}
-		probe_set = probe_set->next;
-	}
-}
+// 	probe_set = path_sets;
+// 	while (probe_set != NULL)
+// 	{
+// 		probe_paths = probe_set->path;
+// 		while (probe_paths != NULL)
+// 		{
+// 			probe_paths->room->path_id -= 1;
+// 			probe_paths = probe_paths->next;
+// 		}
+// 		probe_set = probe_set->next;
+// 	}
+// }
 
 /*
 ** probe_paths probes through current path and returns false if current path
@@ -66,27 +66,20 @@ static bool	probe_paths(t_path *current_path)
 ** and removes current_path if that probe_paths return false
 */
 
-void	check_paths(t_path_set **path_set)
+bool	check_paths(t_path_set **path_set)
 {
-	t_path_set	*fast_probe_set;
-	t_path_set	*slow_probe_set;
+	t_path_set	*probe_set;
 	t_path		*current_path;
 
-	fast_probe_set = *path_set;
-	slow_probe_set = *path_set;
-	while (fast_probe_set->next != NULL && slow_probe_set != NULL)
+probe_set = *path_set;
+	while (probe_set != NULL)
 	{
-		current_path = slow_probe_set->path;
+		current_path = probe_set->path;
 		if (probe_paths(current_path) == false)
-		{
-			slow_probe_set->next = fast_probe_set;
-			update_path_ids(fast_probe_set);
-			free_path(&current_path);
-		}
-		if (fast_probe_set->next->next != NULL)
-			fast_probe_set = fast_probe_set->next->next;
-		slow_probe_set = slow_probe_set->next;
+			return (false);
+		probe_set = probe_set->next;
 	}
+	return (true);
 }
 
 		// 	if (current_path->next->room->path_id == 1)

@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/03/04 15:00:39 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/03/04 17:22:56 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,22 +100,8 @@ static void			save_input(t_save_map *map, t_input **input, t_data **data)
 ** The brain of our program. It reads, saves, and processes all the data
 */
 
-int		main(int argc, char **argv)
+int		main(void)
 {
-	int fd;
-
-	if (argc != 2)
-	{
-		ft_putendl("Please provide a test file!");
-		return (false);
-	}
-	close(STDIN_FILENO);
-	fd = open(argv[1], O_RDONLY);
-	if (fd != STDIN_FILENO)
-	{
-		ft_putendl("fileno went wrong! Just run again.");
-		return (false);
-	}
 	t_rooms			**rooms;
 	t_input			*input;
 	t_data			*data;

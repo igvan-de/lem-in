@@ -6,7 +6,11 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
+<<<<<<< HEAD
 /*   Updated: 2020/03/04 19:35:01 by ygroenev      ########   odam.nl         */
+=======
+/*   Updated: 2020/03/04 17:19:02 by igvan-de      ########   odam.nl         */
+>>>>>>> f7d98ae83846656d51a7ab3fbc2416bb95436bbc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +64,6 @@ bool			bfs(t_rooms **rooms, t_data *data)
 {
 	t_queue	*queue;
 	t_queue	*start;
-	// t_queue *test;
 
 	set_value(rooms, data->size);
 	queue = create_end(data);
@@ -68,15 +71,6 @@ bool			bfs(t_rooms **rooms, t_data *data)
 	while (queue != NULL)
 	{
 		create_queue(&queue);
-		// test = queue;
-		// printf("============================\n");
-		// while (test != NULL)
-		// {
-		// 	printf("•••test = %s\t", test->room->name);
-		// 	printf("•••test->visited = %d\t", test->room->visited);
-		// 	printf("•••test->distance = %d\n\n", test->room->distance);
-		// 	test = test->next;
-		// }
 		if (queue->room->type == START)
 		{
 			free_queue(&queue);
@@ -84,16 +78,6 @@ bool			bfs(t_rooms **rooms, t_data *data)
 			return (true);
 		}
 		pop_out_queue(&queue);
-		// /*place pop_out_queu function here*/
-		// printf("========AFTER POP=========\n");
-		// test = queue;
-		// while (test != NULL)
-		// {
-		// 	printf("test = %s\t", test->room->name);
-		// 	printf("test->visited = %d\t", test->room->visited);
-		// 	printf("test->distance = %d\n\n", test->room->distance);
-		// 	test = test->next;
-		// }
 	}
 	if (start->room->visited == false)
 	{

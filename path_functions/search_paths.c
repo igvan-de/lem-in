@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 13:05:35 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 15:46:35 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static	t_path_set	*search_path(t_data *data)
 bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
-	if (check_paths(&old_path_set) == false)
+	if (old_path_set == NULL || check_paths(&old_path_set) == false)
 	{
 		free_path_set(&old_path_set);
 		return (false);

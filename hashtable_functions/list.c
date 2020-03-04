@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:32:20 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:01:41 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 14:40:10 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static t_input	*new_node(char *line, t_data **data)
 {
 	t_input	*new_node;
 	char	**name_x_y;
+
 	name_x_y = ft_strsplit(line, ' ');
 	new_node = (t_input*)ft_memalloc(sizeof(t_input));
 	if (new_node == NULL)

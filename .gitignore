@@ -65,6 +65,5 @@ dkms.conf
 
 # local testing stuff
 *.bash
-*.sh
 testmain.c
 main.c

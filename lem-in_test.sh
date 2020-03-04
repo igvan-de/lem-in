@@ -4,6 +4,8 @@ RED='\033[1;31m'
 GREEN='\033[1;32m'
 NC='\033[0m'
 
+clear
+
 if [ $# -eq "0" ]
 then
 	echo "Please fill in how many maps of each type you want to test"
@@ -71,17 +73,16 @@ then
 fi
 while [[ $ONES > 0 ]]
 do
-	./ant_farms/generator --flow-one > ./ant_farms/test_0000001
-	OUR_RESULT=$(./lem-in ant_farms/test_0000001 | ./verifier)
+	./ant_farms/generator --flow-one > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
 	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
-		echo "++ Our result is ${GREEN}$sum${NC} faster than the target"
+		echo "Our result is ${GREEN}$sum${NC} faster than the target"
 	elif (($sum < 0))
 	then
 		sum=$(($sum*-1))
-		echo "-- Our result is ${RED}$sum${NC} slower than the target"
+		echo "Our result is ${RED}$sum${NC} slower than the target"
 	elif (($sum == 0))
 	then
 		echo "Our result is the same as the target"
@@ -110,17 +111,16 @@ then
 fi
 while [[ $TENS > 0 ]]
 do
-	./ant_farms/generator --flow-ten > ./ant_farms/test_0000001
-	OUR_RESULT=$(./lem-in ant_farms/test_0000001 | ./verifier)
+	./ant_farms/generator --flow-ten > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
 	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
-		echo "++ Our result is ${GREEN}$sum${NC} faster than the target"
+		echo "Our result is ${GREEN}$sum${NC} faster than the target"
 	elif (($sum < 0))
 	then
 		sum=$(($sum*-1))
-		echo "-- Our result is ${RED}$sum${NC} slower than the target"
+		echo "Our result is ${RED}$sum${NC} slower than the target"
 	elif (($sum == 0))
 	then
 		echo "Our result is the same as the target"
@@ -149,17 +149,16 @@ then
 fi
 while [[ $THOUSANDS > 0 ]]
 do
-	./ant_farms/generator --flow-thousand > ./ant_farms/test_0000001
-	OUR_RESULT=$(./lem-in ant_farms/test_0000001 | ./verifier)
+	./ant_farms/generator --flow-thousand > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
 	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
-		echo "++ Our result is ${GREEN}$sum${NC} faster than the target"
+		echo "Our result is ${GREEN}$sum${NC} faster than the target"
 	elif (($sum < 0))
 	then
 		sum=$(($sum*-1))
-		echo "-- Our result is ${RED}$sum${NC} slower than the target"
+		echo "Our result is ${RED}$sum${NC} slower than the target"
 	elif (($sum == 0))
 	then
 		echo "Our result is the same as the target"
@@ -188,17 +187,16 @@ then
 fi
 while [[ $BIGS > 0 ]]
 do
-	./ant_farms/generator --big > ./ant_farms/test_0000001
-	OUR_RESULT=$(./lem-in ant_farms/test_0000001 | ./verifier)
+	./ant_farms/generator --big > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
 	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
-		echo "++ Our result is ${GREEN}$sum${NC} faster than the target"
+		echo "Our result is ${GREEN}$sum${NC} faster than the target"
 	elif (($sum < 0))
 	then
 		sum=$(($sum*-1))
-		echo "-- Our result is ${RED}$sum${NC} slower than the target"
+		echo "Our result is ${RED}$sum${NC} slower than the target"
 	elif (($sum == 0))
 	then
 		echo "Our result is the same as the target"
@@ -227,17 +225,16 @@ then
 fi
 while [[ $SUPERS > 0 ]]
 do
-	./ant_farms/generator --big-superposition > ./ant_farms/test_0000001
-	OUR_RESULT=$(./lem-in ant_farms/test_0000001 | ./verifier)
+	./ant_farms/generator --big-superposition > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
 	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
-		echo "++ Our result is ${GREEN}$sum${NC} faster than the target"
+		echo "Our result is ${GREEN}$sum${NC} faster than the target"
 	elif (($sum < 0))
 	then
 		sum=$(($sum*-1))
-		echo "-- Our result is ${RED}$sum${NC} slower than the target"
+		echo "Our result is ${RED}$sum${NC} slower than the target"
 	elif (($sum == 0))
 	then
 		echo "Our result is the same as the target"

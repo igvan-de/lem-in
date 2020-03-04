@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/03/04 15:46:35 by ygroenev      ########   odam.nl         */
+/*   Updated: 2020/03/04 19:45:09 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_data *data)
 		if (data->amount_ants_start == 1)
 			break ;
 	}
-	if (best_path_set->path->room->type == START)
+	if (best_path_set && best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);
 	free_table(rooms, data);

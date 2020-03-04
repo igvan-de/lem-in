@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 12:09:28 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 19:35:01 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		set_value(t_rooms **rooms, size_t size)
 ** and checks for all possible paths
 */
 
-#include <stdio.h>
+#include <stdio.h> //remove
 bool			bfs(t_rooms **rooms, t_data *data)
 {
 	t_queue	*queue;

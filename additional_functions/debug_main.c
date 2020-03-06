@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/10 11:04:18 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:30:01 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/06 13:05:46 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** This main is needed if you want to use LLD debugger for this program
 ** Need to close STDIN_FILENO so we create space to place given file to read from STDIN_FILENO
 */
+
 int		debug_main(int argc, char **argv)
 {
 	int fd;

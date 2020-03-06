@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/28 12:43:27 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/06 13:07:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void			follow_bfs(t_rooms **room)
 			return (follow_bfs(&connected->room));
 		else if (set_branch_shifts(connected, room) == true)
 			return (follow_bfs(&connected->room));
-			// return (follow_bfs(&connected->room->branch));
 		connected = connected->next;
 	}
 }

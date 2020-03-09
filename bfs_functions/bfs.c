@@ -55,7 +55,6 @@ static void		set_value(t_rooms **rooms, size_t size)
 ** and checks for all possible paths
 */
 
-#include <stdio.h> //remove
 bool			bfs(t_rooms **rooms, t_data *data)
 {
 	t_queue	*queue;

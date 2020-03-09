@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:56:45 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/02/28 12:46:35 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void					add_to_path(t_path **path,
 						t_path *new_room, t_path_set *set);
 void					set_link_shift(t_rooms **room,
 						t_rooms **connected_room);
+bool					check_paths(t_path_set **path_set);
 t_path					*new_room_to_path(t_rooms *room);
 
 /*
@@ -210,7 +211,7 @@ void					free_table(t_rooms **rooms, t_data *data);
 */
 void					no_path(t_data *data);
 void					input_check(t_data *data);
-void					ants_amount_check(int	amount_ants);
+void					ants_amount_check(int amount_ants);
 void					bad_input(void);
 void					max_int_error(void);
 

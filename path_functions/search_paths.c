@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 17:04:44 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:28:42 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 19:45:09 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static	t_path_set	*search_path(t_data *data)
 bool				calculate_path(t_path_set *old_path_set,
 t_path_set **best_path_set, t_data *data)
 {
-	if (old_path_set->path->room->path_id > 14)
+	if (old_path_set == NULL || check_paths(&old_path_set) == false)
 	{
 		free_path_set(&old_path_set);
 		return (false);
@@ -119,10 +119,10 @@ t_path_set **best_path_set, t_data *data)
 		free_path_set(best_path_set);
 		*best_path_set = old_path_set;
 		data->turns = calc_turn_amount(data, *best_path_set);
+		return (true);
 	}
-	else
-		free_path_set(&old_path_set);
-	return (true);
+	free_path_set(&old_path_set);
+	return (false);
 }
 
 /*
@@ -134,9 +134,7 @@ t_data *data)
 {
 	t_path_set	*old_path_set;
 	t_path_set	*best_path_set;
-	size_t		i;
 
-	i = 0;
 	old_path_set = NULL;
 	best_path_set = NULL;
 	while (bfs(rooms, data) == true)
@@ -148,8 +146,7 @@ t_data *data)
 		if (data->amount_ants_start == 1)
 			break ;
 	}
-	no_path(data);
-	if (best_path_set->path->room->type == START)
+	if (best_path_set && best_path_set->path->room->type == START)
 		best_path_set->path->room->ant_id = 1;
 	send_ants(&data, &best_path_set);
 	free_table(rooms, data);

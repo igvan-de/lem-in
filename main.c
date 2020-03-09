@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 14:57:36 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/06 13:05:12 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,10 @@ static void			save_input(t_save_map *map, t_input **input, t_data **data)
 	}
 }
 
-#include <fcntl.h>
 /*
 ** The brain of our program. It reads, saves, and processes all the data
 */
-
-int				main(void)
+int		main(void)
 {
 	t_rooms			**rooms;
 	t_input			*input;

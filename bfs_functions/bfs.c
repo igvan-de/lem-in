@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 15:10:21 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:48:16 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/06 13:05:33 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ bool			bfs(t_rooms **rooms, t_data *data)
 	start = create_start(data);
 	while (queue != NULL)
 	{
+		create_queue(&queue);
 		if (queue->room->type == START)
 		{
 			free_queue(&queue);
 			free_queue(&start);
 			return (true);
 		}
-		create_queue(&queue);
 		pop_out_queue(&queue);
 	}
 	if (start->room->visited == false)

@@ -1,5 +1,6 @@
 SRCS += path_functions/search_paths.c \
 path_functions/save_paths.c \
 path_functions/reset_paths.c \
+path_functions/check_paths.c \
 path_functions/follow.c \
 path_functions/shifts.c

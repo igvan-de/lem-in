@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 15:00:36 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:50:11 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 17:12:53 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ int current_distance, t_rooms **room)
 bool			set_branch_shifts(t_links *connected, t_rooms **room)
 {
 	if (connected->room->branch != NULL &&
-	connected->room != (*room)->towards
-	&& connected->room->distance != (*room)->distance &&
-	((*room)->distance - 1) == connected->room->branch->distance)
+	connected->room != (*room)->towards && connected->room->distance != (*room)->distance
+	&& ((*room)->distance - 1) == connected->room->branch->distance)
 	{
 		connected->room->distance = (*room)->distance;
 		set_link_shift(room, &connected->room);

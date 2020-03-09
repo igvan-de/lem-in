@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 15:16:29 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:54:47 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 14:39:53 by ygroenev      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ bool	check_if_command(char *line, t_data **data)
 bool	check_format_room(char *line, t_data **data)
 {
 	int i;
+	int c;
 	int space_count;
 
 	i = 0;
@@ -66,14 +67,17 @@ bool	check_format_room(char *line, t_data **data)
 		exit(-1);
 	}
 	while (line[i] && line[i] != ' ')
+	{
 		i++;
+	}
+	c = ft_strlen(line);
 	if (line[0] == 'L')
 	{
 		ft_putendl("Error! Room name can't start with 'L'");
 		exit(-1);
 	}
 	i++;
-	if (space_counter(line, i, space_count) == true)
+	if (i < c && space_counter(line, i, space_count) == true)
 		return (true);
 	else
 		return (false);

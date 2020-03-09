@@ -6,7 +6,7 @@
 /*   By: igvan-de <igvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:28:43 by igvan-de       #+#    #+#                */
-/*   Updated: 2020/02/15 13:54:38 by igvan-de      ########   odam.nl         */
+/*   Updated: 2020/03/04 17:19:23 by igvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ t_save_map *map, t_data *data)
 	}
 	else
 		bad_input();
+	if (a_b != NULL)
+		ft_strarrdel(&a_b);
 	if (map->next)
 		get_rest_of_links(rooms, table, map->next, data->size);
 }

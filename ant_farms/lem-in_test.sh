@@ -73,8 +73,8 @@ then
 fi
 while [[ $ONES > 0 ]]
 do
-	./ant_farms/generator --flow-one > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
-	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
+	./generator --flow-one > test_0000001 && OUR_RESULT=$(.././lem-in < test_0000001 | ./verifier)
+	TARGET=$(cat test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
@@ -111,8 +111,8 @@ then
 fi
 while [[ $TENS > 0 ]]
 do
-	./ant_farms/generator --flow-ten > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
-	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
+	./generator --flow-ten > test_0000001 && OUR_RESULT=$(.././lem-in < test_0000001 | ./verifier)
+	TARGET=$(cat test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
@@ -149,8 +149,8 @@ then
 fi
 while [[ $THOUSANDS > 0 ]]
 do
-	./ant_farms/generator --flow-thousand > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
-	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
+	./generator --flow-thousand > test_0000001 && OUR_RESULT=$(.././lem-in < test_0000001 | ./verifier)
+	TARGET=$(cat test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
@@ -187,8 +187,8 @@ then
 fi
 while [[ $BIGS > 0 ]]
 do
-	./ant_farms/generator --big > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
-	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
+	./generator --big > test_0000001 && OUR_RESULT=$(.././lem-in < test_0000001 | ./verifier)
+	TARGET=$(cat test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then
@@ -225,8 +225,8 @@ then
 fi
 while [[ $SUPERS > 0 ]]
 do
-	./ant_farms/generator --big-superposition > ./ant_farms/test_0000001 && OUR_RESULT=$(./lem-in < ant_farms/test_0000001 | ./verifier)
-	TARGET=$(cat ant_farms/test_0000001 | tail -f -n 1 | tr -dc '0-9')
+	./generator --big-superposition > test_0000001 && OUR_RESULT=$(.././lem-in < test_0000001 | ./verifier)
+	TARGET=$(cat test_0000001 | tail -f -n 1 | tr -dc '0-9')
 	sum=$((TARGET-OUR_RESULT))
 	if (($sum > 0))
 	then

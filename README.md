@@ -17,7 +17,7 @@ Each room can only have one ant in it at a time. When generating a file with dat
  $ make
  ```
  
- # Run script on OS to generate files and run executable over them
+ # Run script on OS to generate files and run executable over generated files
  ```
  ./ant_farms/lem-in_test.sh
  ```
